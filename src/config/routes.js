@@ -2,7 +2,13 @@
 
 const routes = {
   home: "/",
-  user: "/user",
+  ManagerStudent: "/managerStudent",
+  ManagerBill: "/managerBill",
+  ManagerRoom: "/managerRoom",
+  ManagerService: "/managerService",
+  ManagerUser: "/managerUser",
+  ManagerContract: "/managerContract",
+  ManagerReport: "/managerReport",
 };
 
 export default routes;

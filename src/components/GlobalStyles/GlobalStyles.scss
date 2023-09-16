@@ -1,14 +1,30 @@
-@import 'normalize.css';
+@import "normalize.css";
 
-:root{
+:root {
 }
 
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
 html {
-    font-size: 62.5%;
+  font-size: 62.5%;
+}
+
+a {
+  text-decoration: none;
+  color: #8391a2;
+
+  &:hover {
+    text-decoration: none;
+    color: #c6ced8;
+  }
+}
+
+select{
+  width: 72px !important;
+  height: 42px !important;
+  font-size: 16px !important;
 }
