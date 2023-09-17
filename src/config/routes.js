@@ -1,7 +1,15 @@
 // move router
 
 const routes = {
-  home: "/",
+  // student
+  ClientStudent: "/",
+  Room: "/room",
+  Contract: "/contract",
+  Reports: "/reports",
+
+  // admin
+  home: "/home",
+  Login: "/login",
   ManagerStudent: "/managerStudent",
   ManagerBill: "/managerBill",
   ManagerRoom: "/managerRoom",

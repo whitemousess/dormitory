@@ -1,27 +1,40 @@
 // routeConfig
-import config from '~/config';
+import config from "~/config";
+
+import { ClientUser } from "~/layouts";
 
 // Router change Pages
-import Home from '~/pages/Home';
-import ManagerStudent from '~/pages/ManagerStudent';
-import ManagerBill from "~/pages/ManagerBill"
-import ManagerRoom from "~/pages/ManagerRoom"
-import ManagerService from "~/pages/ManagerService"
-import ManagerUser from "~/pages/ManagerUser"
-import ManagerContract from "~/pages/ManagerContract"
-import ManagerReport from "~/pages/ManagerReport"
+import {ClientStudent ,Contract,Reports,Room} from "~/pages/Client";
+
+import Home from "~/pages/Home";
+import Login from "~/pages/Login";
+import ManagerStudent from "~/pages/ManagerStudent";
+import ManagerBill from "~/pages/ManagerBill";
+import ManagerRoom from "~/pages/ManagerRoom";
+import ManagerService from "~/pages/ManagerService";
+import ManagerUser from "~/pages/ManagerUser";
+import ManagerContract from "~/pages/ManagerContract";
+import ManagerReport from "~/pages/ManagerReport";
 
 const publicRoutes = [
-    { path: config.routes.home, component: Home},
-    { path: config.routes.ManagerStudent, component: ManagerStudent},
-    { path: config.routes.ManagerBill, component: ManagerBill },
-    { path: config.routes.ManagerRoom, component: ManagerRoom },
-    { path: config.routes.ManagerService, component: ManagerService },
-    { path: config.routes.ManagerUser, component: ManagerUser },
-    { path: config.routes.ManagerContract, component: ManagerContract },
-    { path: config.routes.ManagerReport, component: ManagerReport },
-]; 
+    // user
+  { path: config.routes.ClientStudent, component: ClientStudent, layout: ClientUser },
+  { path: config.routes.Room, component: Room, layout: ClientUser },
+  { path: config.routes.Contract, component: Contract, layout: ClientUser },
+  { path: config.routes.Reports, component: Reports, layout: ClientUser },
 
-const privateRoutes = []; 
+//   admin
+  { path: config.routes.home, component: Home },
+  { path: config.routes.Login, component: Login, layout: null },
+  { path: config.routes.ManagerStudent, component: ManagerStudent },
+  { path: config.routes.ManagerBill, component: ManagerBill },
+  { path: config.routes.ManagerRoom, component: ManagerRoom },
+  { path: config.routes.ManagerService, component: ManagerService },
+  { path: config.routes.ManagerUser, component: ManagerUser },
+  { path: config.routes.ManagerContract, component: ManagerContract },
+  { path: config.routes.ManagerReport, component: ManagerReport },
+];
 
-export {publicRoutes ,privateRoutes};
+const privateRoutes = [];
+
+export { publicRoutes, privateRoutes };

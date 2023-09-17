@@ -1,0 +1,17 @@
+.wrapper {
+}
+
+.link-navigate {
+  padding: 28px 20px;
+  font-size: 14px;
+
+  &:hover {
+    border-bottom: 1px solid #333;
+    color: #000;
+  }
+}
+
+.active {
+  border-bottom: 1px solid #333;
+  color: #000;
+}

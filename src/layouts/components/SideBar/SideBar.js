@@ -21,6 +21,7 @@ import {
   LogoUser,
   LogoUserActive,
 } from "~/components/Icons";
+import { Link } from "react-router-dom";
 
 const cx = classNames.bind(styles);
 
@@ -86,7 +87,9 @@ function SideBar() {
 
   return (
     <div className={cx("wrapper")}>
-      <div className={cx("title")}>University</div>
+      <Link to={routes.home}>
+        <div className={cx("title")}>University</div>
+      </Link>
 
       <Menu>
         {MenuItems.map((item) => (

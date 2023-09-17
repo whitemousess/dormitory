@@ -1,0 +1,30 @@
+.wrapper {
+}
+
+.header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  user-select: none;
+
+  .title {
+    color: #8ecddd;
+    line-height: 72px;
+    font-weight: 700;
+    font-size: 3.2rem;
+  }
+}
+
+.content {
+  min-height: 90vh;
+  padding: 10px 30px 30px 30px;
+  flex: 1;
+}
+
+.footer {
+  position: relative;
+  bottom: 0;
+  margin-left: 30px;
+  margin-bottom: 20px;
+  font-size: 14px;
+}

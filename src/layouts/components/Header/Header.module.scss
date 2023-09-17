@@ -1,4 +1,7 @@
 .wrapper {
+  
+  display: flex;
+  align-items: center;
   height: 64px;
 }
 
@@ -6,10 +9,7 @@
   padding: 10px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  position: absolute;
-  right: 0;
-  top: 0;
+  justify-content: flex-end;
   cursor: pointer;
   user-select: none;
 }
@@ -28,8 +28,10 @@
 .menu-item {
   min-height: 100px;
   width: 200px;
+  border: 1px solid rgba($color: #919191, $alpha: .3);
   box-shadow: 4px 4px 5px #aaaaaa;
   border-radius: 10px;
+  background-color: #fff;
 }
 
 .menu-link {
@@ -41,4 +43,10 @@
   &:hover {
     color: #00000070;
   }
+}
+
+.btn-login{
+  width: 100px;
+  height: 42px;
+  font-size: 14px !important;
 }
