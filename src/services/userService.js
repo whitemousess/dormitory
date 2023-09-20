@@ -10,6 +10,9 @@ export const getUser = async () => {
     });
     return res.data.data;
   } catch (error) {
-    if (error) window.localStorage.removeItem("token");
+    if (error) {
+      window.localStorage.removeItem("token");
+      window.location = "/";
+    }
   }
 };

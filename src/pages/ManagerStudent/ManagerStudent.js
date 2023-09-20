@@ -1,7 +1,8 @@
 import classNames from "classnames/bind";
-import { Button } from "bootstrap-4-react";
+import { Modal, Form, Button } from "bootstrap-4-react";
 
 import styles from "./ManagerStudent.module.scss";
+import AddStudent from "./AddStudent/AddStudent";
 
 const cx = classNames.bind(styles);
 
@@ -17,7 +18,14 @@ function ManagerStudent() {
           <option value="25">25</option>
           <option value="50">50</option>
         </select>
-        <Button className={cx("button")} primary>+</Button>
+        <Button
+          className={cx("button")}
+          data-toggle="modal"
+          data-target="#addStudent"
+          primary
+        >
+          +
+        </Button>
       </div>
 
       <table className={cx("table")}>
@@ -42,6 +50,8 @@ function ManagerStudent() {
           </tr>
         </tbody>
       </table>
+
+      <AddStudent />
     </div>
   );
 }
