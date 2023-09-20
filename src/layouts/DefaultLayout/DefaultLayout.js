@@ -1,20 +1,26 @@
+import { useEffect } from "react";
 import classNames from "classnames/bind";
 
+import * as userService from "~/services/userService";
 import styles from "./DefaultLayout.module.scss";
 import Header from "~/layouts/components/Header";
 import SideBar from "../components/SideBar";
-import { useEffect } from "react";
 
 const cx = classNames.bind(styles);
 
 function DefaultLayout({ children }) {
-  
-  useEffect(() => {
-    const token = window.localStorage.token;
+  async function checkLogin() {
+    const token = localStorage.token;
+    const user = await userService.getUser();
     if (!token) {
       window.location = "/";
-      return;
+    } else if (user.role === 1) {
+      window.location = "/";
     }
+  }
+
+  useEffect(() => {
+    checkLogin();
   }, []);
 
   return (

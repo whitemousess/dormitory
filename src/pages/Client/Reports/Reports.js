@@ -10,14 +10,13 @@ function Reports() {
     <div className={cx("wrapper")}>
       <span className={cx("title")}>Không có thông tin báo cáo</span>
 
-      <Button
-        primary
+      <button
+        className={cx("button")}
         data-toggle="modal"
         data-target="#exampleModal"
-        className={cx("btn-create")}
       >
         Tạo báo cáo
-      </Button>
+      </button>
 
       {/* Modal */}
       <Modal id="exampleModal" fade>
@@ -28,7 +27,9 @@ function Reports() {
                 Thêm báo cáo
               </Modal.Title>
               <Modal.Close>
-                <span  className={cx("modal-close")} aria-hidden="true">&times;</span>
+                <span className={cx("modal-close")} aria-hidden="true">
+                  &times;
+                </span>
               </Modal.Close>
             </Modal.Header>
             <Modal.Body>

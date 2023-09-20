@@ -1,22 +1,47 @@
 import classNames from "classnames/bind";
+import { useEffect, useState } from "react";
 import Tippy from "@tippyjs/react/headless";
 import { Link } from "react-router-dom";
 import { Button } from "bootstrap-4-react/lib/components";
 
 import routes from "~/config/routes";
 import styles from "./Header.module.scss";
+import * as userService from "~/services/userService";
 
 const cx = classNames.bind(styles);
 
 function Header() {
-  const userToken = false;
+  const [userToken, setUserToken] = useState(false);
+  const [user, setUser] = useState({ });
+
+  useEffect(() => {
+    const token = localStorage.token;
+    if (token) {
+      setUserToken(true);
+      userService
+        .getUser()
+        .then((user) => {
+          setUser(user);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, []);
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    window.location.href = "/";
+    
+  }
 
   const MENU_ITEM = () => {
     return (
       <div className={cx("menu-item")}>
         <Link className={cx("menu-link")}>Thông tin cá nhân</Link>
+        {user.role === 0 ? (<Link className={cx("menu-link")} to={routes.home}>Quản lý</Link>) : null}
         <Link className={cx("menu-link")}>Cài đặt</Link>
-        <Link className={cx("menu-link")}>Đăng xuất</Link>
+        <Link className={cx("menu-link")} onClick={logout}>Đăng xuất</Link>
       </div>
     );
   };
@@ -43,10 +68,10 @@ function Header() {
           <div className={cx("user")}>
             <img
               className={cx("avatar")}
-              src="https://res.cloudinary.com/dd6sxqlso/image/upload/v1694248361/pets/t5i9xbm3wthrwsbnca9c.jpg"
-              alt="error"
+              src={user.avatarUrl}
+              alt={user.fullName}
             />
-            <span className={cx("username")}>Trần Ngọc Thắng</span>
+            <span className={cx("username")}>{user.fullName}</span>
           </div>
         </Tippy>
       ) : (
