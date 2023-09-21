@@ -23,56 +23,95 @@ function AddStudent() {
     const newData = { ...data };
     newData[e.target.name] = e.target.value;
     setData(newData);
+    console.log(newData);
   }
 
   return (
-   <div className={cx("wrapper")}>    
-    <span className={cx("title")}>Thêm sinh viên</span>
-      <form onSubmit={(e) => submit(e)}>
-        <Form.Group>
-          <label>Họ và tên</label>
-          <Form.Input
-            name="fullName"
-            value={data.fullName || ""}
-            onChange={(e) => handle(e)}
-            lg
-            placeholder="Họ và tên ..."
-            required
-          />
-        </Form.Group>
-        <Form.Group>
-          <label>Số điện thoại</label>
-          <Form.Input
-            name="phone"
-            value={data.phone || ""}
-            onChange={(e) => handle(e)}
-            lg
-            placeholder="Số điện thoại ..."
-            required
-          />
-        </Form.Group>
-        <Form.Select
-          onChange={(e) => handle(e)}
-          value={data.type || ""}
-          name="type"
-          className={cx("select-gender")}
-          required
-        >
-          <option value="">Giới tính</option>
-          <option value="0">Nam</option>
-          <option value="1">Nữ</option>
-        </Form.Select>
-  
-        <button className={cx("btn-add")}>
-          <div className={cx("svg-wrapper-1")}>
-            <div className={cx("svg-wrapper")}>
-              <SentIcon />
+    <div className={cx("wrapper")}>
+      <span className={cx("title")}>Thêm sinh viên</span>
+      <div className={cx("content")}>
+        <div className={cx("content-left")}>
+          <p>Lưu ý: </p>
+          <p>
+            - Mã sinh viên đồng thời là tên đăng nhập cho người dùng là sinh
+            viên.{" "}
+          </p>
+          <p>
+            - Nếu mã sinh viên là CN20111 thì mật khẩu mặc định có dạng : "Sv" +
+            mã sinh viên.
+          </p>
+          <p>VD: SvCN20111</p>
+          <p>- Sinh viên có thể đổi mật khẩu sau khi được cấp tài khoản.</p>
+        </div>
+
+        <form onSubmit={(e) => submit(e)} className={cx("content-right")}>
+          <div className={cx("form-input")}>
+            <label>Họ và tên</label>
+            <input
+              className={cx("text-input")}
+              name="fullName"
+              value={data.fullName || ""}
+              onChange={(e) => handle(e)}
+              placeholder="Họ và tên ..."
+              required
+            />
+          </div>
+          <div className={cx("form-input")}>
+            <label>Giới tính</label>
+            <div>
+              <input
+                className={cx("radio-input")}
+                type="radio"
+                id="male"
+                name="sex"
+                onChange={(e) => handle(e)}
+                value={data.type || "0"}
+              />
+              <label htmlFor="male">Nam</label>
+              <input
+                className={cx("radio-input")}
+                type="radio"
+                id="female"
+                name="sex"
+                onChange={(e) => handle(e)}
+                value={data.type || "1"}
+              />
+              <label htmlFor="female">Nữ</label>
             </div>
           </div>
-          <span>Send</span>
-        </button>
-      </form>
-   </div>
+          <div className={cx("form-input")}>
+            <label>Ngày sinh</label>
+            <input
+              className={cx("text-input")}
+              type="date"
+              name="dob"
+              value={data.dob || ""}
+              onChange={(e) => handle(e)}
+            />
+          </div>
+          <div className={cx("form-input")}>
+            <label>Địa chỉ</label>
+            <textarea
+              placeholder="Nhập địa chỉ ..."
+              className={cx("text-input")}
+              name="address"
+              value={data.address || ""}
+              onChange={(e) => handle(e)}
+            />
+          </div>
+          <div className={cx("form-input")}>
+            <label>Số điện thoại</label>
+            <input
+              className={cx("text-input")}
+              name="phone"
+              value={data.phone || ""}
+              onChange={(e) => handle(e)}
+              placeholder="Nhập số điện thoại ..."
+            />
+          </div>
+        </form>
+      </div>
+    </div>
   );
 }
 
