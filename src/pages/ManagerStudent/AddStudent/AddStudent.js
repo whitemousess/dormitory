@@ -1,53 +1,79 @@
 import classNames from "classnames/bind";
-import { Modal, Form, Button } from "bootstrap-4-react";
-import styles from "./AddStudent.module.scss"
+import { Form } from "bootstrap-4-react";
+import { useState } from "react";
 
-const cx =classNames.bind(styles)
+import styles from "./AddStudent.module.scss";
+import * as studentService from "~/services/studentService";
+import { SentIcon } from "~/components/Icons";
+
+const cx = classNames.bind(styles);
 
 function AddStudent() {
-    return ( <div>{/* Modal */}
-    <Modal id="addStudent" fade>
-      <Modal.Dialog centered lg>
-        <Modal.Content className={cx("modal")}>
-          <Modal.Header>
-            <Modal.Title className={cx("modal-title")}>
-              Thêm sinh viên
-            </Modal.Title>
-            <Modal.Close>
-              <span className={cx("modal-close")} aria-hidden="true">
-                &times;
-              </span>
-            </Modal.Close>
-          </Modal.Header>
-          <Modal.Body>
-            <Form.Group>
-              <label className={cx("form-title")}>Tiêu đề</label>
-              <input
-                className={cx("form-input")}
-                type="text"
-                placeholder="Tiêu đế ..."
-              />
-            </Form.Group>
-            <Form.Group>
-              <label className={cx("form-title")}>Nội dung </label>
-              <textarea className={cx("form-textarea")} />
-            </Form.Group>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button
-              className={cx("modal-btn")}
-              secondary
-              data-dismiss="modal"
-            >
-              Hủy
-            </Button>
-            <Button className={cx("modal-btn")} primary>
-              Gửi báo cáo
-            </Button>
-          </Modal.Footer>
-        </Modal.Content>
-      </Modal.Dialog>
-    </Modal></div> );
+  const [data, setData] = useState("");
+
+  const submit = (e) => {
+    e.preventDefault();
+    studentService
+      .postStudent(data)
+      .then((student) => console.log(student))
+      .catch((error) => console.log(error));
+  };
+
+  function handle(e) {
+    const newData = { ...data };
+    newData[e.target.name] = e.target.value;
+    setData(newData);
+  }
+
+  return (
+   <div className={cx("wrapper")}>    
+    <span className={cx("title")}>Thêm sinh viên</span>
+      <form onSubmit={(e) => submit(e)}>
+        <Form.Group>
+          <label>Họ và tên</label>
+          <Form.Input
+            name="fullName"
+            value={data.fullName || ""}
+            onChange={(e) => handle(e)}
+            lg
+            placeholder="Họ và tên ..."
+            required
+          />
+        </Form.Group>
+        <Form.Group>
+          <label>Số điện thoại</label>
+          <Form.Input
+            name="phone"
+            value={data.phone || ""}
+            onChange={(e) => handle(e)}
+            lg
+            placeholder="Số điện thoại ..."
+            required
+          />
+        </Form.Group>
+        <Form.Select
+          onChange={(e) => handle(e)}
+          value={data.type || ""}
+          name="type"
+          className={cx("select-gender")}
+          required
+        >
+          <option value="">Giới tính</option>
+          <option value="0">Nam</option>
+          <option value="1">Nữ</option>
+        </Form.Select>
+  
+        <button className={cx("btn-add")}>
+          <div className={cx("svg-wrapper-1")}>
+            <div className={cx("svg-wrapper")}>
+              <SentIcon />
+            </div>
+          </div>
+          <span>Send</span>
+        </button>
+      </form>
+   </div>
+  );
 }
 
 export default AddStudent;

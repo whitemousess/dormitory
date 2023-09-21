@@ -1,9 +1,9 @@
-import classNames from "classnames/bind";
 import { useEffect, useState } from "react";
+import classNames from "classnames/bind";
+import { Button } from "bootstrap-4-react/lib/components";
 
 import styles from "./Login.module.scss";
-import { Button } from "bootstrap-4-react/lib/components";
-import axios from "axios";
+import * as userService from "~/services/userService";
 
 const cx = classNames.bind(styles);
 
@@ -17,13 +17,11 @@ function Login() {
   }
 
   function submit(e) {
-    axios
-      .post(`${process.env.REACT_APP_BASE_URL}auth/login`, data, {
-        headers: { "Content-Type": "application/json" },
-      })
+    userService
+      .postUser(data)
       .then((data) => {
-        const user = data.data;
-        if (data?.data?.token) {
+        const user = data;
+        if (data?.token) {
           window.localStorage.setItem("token", user.token);
           window.location = "/";
         }
@@ -39,7 +37,7 @@ function Login() {
     inputList.forEach((input) => {
       input.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
-          submit(); 
+          submit();
         }
       });
     });

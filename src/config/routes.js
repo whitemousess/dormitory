@@ -7,6 +7,11 @@ const routes = {
   Contract: "/contract",
   Reports: "/reports",
 
+  // manager
+    // //student
+  addStudent: "/addStudent",
+  editStudent: "/editStudent",
+
   // admin
   home: "/home",
   Login: "/login",

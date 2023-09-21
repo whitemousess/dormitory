@@ -8,7 +8,8 @@ import {ClientStudent ,Contract,Reports,Room} from "~/pages/Client";
 
 import Home from "~/pages/Home";
 import Login from "~/pages/Login";
-import ManagerStudent from "~/pages/ManagerStudent";
+// manager student
+import {ManagerStudents,EditStudent,AddStudent} from "~/pages/ManagerStudent";
 import ManagerBill from "~/pages/ManagerBill";
 import ManagerRoom from "~/pages/ManagerRoom";
 import ManagerService from "~/pages/ManagerService";
@@ -26,7 +27,10 @@ const publicRoutes = [
 //   admin
   { path: config.routes.home, component: Home },
   { path: config.routes.Login, component: Login, layout: null },
-  { path: config.routes.ManagerStudent, component: ManagerStudent },
+
+  { path: config.routes.ManagerStudent, component: ManagerStudents },
+  { path: config.routes.addStudent, component: AddStudent },
+
   { path: config.routes.ManagerBill, component: ManagerBill },
   { path: config.routes.ManagerRoom, component: ManagerRoom },
   { path: config.routes.ManagerService, component: ManagerService },

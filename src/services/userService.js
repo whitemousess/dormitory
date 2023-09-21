@@ -16,3 +16,14 @@ export const getUser = async () => {
     }
   }
 };
+
+export const postUser = async (data) => {
+  try {
+    const res = await httpRequest.post("auth/login", data, {
+      headers: { "Content-Type": "application/json" },
+    });
+    return res.data
+  } catch (error) {
+    console.error(error);
+  }
+};
