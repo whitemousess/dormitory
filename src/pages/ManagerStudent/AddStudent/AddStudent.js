@@ -5,6 +5,7 @@ import { useState } from "react";
 import styles from "./AddStudent.module.scss";
 import * as studentService from "~/services/studentService";
 import { SentIcon } from "~/components/Icons";
+import routes from "~/config/routes";
 
 const cx = classNames.bind(styles);
 
@@ -15,7 +16,7 @@ function AddStudent() {
     e.preventDefault();
     studentService
       .postStudent(data)
-      .then((student) => console.log(student))
+      .then((student) => {window.location = routes.ManagerStudent})
       .catch((error) => console.log(error));
   };
 
@@ -23,7 +24,6 @@ function AddStudent() {
     const newData = { ...data };
     newData[e.target.name] = e.target.value;
     setData(newData);
-    console.log(newData);
   }
 
   return (
@@ -32,15 +32,16 @@ function AddStudent() {
       <div className={cx("content")}>
         <div className={cx("content-left")}>
           <p>Lưu ý: </p>
+          <p>- Mã sinh viên sẽ được tự động thêm</p>
           <p>
             - Mã sinh viên đồng thời là tên đăng nhập cho người dùng là sinh
-            viên.{" "}
+            viên.
           </p>
           <p>
-            - Nếu mã sinh viên là CN20111 thì mật khẩu mặc định có dạng : "Sv" +
+            - Nếu mã sinh viên là 20000 thì mật khẩu mặc định có dạng : "Sv" +
             mã sinh viên.
           </p>
-          <p>VD: SvCN20111</p>
+          <p>VD: Sv20000</p>
           <p>- Sinh viên có thể đổi mật khẩu sau khi được cấp tài khoản.</p>
         </div>
 
@@ -65,7 +66,8 @@ function AddStudent() {
                 id="male"
                 name="sex"
                 onChange={(e) => handle(e)}
-                value={data.type || "0"}
+                value={data.sex || "0"}
+                required
               />
               <label htmlFor="male">Nam</label>
               <input
@@ -74,7 +76,8 @@ function AddStudent() {
                 id="female"
                 name="sex"
                 onChange={(e) => handle(e)}
-                value={data.type || "1"}
+                value={data.sex || "1"}
+                required
               />
               <label htmlFor="female">Nữ</label>
             </div>
@@ -87,6 +90,7 @@ function AddStudent() {
               name="dob"
               value={data.dob || ""}
               onChange={(e) => handle(e)}
+              required
             />
           </div>
           <div className={cx("form-input")}>
@@ -97,6 +101,7 @@ function AddStudent() {
               name="address"
               value={data.address || ""}
               onChange={(e) => handle(e)}
+              required
             />
           </div>
           <div className={cx("form-input")}>
@@ -107,7 +112,16 @@ function AddStudent() {
               value={data.phone || ""}
               onChange={(e) => handle(e)}
               placeholder="Nhập số điện thoại ..."
+              required
             />
+          </div>
+          <div className={cx("svg-wrapper-1")}>
+            <button className={cx("btn-add")}>
+              <div className={cx("svg-wrapper")}>
+                <SentIcon />
+              </div>
+              <span>Thêm sinh viên</span>
+            </button>
           </div>
         </form>
       </div>

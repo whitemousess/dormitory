@@ -30,6 +30,7 @@ const publicRoutes = [
 
   { path: config.routes.ManagerStudent, component: ManagerStudents },
   { path: config.routes.addStudent, component: AddStudent },
+  { path: config.routes.editStudent, component: EditStudent },
 
   { path: config.routes.ManagerBill, component: ManagerBill },
   { path: config.routes.ManagerRoom, component: ManagerRoom },
