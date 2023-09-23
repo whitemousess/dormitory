@@ -413,11 +413,15 @@ export const TrashIcon = ({ width = "4rem", height = "4rem", className }) => (
   </svg>
 );
 
-export const SentIcon = ({width= "2.4rem",height="2.4rem" ,className}) => (
+export const SentIcon = ({
+  width = "2.4rem",
+  height = "2.4rem",
+  className,
+}) => (
   <svg
-  width={width}
-  height={height}
-  className={className}
+    width={width}
+    height={height}
+    className={className}
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
   >

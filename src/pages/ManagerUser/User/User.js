@@ -1,18 +1,17 @@
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
+import { Link } from "react-router-dom";
 import { Button, Modal } from "bootstrap-4-react/lib/components";
 
 import { EditIcon, ShowIcon, TrashIcon } from "~/components/Icons";
-import * as studentService from "~/services/studentService";
 import * as userService from "~/services/userService";
-import styles from "./ManagerStudents.module.scss";
+import styles from "./User.module.scss";
 import routes from "~/config/routes";
 import DeleteData from "~/components/DeleteData";
 
 const cx = classNames.bind(styles);
 
-function ManagerStudents() {
+function User() {
   const [dataStudents, setDataStudents] = useState([]);
   const [oneDataStudent, setOneDataStudent] = useState("");
   const [deleteId, setDeleteId] = useState("");
@@ -26,12 +25,10 @@ function ManagerStudents() {
   }
 
   useEffect(() => {
-    studentService.getStudents().then((students) => {
+    userService.getAllUsers().then((students) => {
       setDataStudents((preData) => [...preData, ...students]);
     });
   }, []);
-
-  console.log(dataStudents);
 
   return (
     <div className={cx("wrapper")}>
@@ -44,7 +41,7 @@ function ManagerStudents() {
           <option value="25">25</option>
           <option value="50">50</option>
         </select>
-        <Link to={routes.addStudent}>
+        <Link to={routes.AddUser}>
           <Button className={cx("button")} primary>
             +
           </Button>
@@ -55,7 +52,7 @@ function ManagerStudents() {
         <tbody>
           <tr>
             <th>STT</th>
-            <th>Mã sinh viên</th>
+            <th>Tên đăng nhập</th>
             <th>Họ và tên</th>
             <th>Email</th>
             <th>Phone</th>
@@ -65,7 +62,7 @@ function ManagerStudents() {
             dataStudents.map((data, index) => (
               <tr key={data._id}>
                 <th>{index + 1}</th>
-                <td>{data.masv}</td>
+                <td>{data.username}</td>
                 <td>{data.fullName}</td>
                 <td><Link to={`mailto:${data.email}`}>{data.email}</Link></td>
                 <td><Link to={`tel:${data.phone}`}>{data.phone}</Link></td>
@@ -76,18 +73,6 @@ function ManagerStudents() {
                     data-target="#show-data"
                   >
                     <ShowIcon className={cx("icon-action")} />
-                  </span>
-                  <Link to={`/editStudent/${data._id}`}>
-                    <span>
-                      <EditIcon className={cx("icon-action")} />
-                    </span>
-                  </Link>
-                  <span
-                    data-toggle="modal"
-                    data-target="#open-modal"
-                    onClick={() => setDeleteId(data._id)}
-                  >
-                    <TrashIcon className={cx("icon-action")} />
                   </span>
                 </td>
               </tr>
@@ -125,9 +110,8 @@ function ManagerStudents() {
                   />
                 </div>
                 <div className={cx("modal-info")}>
-                  <strong>Mã sinh viên:</strong> {oneDataStudent.masv}
-                </div>
-                <div className={cx("modal-info")}>
+                  <strong>Tài khoản: </strong> {oneDataStudent.username}
+                </div>                <div className={cx("modal-info")}>
                   <strong>Họ và tên: </strong> {oneDataStudent.fullName}
                 </div>
                 <div className={cx("modal-info")}>
@@ -137,6 +121,7 @@ function ManagerStudents() {
                 <div className={cx("modal-info")}>
                   <strong>Ngày sinh:</strong> {oneDataStudent.dob}
                 </div>
+                
                 <div className={cx("modal-info")}>
                   <strong>Địa chỉ:</strong> {oneDataStudent.address}
                 </div>
@@ -164,4 +149,4 @@ function ManagerStudents() {
   );
 }
 
-export default ManagerStudents;
+export default User;

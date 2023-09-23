@@ -18,7 +18,7 @@ function Login() {
 
   function submit(e) {
     userService
-      .postUser(data)
+      .login(data)
       .then((data) => {
         const user = data;
         if (data?.token) {

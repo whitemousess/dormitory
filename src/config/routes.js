@@ -10,8 +10,12 @@ const routes = {
   // manager
   // //student
   ManagerStudent: "/managerStudent",
-  addStudent: "/addStudent",
   editStudent: "/editStudent/:id",
+  addStudent: "/addStudent",
+
+  // // User
+  ManagerUser: "/managerUser",
+  AddUser: "/addUser",
 
   // admin
   home: "/home",
@@ -19,7 +23,6 @@ const routes = {
   ManagerBill: "/managerBill",
   ManagerRoom: "/managerRoom",
   ManagerService: "/managerService",
-  ManagerUser: "/managerUser",
   ManagerContract: "/managerContract",
   ManagerReport: "/managerReport",
 };

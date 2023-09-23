@@ -8,30 +8,16 @@
   color: #8391a2;
 }
 
-.action{
-    display: flex;
-    align-items: center;
-    height: 62px;
 
-    .button{
-        width: 100px;
-        height: 42px;
-        font-size: 20px;
-        font-weight: bold;
-        position: absolute;
-        right: 32px;
-    }
+.show {
+  font-size: 16px;
+  margin-right: 10px;
 }
 
-.show{
-font-size: 16px;
-margin-right: 10px;
-}
-
-.show-select{
-    width: 72px;
-    height: 32px;
-    border: 1px solid #ccc;
+.show-select {
+  width: 72px;
+  height: 32px;
+  border: 1px solid #ccc;
 }
 
 .table {
@@ -43,5 +29,19 @@ margin-right: 10px;
     width: 400px;
     height: 42px;
     text-align: left;
+  }
+}
+
+.success{
+  font-size: 1.4rem;
+  width: 86px;
+}
+
+.icon-action {
+  padding: 8px;
+  cursor: pointer;
+  
+  &:hover {
+    opacity: 0.4;
   }
 }

@@ -1,16 +1,17 @@
 import classNames from "classnames/bind";
 import { useState } from "react";
 
-import styles from "./AddStudent.module.scss";
-import * as userService from "~/services/userService";
-import { SentIcon } from "~/components/Icons";
 import routes from "~/config/routes";
+import * as userService from "~/services/userService";
+import styles from "./AddUser.module.scss";
+import { SentIcon } from "~/components/Icons";
 
 const cx = classNames.bind(styles);
 
-function AddStudent() {
+function AddUser() {
   const [data, setData] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
+
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
   };
@@ -19,14 +20,18 @@ function AddStudent() {
     e.preventDefault();
     const formData = new FormData();
     formData.append("avatar", selectedFile);
+    formData.append("username", data.username);
+    formData.append("password", data.password);
+    formData.append("email", data.email);
     formData.append("fullName", data.fullName);
     formData.append("address", data.address);
     formData.append("dob", data.dob);
     formData.append("phone", data.phone);
     formData.append("sex", data.sex);
+    formData.append("role", "0");
     try {
       await userService.postUser(formData);
-      window.location = routes.ManagerStudent;
+      window.location = routes.ManagerUser;
     } catch (error) {
       console.log(error);
     }
@@ -40,24 +45,34 @@ function AddStudent() {
 
   return (
     <div className={cx("wrapper")}>
-      <span className={cx("title")}>Thêm sinh viên</span>
+      <span className={cx("title")}>Thêm người quản lý</span>
       <div className={cx("content")}>
-        <div className={cx("content-left")}>
-          <p>Lưu ý: </p>
-          <p>- Mã sinh viên sẽ được tự động thêm</p>
-          <p>
-            - Mã sinh viên đồng thời là tên đăng nhập cho người dùng là sinh
-            viên.
-          </p>
-          <p>
-            - Nếu mã sinh viên là 20000 thì mật khẩu mặc định có dạng : "Sv" +
-            mã sinh viên.
-          </p>
-          <p>VD: Sv20000</p>
-          <p>- Sinh viên có thể đổi mật khẩu sau khi được cấp tài khoản.</p>
-        </div>
+        <div className={cx("content-left")}></div>
 
         <form onSubmit={(e) => submit(e)} className={cx("content-right")}>
+          <div className={cx("form-input")}>
+            <label>Tài khoản</label>
+            <input
+              className={cx("text-input")}
+              name="username"
+              value={data.username || ""}
+              onChange={(e) => handle(e)}
+              placeholder="Tài khoản ..."
+              required
+            />
+          </div>
+          <div className={cx("form-input")}>
+            <label>Mật khẩu</label>
+            <input
+              type="password"
+              className={cx("text-input")}
+              name="password"
+              value={data.password || ""}
+              onChange={(e) => handle(e)}
+              placeholder="Mật khẩu ..."
+              required
+            />
+          </div>
           <div className={cx("form-input")}>
             <label>Họ và tên</label>
             <input
@@ -66,6 +81,18 @@ function AddStudent() {
               value={data.fullName || ""}
               onChange={(e) => handle(e)}
               placeholder="Họ và tên ..."
+              required
+            />
+          </div>
+          <div className={cx("form-input")}>
+            <label>Email</label>
+            <input
+              type="email"
+              className={cx("text-input")}
+              name="email"
+              value={data.email || ""}
+              onChange={(e) => handle(e)}
+              placeholder="Email ..."
               required
             />
           </div>
@@ -135,7 +162,7 @@ function AddStudent() {
               <div className={cx("svg-wrapper")}>
                 <SentIcon />
               </div>
-              <span>Thêm sinh viên</span>
+              <span>Thêm</span>
             </button>
           </div>
         </form>
@@ -144,4 +171,4 @@ function AddStudent() {
   );
 }
 
-export default AddStudent;
+export default AddUser;

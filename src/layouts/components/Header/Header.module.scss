@@ -1,8 +1,8 @@
 .wrapper {
+  height: 64px;
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  height: 64px;
 }
 
 .user {
@@ -12,6 +12,7 @@
   justify-content: flex-end;
   cursor: pointer;
   user-select: none;
+  margin-top: 10px;
 }
 
 .avatar {
@@ -28,7 +29,7 @@
 .menu-item {
   min-height: 100px;
   width: 200px;
-  border: 1px solid rgba($color: #919191, $alpha: .3);
+  border: 1px solid rgba($color: #919191, $alpha: 0.3);
   box-shadow: 4px 4px 5px #aaaaaa;
   border-radius: 10px;
   background-color: #fff;
@@ -45,7 +46,7 @@
   }
 }
 
-.btn-login{
+.btn-login {
   width: 100px;
   height: 42px;
   font-size: 14px !important;

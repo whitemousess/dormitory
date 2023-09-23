@@ -4,27 +4,31 @@ import classNames from "classnames/bind";
 import routes from "~/config/routes";
 import { SentIcon } from "~/components/Icons";
 import styles from "./EditStudent.module.scss";
-import * as studentService from "~/services/studentService";
+import * as userService from "~/services/userService";
 
 const cx = classNames.bind(styles);
 
 function EditStudent() {
   const [dataStudent, setDataStudent] = useState({});
+  const [selectedFile, setSelectedFile] = useState({});
   const studentId = window.location.href.split("/").pop();
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
-    studentService
-      .putStudent({
-        data: dataStudent,
-        studentId: studentId,
-      })
-      .then((student) => {
-        window.location = routes.ManagerStudent;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const formData = new FormData();
+    formData.append("avatar", selectedFile);
+    formData.append("fullName", dataStudent.fullName);
+    formData.append("address", dataStudent.address);
+    formData.append("dob", dataStudent.dob);
+    formData.append("phone", dataStudent.phone);
+    formData.append("sex", dataStudent.sex);
+
+    try {
+      await userService.putUser({ data: formData, studentId: studentId });
+      window.location = routes.ManagerStudent;
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handle = (e) => {
@@ -33,9 +37,19 @@ function EditStudent() {
     setDataStudent(newData);
   };
 
+  const handleFileChange = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
+
+  const handleGender = (e, genderValue) => {
+    const newData = { ...dataStudent };
+    newData[e.target.name] = genderValue;
+    setDataStudent(newData);
+  };
+
   useEffect(() => {
-    studentService
-      .getStudentId(studentId)
+    userService
+      .getUserId(studentId)
       .then((student) => {
         setDataStudent(student.data);
       })
@@ -85,8 +99,8 @@ function EditStudent() {
                 type="radio"
                 id="male"
                 name="sex"
-                value={dataStudent.sex || "0"}
-                onChange={(e) => handle(e)}
+                value={0}
+                onChange={(e) => handleGender(e, 0)}
                 checked={dataStudent.sex === 0}
                 required
               />
@@ -96,8 +110,8 @@ function EditStudent() {
                 type="radio"
                 id="female"
                 name="sex"
-                value={dataStudent.sex || "1"}
-                onChange={(e) => handle(e)}
+                value={1}
+                onChange={(e) => handleGender(e, 1)}
                 checked={dataStudent.sex === 1}
                 required
               />
@@ -136,6 +150,9 @@ function EditStudent() {
               placeholder="Nhập số điện thoại ..."
               required
             />
+          </div>
+          <div className={cx("form-input")}>
+            <input type="file" name="avatar" onChange={handleFileChange}/>
           </div>
           <div className={cx("svg-wrapper-1")}>
             <button className={cx("btn-add")}>

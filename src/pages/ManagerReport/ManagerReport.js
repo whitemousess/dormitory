@@ -1,11 +1,48 @@
+import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
-import { Button } from "bootstrap-4-react";
+import { Button } from "bootstrap-4-react/lib/components";
 
+import * as reportService from "~/services/reportService";
 import styles from "./ManagerReport.module.scss";
+import { TrashIcon } from "~/components/Icons";
+import DeleteData from "~/components/DeleteData";
 
 const cx = classNames.bind(styles);
 
 function ManagerReport() {
+  const [dataReport, setDataReport] = useState([]);
+  const [deleteId, setDeleteId] = useState("");
+
+  useEffect(() => {
+    reportService
+      .getAllReports()
+      .then((report) => setDataReport((preData) => [...preData, ...report]));
+  }, []);
+
+  const successReport = (id) => {
+    reportService.success(id).then((report) => window.location.reload());
+  };
+
+  function deleteData(e) {
+    e.preventDefault();
+    reportService
+      .deleteReport(deleteId)
+      .then((account) => window.location.reload())
+      .catch((error) => console.log({ error: error }));
+  }
+
+  // format date
+  function formatDate(date) {
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Tháng bắt đầu từ 0, nên cộng thêm 1
+    const year = date.getFullYear();
+    return `${day}/${month}/${year}`;
+  }
+  const report = {
+    createdAt: new Date("2023-09-23T10:42:28.924Z"),
+  };
+  const formattedDate = formatDate(report.createdAt);
+
   return (
     <div className={cx("wrapper")}>
       <span className={cx("title")}>Danh sách sinh viên</span>
@@ -17,35 +54,62 @@ function ManagerReport() {
           <option value="25">25</option>
           <option value="50">50</option>
         </select>
-        <Button className={cx("button")} primary>+</Button>
       </div>
 
       <table className={cx("table")}>
-        <thead>
+        <tbody>
           <tr>
             <th>STT</th>
-            <th>Mã thông báo</th>
+            <th>Mã sinh viên</th>
             <th>Tên sinh viên</th>
             <th>Tiêu đề</th>
             <th>Nội dung</th>
             <th>Thời gian</th>
-            <th>Trạng thái</th>
             <th></th>
           </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Mã thông báo</td>
-            <td>Tên sinh viên</td>
-            <td>Tiêu đề</td>
-            <td>Nội dung</td>
-            <td>Thời gian</td>
-            <td>Trạng thái</td>
-            <td></td>
-          </tr>
+
+          {dataReport.length !== 0 ? (
+            dataReport.map((report, index) => (
+              <tr key={report._id}>
+                <td>{index + 1}</td>
+                <td>{report.masv}</td>
+                <td>{report.fullName}</td>
+                <td>{report.title}</td>
+                <td>{report.content}</td>
+                <td>{formattedDate}</td>
+                <td>
+                  {report.status === 1 ? (
+                    <Button
+                      onClick={() => successReport(report._id)}
+                      className={cx("success")}
+                      success
+                    >
+                      Xác nhận
+                    </Button>
+                  ) : (
+                    "Đã xác nhận"
+                  )}
+                  <span
+                    data-toggle="modal"
+                    data-target="#open-modal"
+                    onClick={() => setDeleteId(report._id)}
+                  >
+                    <TrashIcon className={cx("icon-action")} />
+                  </span>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td style={{ textAlign: "center" }} colSpan="6">
+                Chưa có thông tin nào !
+              </td>
+            </tr>
+          )}
         </tbody>
       </table>
+
+      <DeleteData deleteData={deleteData} />
     </div>
   );
 }
