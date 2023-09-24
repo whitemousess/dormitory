@@ -17,11 +17,15 @@ const routes = {
   ManagerUser: "/managerUser",
   AddUser: "/addUser",
 
+  // // Room
+  ManagerRoom: "/managerRoom",
+  AddRoom: "/addRoom",
+  EditRoom: "/editRoom/:id",
+
   // admin
   home: "/home",
   Login: "/login",
   ManagerBill: "/managerBill",
-  ManagerRoom: "/managerRoom",
   ManagerService: "/managerService",
   ManagerContract: "/managerContract",
   ManagerReport: "/managerReport",

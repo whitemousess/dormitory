@@ -40,8 +40,9 @@
 .icon-action {
   padding: 8px;
   cursor: pointer;
-  
+  opacity: 0.4;
+
   &:hover {
-    opacity: 0.4;
+    opacity: 1;
   }
 }

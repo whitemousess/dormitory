@@ -49,20 +49,21 @@
 .icon-action {
   padding: 8px;
   cursor: pointer;
-  
+  opacity: 0.4;
+
   &:hover {
-    opacity: 0.4;
+    opacity: 1;
   }
 }
 
-.modal-info{
+.modal-info {
   margin: 10px 0;
 }
 
-.modal-avatar{
+.modal-avatar {
   display: flex;
   justify-content: center;
-  .avatar{
+  .avatar {
     height: 150px;
     width: 150px;
     border-radius: 50%;
@@ -70,15 +71,15 @@
   }
 }
 
-.show-modal{
+.show-modal {
   font-size: 16px;
 }
 
-.btn-close{
+.btn-close {
   font-size: 2rem;
 }
 
-.btn-modal{
+.btn-modal {
   width: 70px;
   height: 36px;
   font-size: 14px;

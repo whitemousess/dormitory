@@ -1,34 +1,34 @@
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import classNames from "classnames/bind";
-import { Button, Modal } from "bootstrap-4-react/lib/components";
+import { Link } from "react-router-dom";
+import { Button } from "bootstrap-4-react";
+import { Modal } from "bootstrap-4-react/lib/components";
 
-import { EditIcon, ShowIcon, TrashIcon } from "~/components/Icons";
-import * as studentService from "~/services/studentService";
-import * as userService from "~/services/userService";
-import styles from "./ManagerStudents.module.scss";
 import routes from "~/config/routes";
 import DeleteData from "~/components/DeleteData";
+import styles from "./RoomManager.module.scss";
+import * as roomService from "~/services/roomService";
+import { EditIcon, ShowIcon, TrashIcon } from "~/components/Icons";
 
 const cx = classNames.bind(styles);
 
-function ManagerStudents() {
-  const [dataStudents, setDataStudents] = useState([]);
-  const [oneDataStudent, setOneDataStudent] = useState("");
+function RoomManager() {
+  const [dataRoom, setDataRoom] = useState([]);
   const [deleteId, setDeleteId] = useState("");
+  const [oneDataStudent, setOneDataStudent] = useState("");
 
   function deleteData(e) {
     e.preventDefault();
-    userService
-      .userDelete({ deleteID: deleteId })
-      .then((account) => window.location.reload())
-      .catch((error) => console.log({ error: error }));
+    roomService
+      .deleteRoom(deleteId)
+      .then(() => window.location.reload())
+      .catch((error) => console.log(error));
   }
 
   useEffect(() => {
-    studentService.getStudents().then((students) => {
-      setDataStudents((preData) => [...preData, ...students]);
-    });
+    roomService
+      .getRoomManager()
+      .then((Room) => setDataRoom((preV) => [...preV, ...Room]));
   }, []);
 
   return (
@@ -42,7 +42,7 @@ function ManagerStudents() {
           <option value="25">25</option>
           <option value="50">50</option>
         </select>
-        <Link to={routes.addStudent}>
+        <Link to={routes.AddRoom}>
           <Button className={cx("button")} primary>
             +
           </Button>
@@ -53,29 +53,43 @@ function ManagerStudents() {
         <tbody>
           <tr>
             <th>STT</th>
-            <th>Mã sinh viên</th>
-            <th>Họ và tên</th>
-            <th>Email</th>
-            <th>Phone</th>
+            <th>Tên phòng</th>
+            <th>Người quản lý</th>
+            <th>Giá phòng(VND)</th>
+            <th>Khu</th>
+            <th>Số lượng</th>
+            <th>Trạng thái</th>
             <th></th>
           </tr>
-          {dataStudents.length !== 0 ? (
-            dataStudents.map((data, index) => (
-              <tr key={data._id}>
-                <th>{index + 1}</th>
-                <td>{data.masv}</td>
-                <td>{data.fullName}</td>
-                <td><Link to={`mailto:${data.email}`}>{data.email}</Link></td>
-                <td><Link to={`tel:${data.phone}`}>{data.phone}</Link></td>
+
+          {dataRoom.length > 0 ? (
+            dataRoom.map((Room, index) => (
+              <tr key={Room._id}>
+                <td>{index + 1}</td>
+                <td>{Room.room_name}</td>
+                <td>{Room.user_id.fullName}</td>
+                <td>{Room.price}</td>
+                <td>{Room.area === "0" ? "Nam" : "Nữ"}</td>
+                <td>
+                  {"0/" + Room.max_number}
+                  <span className={cx("status")}>Thiếu</span>
+                </td>
+                <td>
+                  {Room.status === "0" ? (
+                    <span className={cx("status")}>Hoạt động</span>
+                  ) : (
+                    <span className={cx("status")}>Bảo trì</span>
+                  )}
+                </td>
                 <td>
                   <span
-                    onClick={() => setOneDataStudent(data)}
+                    onClick={() => setOneDataStudent(Room)}
                     data-toggle="modal"
                     data-target="#show-data"
                   >
                     <ShowIcon className={cx("icon-action")} />
                   </span>
-                  <Link to={`/editStudent/${data._id}`}>
+                  <Link to={`/editRoom/${Room._id}`}>
                     <span>
                       <EditIcon className={cx("icon-action")} />
                     </span>
@@ -83,7 +97,7 @@ function ManagerStudents() {
                   <span
                     data-toggle="modal"
                     data-target="#open-modal"
-                    onClick={() => setDeleteId(data._id)}
+                    onClick={() => setDeleteId(Room._id)}
                   >
                     <TrashIcon className={cx("icon-action")} />
                   </span>
@@ -92,9 +106,7 @@ function ManagerStudents() {
             ))
           ) : (
             <tr>
-              <td style={{ textAlign: "center" }} colSpan="5">
-                Chưa có thông tin nào !
-              </td>
+              <td colSpan={8}>Chưa có phòng nào !</td>
             </tr>
           )}
         </tbody>
@@ -115,34 +127,21 @@ function ManagerStudents() {
                 </Modal.Close>
               </Modal.Header>
               <Modal.Body>
-                <div className={cx("modal-avatar")}>
-                  <img
-                    className={cx("avatar")}
-                    src={oneDataStudent.avatarUrl}
-                    alt={oneDataStudent.fullName}
-                  />
+                <div className={cx("modal-info")}>
+                  <strong>Tên phòng:</strong> {oneDataStudent.room_name}
                 </div>
                 <div className={cx("modal-info")}>
-                  <strong>Mã sinh viên:</strong> {oneDataStudent.masv}
+                  <strong>Người quản lý: </strong>
+                  {oneDataStudent ? oneDataStudent.user_id.fullName : null}
                 </div>
                 <div className={cx("modal-info")}>
-                  <strong>Họ và tên: </strong> {oneDataStudent.fullName}
+                  <strong>Giá phòng:</strong> {oneDataStudent.price}
                 </div>
                 <div className={cx("modal-info")}>
-                  <strong>Giới tính:</strong>{" "}
-                  {oneDataStudent.sex === 0 ? "nam" : "nữ"}
+                  <strong>Khu vực dành cho:</strong> {oneDataStudent.area === 0 ? "Nam" : "Nữ"}
                 </div>
                 <div className={cx("modal-info")}>
-                  <strong>Ngày sinh:</strong> {oneDataStudent.dob}
-                </div>
-                <div className={cx("modal-info")}>
-                  <strong>Địa chỉ:</strong> {oneDataStudent.address}
-                </div>
-                <div className={cx("modal-info")}>
-                  <strong>Số điện thoại:</strong> {oneDataStudent.phone}
-                </div>
-                <div className={cx("modal-info")}>
-                  <strong>Email:</strong> {oneDataStudent.email}
+                  <strong>Trạng thái:</strong> {oneDataStudent.status === "0" ? "Hoạt động" : "Bảo trì"}
                 </div>
               </Modal.Body>
               <Modal.Footer>
@@ -162,4 +161,4 @@ function ManagerStudents() {
   );
 }
 
-export default ManagerStudents;
+export default RoomManager;

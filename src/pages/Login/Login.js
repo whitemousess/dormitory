@@ -21,9 +21,13 @@ function Login() {
       .login(data)
       .then((data) => {
         const user = data;
-        if (data?.token) {
+        if (data.token) {
           window.localStorage.setItem("token", user.token);
-          window.location = "/";
+          if (data.role === 1) {
+            window.location = "/";
+          }else{
+            window.location = "/home";
+          }
         }
       })
       .catch((err) => {

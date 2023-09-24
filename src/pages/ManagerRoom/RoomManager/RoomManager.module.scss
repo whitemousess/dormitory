@@ -54,3 +54,13 @@ margin-right: 10px;
   color: #fff;
   background-color: #0acf97;
 }
+
+.icon-action {
+  padding: 8px;
+  cursor: pointer;
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 1;
+  }
+}
