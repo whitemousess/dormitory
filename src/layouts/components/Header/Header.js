@@ -40,7 +40,6 @@ function Header() {
       <div className={cx("menu-item")}>
         <Link className={cx("menu-link")}>Thông tin cá nhân</Link>
         {user.role === 0 ? (<Link className={cx("menu-link")} to={routes.home}>Quản lý</Link>) : null}
-        <Link className={cx("menu-link")}>Cài đặt</Link>
         <Link className={cx("menu-link")} onClick={logout}>Đăng xuất</Link>
       </div>
     );

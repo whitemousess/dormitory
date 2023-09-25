@@ -106,7 +106,7 @@ function RoomManager() {
             ))
           ) : (
             <tr>
-              <td colSpan={8}>Chưa có phòng nào !</td>
+              <td colSpan={8} style={{ textAlign: 'center' }}>Chưa có phòng nào !</td>
             </tr>
           )}
         </tbody>
