@@ -9,7 +9,7 @@ export const login = async (data) => {
     });
     return res.data;
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
 

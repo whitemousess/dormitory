@@ -3,16 +3,19 @@ import styles from "./Home.module.scss";
 import { useEffect, useState } from "react";
 import * as studentService from "~/services/studentService";
 import * as userService from "~/services/userService";
+import * as roomService from "~/services/roomService";
 
 const cx = classNames.bind(styles);
 
 function Home() {
   const [dataStudent, setDataStudent] = useState([]);
-  const [dataUser, setDataUSer] = useState([]);
+  const [dataUser, setDataUser] = useState([]);
+  const [dataRoom, setDataRoom] = useState([]);
 
   useEffect(() => {
     studentService.getStudents().then((student) => setDataStudent(student));
-    userService.getAllUsers().then((user) => setDataUSer(user));
+    userService.getAllUsers().then((user) => setDataUser(user));
+    roomService.getRoomManager().then((user) => setDataRoom(user));
   }, []);
 
   return (
@@ -32,7 +35,7 @@ function Home() {
         <div className={cx("df")}>
           <div className={cx("box")}>
             <span className={cx("title")}>Tổng số phòng</span>
-            <span className={cx("count")}>3</span>
+            <span className={cx("count")}>{dataRoom.length}</span>
           </div>
 
           <div className={cx("box")}>

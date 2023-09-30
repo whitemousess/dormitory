@@ -18,7 +18,10 @@ function ManagerReport() {
     }, []);
 
     const successReport = (id) => {
-        reportService.success(id).then((report) => window.location.reload());
+        const status = {status: "1"};
+        console.log(status);
+        reportService.success({id: id,data: status})
+        .then((report) => window.location.reload());
     };
 
     function deleteData(e) {
@@ -64,13 +67,12 @@ function ManagerReport() {
 
                     {dataReport.length !== 0 ? (
                         dataReport.map((report, index) => {
-                          console.log(report);
                             const formattedDate = formatDate(new Date(report.createdAt));
                             return (
                                 <tr key={report._id}>
                                     <td>{index + 1}</td>
-                                    <td>{report.masv}</td>
-                                    <td>{report.fullName}</td>
+                                    <td>{report.ma_sv.masv}</td>
+                                    <td>{report.ma_sv.fullName}</td>
                                     <td>{report.title}</td>
                                     <td>{report.content}</td>
                                     <td>{formattedDate}</td>

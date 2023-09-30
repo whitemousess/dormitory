@@ -25,7 +25,7 @@ function AddRoom() {
     newData[e.target.name] = e.target.value;
     setData(newData);
   }
-console.log(data);
+  
   useEffect(() => {
     userService.getAllUsers().then((users) => {
       setUserManager((preV) => [...preV, ...users]);

@@ -4,7 +4,7 @@ import config from "~/config";
 import { ClientUser } from "~/layouts";
 
 // Router change Pages
-import { ClientStudent, Contract, Reports, Room } from "~/pages/Client";
+import { ClientStudent, Contract, Reports, Room ,UseService} from "~/pages/Client";
 
 import Home from "~/pages/Home";
 import Login from "~/pages/Login";
@@ -18,8 +18,10 @@ import {
 import { RoomManager, AddRoom, EditRoom } from "~/pages/ManagerRoom";
 // manager User
 import { User, AddUser } from "~/pages/ManagerUser";
+// manager Services
+import { Service ,AddService,EditService} from "~/pages/ManagerService"
+
 import ManagerBill from "~/pages/ManagerBill";
-import ManagerService from "~/pages/ManagerService";
 import ManagerContract from "~/pages/ManagerContract";
 import ManagerReport from "~/pages/ManagerReport";
 
@@ -31,6 +33,7 @@ const publicRoutes = [
     layout: ClientUser,
   },
   { path: config.routes.Room, component: Room, layout: ClientUser },
+  { path: config.routes.Service, component: UseService, layout: ClientUser },
   { path: config.routes.Contract, component: Contract, layout: ClientUser },
   { path: config.routes.Reports, component: Reports, layout: ClientUser },
 
@@ -49,8 +52,11 @@ const publicRoutes = [
   { path: config.routes.AddRoom, component: AddRoom },
   { path: config.routes.EditRoom, component: EditRoom },
 
+  { path: config.routes.ManagerService, component: Service },
+  { path: config.routes.AddService, component: AddService },
+  { path: config.routes.EditService, component: EditService },
+
   { path: config.routes.ManagerBill, component: ManagerBill },
-  { path: config.routes.ManagerService, component: ManagerService },
   { path: config.routes.ManagerContract, component: ManagerContract },
   { path: config.routes.ManagerReport, component: ManagerReport },
 ];

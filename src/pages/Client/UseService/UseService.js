@@ -2,72 +2,31 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import { Modal, Form, Button } from 'bootstrap-4-react';
 
-import * as reportService from '~/services/reportService';
-import styles from './Reports.module.scss';
+import styles from './UseService.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Reports() {
-    const [dataReport, setDataReport] = useState('');
+function UseService() {
+    const [dataService, setDataService] = useState('');
     const [dataClient, setDataClient] = useState([]);
 
     const handle = (e) => {
         e.preventDefault();
-        const newData = { ...dataReport };
+        const newData = { ...dataService };
         newData[e.target.name] = e.target.value;
-        setDataReport(newData);
+        setDataService(newData);
     };
 
     const submit = (e) => {
         e.preventDefault();
-        reportService
-            .sentReport(dataReport)
-            .then((result) => {
-                window.location.reload();
-            })
-            .catch((err) => {
-                console.log(err);
-            });
     };
 
-    useEffect(() => {
-        reportService
-            .getReportUser()
-            .then((user) => {
-                setDataClient(user);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, []);
+    useEffect(() => {}, []);
 
     return (
         <div className={cx('wrapper')}>
-            {dataClient.length > 0 ? (
-                <table className={cx('table')}>
-                    <tbody>
-                        <tr>
-                            <th>STT</th>
-                            <th>Tiêu đề</th>
-                            <th>Mô tả</th>
-                            <th></th>
-                        </tr>
-                        {dataClient.map((data, index) => (
-                            <tr key={data._id}>
-                                <td>{index + 1}</td>
-                                <td>{data.title}</td>
-                                <td>{data.content}</td>
-                                <td>{data.status === 0 ? ('Đã gửi'
-                                        ) : (
-                                            'Đã xử lý'
-                                        )}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
+            
                 <span className={cx('title')}>Không có thông tin báo cáo</span>
-            )}
 
             <button className={cx('button')} data-toggle="modal" data-target="#exampleModal">
                 Tạo báo cáo
@@ -79,7 +38,7 @@ function Reports() {
                     <Modal.Dialog centered lg>
                         <Modal.Content className={cx('modal')}>
                             <Modal.Header>
-                                <Modal.Title className={cx('modal-title')}>Thêm báo cáo</Modal.Title>
+                                <Modal.Title className={cx('modal-title')}>Yêu cầu dịch vụ</Modal.Title>
                                 <Modal.Close>
                                     <span className={cx('modal-close')} aria-hidden="true">
                                         &times;
@@ -94,16 +53,7 @@ function Reports() {
                                         type="text"
                                         placeholder="Tiêu đế ..."
                                         name="title"
-                                        value={dataReport.title || ''}
-                                        onChange={(e) => handle(e)}
-                                    />
-                                </Form.Group>
-                                <Form.Group>
-                                    <label className={cx('form-title')}>Nội dung </label>
-                                    <textarea
-                                        className={cx('form-textarea')}
-                                        name="content"
-                                        value={dataReport.content || ''}
+                                        value={dataService.title || ''}
                                         onChange={(e) => handle(e)}
                                     />
                                 </Form.Group>
@@ -124,4 +74,4 @@ function Reports() {
     );
 }
 
-export default Reports;
+export default UseService;

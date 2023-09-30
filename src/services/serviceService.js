@@ -1,43 +1,9 @@
 import { httpRequest } from '~/utils/httprequest';
 
 const token = localStorage.token;
-export const sentReport = async (data) => {
+export const getService = async () => {
     try {
-        const res = await httpRequest.post('report/create-report', data, {
-            headers: { authorization: 'Bearer ' + token },
-        });
-        return res.data;
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-export const getAllReports = async () => {
-    try {
-        const res = await httpRequest.get('report/get-report', {
-            headers: { authorization: 'Bearer ' + token },
-        });
-
-        return res.data.data;
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-export const getReportUser = async () => {
-    try {
-        const res = await httpRequest.get("report/get-report-user",{
-            headers: { authorization: 'Bearer ' + token },
-        })
-        return res.data.data
-    } catch (error) {
-        console.log(error);
-    }
-}
-
-export const success = async ({id,data}) => {
-    try {
-        const res = await httpRequest.put(`report/${id}/success-report`, data, {
+        const res = await httpRequest.get('services/get-all-service', {
             headers: { authorization: 'Bearer ' + token },
         });
         return res.data.data;
@@ -46,9 +12,42 @@ export const success = async ({id,data}) => {
     }
 };
 
-export const deleteReport = async (id) => {
+export const getServiceId = async (id) => {
     try {
-        const res = await httpRequest.delete(`report/${id}/delete-report`, {
+        const res = await httpRequest.get(`services/${id}/get-service`, {
+            headers: { authorization: 'Bearer ' + token },
+        });
+        return res.data.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const deleteData = async (id) => {
+    try {
+        const res = await httpRequest.delete(`services/${id}/delete`, {
+            headers: { authorization: 'Bearer ' + token },
+        });
+        return res.data.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const createService = async (data) => {
+    try {
+        const res = await httpRequest.post(`services/create-service`, data, {
+            headers: { authorization: 'Bearer ' + token },
+        });
+        return res.data.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const editService = async ({data, id}) => {
+    try {
+        const res = await httpRequest.put(`services/${id}/edit`, data, {
             headers: { authorization: 'Bearer ' + token },
         });
         return res.data.data;

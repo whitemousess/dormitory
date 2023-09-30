@@ -6,6 +6,7 @@ const routes = {
   Room: "/room",
   Contract: "/contract",
   Reports: "/reports",
+  Service: "/Service",
 
   // manager
   // //student
@@ -22,11 +23,15 @@ const routes = {
   AddRoom: "/addRoom",
   EditRoom: "/editRoom/:id",
 
+  // // Services
+  ManagerService: "/managerService",
+  AddService: "/addService",
+  EditService: "/editService/:id",
+
   // admin
   home: "/home",
   Login: "/login",
   ManagerBill: "/managerBill",
-  ManagerService: "/managerService",
   ManagerContract: "/managerContract",
   ManagerReport: "/managerReport",
 };
