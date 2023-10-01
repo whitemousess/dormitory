@@ -1,127 +1,178 @@
 .wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .title {
-  margin: 16px 0;
-  font-size: 32px;
-  font-weight: 600;
+    margin: 16px 0;
+    font-size: 32px;
+    font-weight: 600;
 }
 
 .table {
-  font-size: 1.6rem;
-  margin: 10px 0px;
+    width: 50%;
+    font-size: 1.6rem;
+    margin: 10px 0px;
 
-  td,
-  th {
-    width: 400px;
-    height: 42px;
-    text-align: left;
-  }
+    td,
+    th {
+        width: 400px;
+        height: 42px;
+        text-align: left;
+    }
 }
 
 .button {
-  --color: #00a97f;
-  padding: 0.8em 1.7em;
-  background-color: transparent;
-  border-radius: 0.3em;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  transition: 0.5s;
-  font-weight: 400;
-  font-size: 17px;
-  border: 1px solid;
-  font-family: inherit;
-  text-transform: uppercase;
-  color: var(--color);
-  z-index: 1;
+    --color: #00a97f;
+    padding: 0.8em 1.7em;
+    background-color: transparent;
+    border-radius: 0.3em;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.5s;
+    font-weight: 400;
+    font-size: 17px;
+    border: 1px solid;
+    font-family: inherit;
+    text-transform: uppercase;
+    color: var(--color);
+    z-index: 1;
 }
 
 .button::before,
 .button::after {
-  content: "";
-  display: block;
-  width: 50px;
-  height: 50px;
-  transform: translate(-50%, -50%);
-  position: absolute;
-  border-radius: 50%;
-  z-index: -1;
-  background-color: var(--color);
-  transition: 1s ease;
+    content: '';
+    display: block;
+    width: 50px;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+    background-color: var(--color);
+    transition: 1s ease;
 }
 
 .button::before {
-  top: -1em;
-  left: -1em;
+    top: -1em;
+    left: -1em;
 }
 
 .button::after {
-  left: calc(100% + 1em);
-  top: calc(100% + 1em);
+    left: calc(100% + 1em);
+    top: calc(100% + 1em);
 }
 
 .button:hover::before,
 .button:hover::after {
-  height: 410px;
-  width: 410px;
+    height: 410px;
+    width: 410px;
 }
 
 .button:hover {
-  color: rgb(10, 25, 30);
-  border: 1px solid #00a97f;
+    color: rgb(10, 25, 30);
+    border: 1px solid #00a97f;
 }
 
 .button:active {
-  filter: brightness(0.8);
+    filter: brightness(0.8);
 }
 
 .modal {
-  width: 100%;
-  padding: 10px 20px;
+    width: 100%;
+    padding: 10px 20px;
 }
 
 .modal-title {
-  font-size: 32px;
+    font-size: 32px;
 }
 
 .modal-close {
-  font-size: 24px !important;
+    font-size: 24px !important;
 }
 
 .modal-btn {
-  padding: 10px 32px;
-  font-size: 14px;
+    padding: 10px 32px;
+    font-size: 14px;
 }
 
 .form-title {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 .form-input {
-  width: 100%;
-  height: 42px;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid rgba($color: #000000, $alpha: 0.2);
+    width: 100% !important;
+    height: 48px !important;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid rgba($color: #000000, $alpha: 0.2);
 
-  &:focus {
-    outline: none;
-  }
+    &:focus {
+        outline: none;
+    }
 }
 
 .form-textarea {
-  width: 100%;
-  height: 100px !important;
-  padding: 10px 16px;
-  font-size: 16px;
-  border: 1px solid rgba($color: #000000, $alpha: 0.2);
+    width: 100%;
+    height: 100px !important;
+    padding: 10px 16px;
+    font-size: 16px;
+    border: 1px solid rgba($color: #000000, $alpha: 0.2);
 
-  &:focus {
-    outline: none;
-  }
+    &:focus {
+        outline: none;
+    }
+}
+
+.Btn {
+    width: 130px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(15, 15, 15);
+    border: none;
+    color: white;
+    font-weight: 600;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition-duration: 0.3s;
+}
+
+.svgIcon {
+    width: 16px;
+}
+
+.svgIcon path {
+    fill: white;
+}
+
+.Btn::before {
+    width: 130px;
+    height: 130px;
+    position: absolute;
+    content: '';
+    background-color: white;
+    border-radius: 50%;
+    left: -100%;
+    top: 0;
+    transition-duration: 0.3s;
+    mix-blend-mode: difference;
+}
+
+.Btn:hover::before {
+    transition-duration: 0.3s;
+    transform: translate(100%, -50%);
+    border-radius: 0;
+}
+
+.Btn:active {
+    transform: translate(5px, 5px);
+    transition-duration: 0.3s;
 }

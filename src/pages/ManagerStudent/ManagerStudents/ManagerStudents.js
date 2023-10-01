@@ -42,11 +42,6 @@ function ManagerStudents() {
                     <option value="25">25</option>
                     <option value="50">50</option>
                 </select>
-                <Link to={routes.addStudent}>
-                    <Button className={cx('button')} primary>
-                        +
-                    </Button>
-                </Link>
             </div>
 
             <table className={cx('table')}>

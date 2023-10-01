@@ -42,7 +42,7 @@ function ManagerReport() {
 
     return (
         <div className={cx('wrapper')}>
-            <span className={cx('title')}>Danh sách sinh viên</span>
+            <span className={cx('title')}>Danh sách báo cáo</span>
 
             <div className={cx('action')}>
                 <span className={cx('show')}>Hiển thị</span>

@@ -37,39 +37,12 @@ margin-right: 10px;
 .table {
   margin-left: 32px;
   font-size: 1.6rem;
+  
 
   td,
   th {
     width: 400px;
     height: 42px;
     text-align: left;
-  }
-}
-
-.status{
-  padding: 1px 4px;
-  font-size: 14px;
-  border-radius: 10px;
-  margin-left: 4px;
-  color: #fff;
-  background-color: #0acf97;
-}
-
-.status-error {
-  padding: 1px 4px;
-  font-size: 14px;
-  border-radius: 10px;
-  margin-left: 4px;
-  color: #fff;
-  background-color: #c25858;
-}
-
-.icon-action {
-  padding: 8px;
-  cursor: pointer;
-  opacity: 0.4;
-
-  &:hover {
-    opacity: 1;
   }
 }

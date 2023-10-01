@@ -1,14 +1,14 @@
 import classNames from "classnames/bind";
 import { Button } from "bootstrap-4-react";
 
-import styles from "./ManagerBill.module.scss";
+import styles from "./ElectricityBill.module.scss";
 
 const cx = classNames.bind(styles);
 
-function ManagerBill() {
+function ElectricityBill() {
   return (
     <div className={cx("wrapper")}>
-      <span className={cx("title")}>Danh sách sinh viên</span>
+      <span className={cx("title")}>Danh sách hóa đơn</span>
 
       <div className={cx("action")}>
         <span className={cx("show")}>Hiển thị</span>
@@ -17,7 +17,6 @@ function ManagerBill() {
           <option value="25">25</option>
           <option value="50">50</option>
         </select>
-        <Button className={cx("button")} primary>+</Button>
       </div>
 
       <table className={cx("table")}>
@@ -46,4 +45,4 @@ function ManagerBill() {
   );
 }
 
-export default ManagerBill;
+export default ElectricityBill;

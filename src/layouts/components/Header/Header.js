@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import { Link } from 'react-router-dom';
-import { Button } from 'bootstrap-4-react/lib/components';
+import { Button } from 'bootstrap-4-react';
 
 import routes from '~/config/routes';
 import styles from './Header.module.scss';

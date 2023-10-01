@@ -8,7 +8,7 @@ const cx = classNames.bind(styles);
 function ManagerContract() {
   return (
     <div className={cx("wrapper")}>
-      <span className={cx("title")}>Danh sách sinh viên</span>
+      <span className={cx("title")}>Danh sách hợp đồng</span>
 
       <div className={cx("action")}>
         <span className={cx("show")}>Hiển thị</span>
@@ -17,7 +17,6 @@ function ManagerContract() {
           <option value="25">25</option>
           <option value="50">50</option>
         </select>
-        <Button className={cx("button")} primary>+</Button>
       </div>
 
       <table className={cx("table")}>

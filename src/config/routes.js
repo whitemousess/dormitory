@@ -28,10 +28,14 @@ const routes = {
   AddService: "/addService",
   EditService: "/editService/:id",
 
+  // // Bill Service and Bill electric
+  BillElectric: "/billElectric",
+  BillService: "/billService",
+
+
   // admin
   home: "/home",
   Login: "/login",
-  ManagerBill: "/managerBill",
   ManagerContract: "/managerContract",
   ManagerReport: "/managerReport",
 };

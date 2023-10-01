@@ -33,7 +33,7 @@ function RoomManager() {
 
   return (
     <div className={cx("wrapper")}>
-      <span className={cx("title")}>Danh sách sinh viên</span>
+      <span className={cx("title")}>Danh sách Phòng</span>
 
       <div className={cx("action")}>
         <span className={cx("show")}>Hiển thị</span>
@@ -42,11 +42,6 @@ function RoomManager() {
           <option value="25">25</option>
           <option value="50">50</option>
         </select>
-        <Link to={routes.AddRoom}>
-          <Button className={cx("button")} primary>
-            +
-          </Button>
-        </Link>
       </div>
 
       <table className={cx("table")}>
@@ -72,13 +67,13 @@ function RoomManager() {
                 <td>{Room.area === "0" ? "Nam" : "Nữ"}</td>
                 <td>
                   {"0/" + Room.max_number}
-                  <span className={cx("status")}>Thiếu</span>
+                  <span className={cx("status-error")}>Thiếu</span>
                 </td>
                 <td>
                   {Room.status === "0" ? (
                     <span className={cx("status")}>Hoạt động</span>
                   ) : (
-                    <span className={cx("status")}>Bảo trì</span>
+                    <span className={cx("status-error")}>Bảo trì</span>
                   )}
                 </td>
                 <td>

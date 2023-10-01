@@ -32,7 +32,7 @@ function User() {
 
   return (
     <div className={cx("wrapper")}>
-      <span className={cx("title")}>Danh sách sinh viên</span>
+      <span className={cx("title")}>Danh sách Người dùng</span>
 
       <div className={cx("action")}>
         <span className={cx("show")}>Hiển thị</span>
@@ -41,11 +41,6 @@ function User() {
           <option value="25">25</option>
           <option value="50">50</option>
         </select>
-        <Link to={routes.AddUser}>
-          <Button className={cx("button")} primary>
-            +
-          </Button>
-        </Link>
       </div>
 
       <table className={cx("table")}>
