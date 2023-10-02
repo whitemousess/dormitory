@@ -13,6 +13,17 @@ export const getAllElectric = async () => {
     }
 };
 
+export const getElectricRoom = async ({ room_id }) => {
+    try {
+        const res = await httpRequest.get(`bill-electric/get-electric-room/${room_id}`, {
+            headers: { authorization: 'Bearer ' + token },
+        });
+        return res.data.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export const getOneElectric = async ({ id }) => {
     try {
         const res = await httpRequest.get(`bill-electric/${id}/get-one-electric`, {

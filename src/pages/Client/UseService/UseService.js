@@ -43,20 +43,7 @@ function UseService() {
         const year = date.getFullYear();
         return `${hour}:${minute} - ${day}/${month}/${year}`;
     }
-
-    function sumPrice(dataClient) {
-        let totalPrice = 0;
-
-        for (const data of dataClient) {
-            if (data.id_service && data.id_service.price) {
-                const price = parseFloat(data.id_service.price);
-                totalPrice += price;
-            }
-        }
-
-        return totalPrice;
-    }
-
+    
     return (
         <div className={cx('wrapper')}>
             {dataClient.length > 0 ? (
@@ -84,13 +71,6 @@ function UseService() {
                             })}
                         </tbody>
                     </table>
-                   <span className={cx("priceBuy")}>
-                        Tổng tiền : {sumPrice(dataClient)}
-                        <button className={cx('Btn')}>
-                            Pay
-                            <PayIcon />
-                        </button>
-                   </span>
                 </>
             ) : (
                 <span className={cx('title')}>Không có dịch vụ</span>

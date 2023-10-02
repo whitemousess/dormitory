@@ -1,0 +1,81 @@
+.wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 16px;
+}
+
+.title {
+    display: block;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.table {
+    font-size: 1.6rem;
+    margin: 10px 0px;
+
+    td,
+    th {
+        width: 200px;
+        height: 42px;
+        text-align: left;
+    }
+}
+
+.Btn {
+    width: 130px;
+    height: 40px;
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(15, 15, 15);
+    border: none;
+    color: white;
+    font-weight: 600;
+    gap: 8px;
+    cursor: pointer;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    transition-duration: 0.3s;
+}
+
+.svgIcon {
+    width: 16px;
+}
+
+.svgIcon path {
+    fill: white;
+}
+
+.Btn::before {
+    width: 130px;
+    height: 130px;
+    position: absolute;
+    content: '';
+    background-color: white;
+    border-radius: 50%;
+    left: -100%;
+    top: 0;
+    transition-duration: 0.3s;
+    mix-blend-mode: difference;
+}
+
+.Btn:hover::before {
+    transition-duration: 0.3s;
+    transform: translate(100%, -50%);
+    border-radius: 0;
+}
+
+.Btn:active {
+    transform: translate(5px, 5px);
+    transition-duration: 0.3s;
+}
+
+.priceBuy {
+    font-size: 1.6rem;
+    margin: 20px 0;
+}

@@ -43,7 +43,7 @@ function AddContract() {
                             <option value="">Sinh viên</option>
                             {selectStudent.map((data) => (
                                 <option key={data._id} value={data._id}>
-                                    {data.fullName}
+                                   {data.masv} - {data.fullName}
                                 </option>
                             ))}
                         </select>

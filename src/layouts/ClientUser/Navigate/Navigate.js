@@ -40,6 +40,12 @@ function Navigate() {
         >
           Báo cáo
         </NavLink>
+        <NavLink
+          className={(nav) => cx("link-navigate", { active: nav.isActive })}
+          to={routes.Payment}
+        >
+          Thanh toán
+        </NavLink>
     </div>
   );
 }

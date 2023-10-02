@@ -4,7 +4,7 @@ import config from '~/config';
 import { ClientUser } from '~/layouts';
 
 // Router change Pages
-import { ClientStudent, Contract, Reports, Room, UseService } from '~/pages/Client';
+import { ClientStudent, Contract, Reports, Room, UseService,Payment } from '~/pages/Client';
 
 import Home from '~/pages/Home';
 import Login from '~/pages/Login';
@@ -34,6 +34,7 @@ const publicRoutes = [
     { path: config.routes.Service, component: UseService, layout: ClientUser },
     { path: config.routes.Contract, component: Contract, layout: ClientUser },
     { path: config.routes.Reports, component: Reports, layout: ClientUser },
+    { path: config.routes.Payment, component: Payment, layout: ClientUser },
 
     //   admin
     { path: config.routes.home, component: Home },

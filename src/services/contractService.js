@@ -11,6 +11,17 @@ export const getContract = async () => {
     }
 };
 
+export const getContractStudent = async () => {
+    try {
+        const res = await httpRequest.get(`contract/get-contract-student`, {
+            headers: { authorization: 'Bearer ' + token },
+        });
+        return res.data.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
 export const getLiquidation = async () => {
     try {
         const res = await httpRequest.get(`contract/get-liquidation`, {

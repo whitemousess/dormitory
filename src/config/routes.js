@@ -7,6 +7,7 @@ const routes = {
   Contract: "/contract",
   Reports: "/reports",
   Service: "/Service",
+  Payment: "/Payment",
 
   // manager
   // //student
