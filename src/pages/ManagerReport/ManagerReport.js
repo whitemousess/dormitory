@@ -19,7 +19,6 @@ function ManagerReport() {
 
     const successReport = (id) => {
         const status = {status: "1"};
-        console.log(status);
         reportService.success({id: id,data: status})
         .then((report) => window.location.reload());
     };

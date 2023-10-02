@@ -31,12 +31,17 @@ const routes = {
   // // Bill Service and Bill electric
   BillElectric: "/billElectric",
   BillService: "/billService",
+  AddElectricity: "/addElectricity",
+  EditElectricity: "/editElectricity/:id",
 
+  // // contract
+  ManagerContract: "/managerContract",
+  Liquidation: "/liquidation",
+  AddContract: "/addContract",
 
   // admin
   home: "/home",
   Login: "/login",
-  ManagerContract: "/managerContract",
   ManagerReport: "/managerReport",
 };
 

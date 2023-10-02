@@ -27,8 +27,6 @@ function EditRoom() {
     setDataRoom(newData);
   };
 
-  console.log(dataRoom);
-
   useEffect(() => {
     userService.getAllUsers().then((users) => {
       setUserManager((preV) => [...preV, ...users]);

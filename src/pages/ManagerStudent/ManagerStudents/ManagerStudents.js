@@ -7,7 +7,6 @@ import { EditIcon, ShowIcon, TrashIcon } from '~/components/Icons';
 import * as studentService from '~/services/studentService';
 import * as userService from '~/services/userService';
 import styles from './ManagerStudents.module.scss';
-import routes from '~/config/routes';
 import DeleteData from '~/components/DeleteData';
 
 const cx = classNames.bind(styles);

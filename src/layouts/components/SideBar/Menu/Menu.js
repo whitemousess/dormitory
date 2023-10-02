@@ -60,7 +60,7 @@ function Menu() {
                         <span className={cx('collapse-title')}>Hóa đơn tiền điện</span>
                     </NavLink>
 
-                    <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={routes.addStudent}>
+                    <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={routes.AddElectricity}>
                         <span className={cx('collapse-title')}>Thêm hóa đơn tiền điện</span>
                     </NavLink>
 
@@ -77,11 +77,15 @@ function Menu() {
                     <span className={cx('title')}>Quản lý hợp đồng</span>
                 </Collapse.Button>
                 <Collapse id="manager-contract" className={cx('collapse-item')} data-parent="#accordionExample">
-                    <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={routes.ManagerContract}>
+                <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={routes.ManagerContract}>
                         <span className={cx('collapse-title')}>Danh sách hợp đồng</span>
                     </NavLink>
 
-                    <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={routes.AddRoom}>
+                    <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={routes.Liquidation}>
+                        <span className={cx('collapse-title')}>Hợp đồng thanh lý</span>
+                    </NavLink>
+
+                    <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={routes.AddContract}>
                         <span className={cx('collapse-title')}>Thêm hợp đồng</span>
                     </NavLink>
                 </Collapse>

@@ -34,3 +34,14 @@ export const requestService = async ({ data }) => {
         console.log(error);
     }
 };
+
+export const deleteRequestService = async ({id}) => {
+    try {
+        const res = await httpRequest.delete(`bills/${id}/delete-bill`, {
+            headers: { authorization: 'Bearer ' + token },
+        });
+        return res.data.data;
+    } catch (error) {
+        console.log(error);
+    }
+};

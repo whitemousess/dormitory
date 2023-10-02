@@ -62,7 +62,9 @@ function RoomManager() {
               <tr key={Room._id}>
                 <td>{index + 1}</td>
                 <td>{Room.room_name}</td>
-                <td>{Room.user_id.fullName}</td>
+                <td>
+                  {Room.user_id ? Room.user_id.fullName : "Chưa có người quản lý"}
+                  </td>
                 <td>{Room.price}</td>
                 <td>{Room.area === "0" ? "Nam" : "Nữ"}</td>
                 <td>

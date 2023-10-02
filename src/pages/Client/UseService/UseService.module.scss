@@ -130,6 +130,7 @@
 .Btn {
     width: 130px;
     height: 40px;
+    margin-left: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -175,4 +176,11 @@
 .Btn:active {
     transform: translate(5px, 5px);
     transition-duration: 0.3s;
+}
+
+.priceBuy {
+    display: flex;
+    align-items: center;
+    font-size: 1.6rem;
+    margin: 20px 0;
 }

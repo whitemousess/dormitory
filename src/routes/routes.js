@@ -17,9 +17,10 @@ import { User, AddUser } from '~/pages/ManagerUser';
 // manager Services
 import { Service, AddService, EditService } from '~/pages/ManagerService';
 
-import { ElectricityBill, ServiceBill } from '~/pages/ManagerBill';
+import { ElectricityBill, ServiceBill, AddElectricity,EditElectric } from '~/pages/ManagerBill';
 
-import ManagerContract from '~/pages/ManagerContract';
+import { Contracts, Liquidation, AddContract } from '~/pages/ManagerContract';
+
 import ManagerReport from '~/pages/ManagerReport';
 
 const publicRoutes = [
@@ -55,8 +56,13 @@ const publicRoutes = [
 
     { path: config.routes.BillElectric, component: ElectricityBill },
     { path: config.routes.BillService, component: ServiceBill },
+    { path: config.routes.AddElectricity, component: AddElectricity },
+    { path: config.routes.EditElectricity, component: EditElectric },
 
-    { path: config.routes.ManagerContract, component: ManagerContract },
+    { path: config.routes.ManagerContract, component: Contracts },
+    { path: config.routes.AddContract, component: AddContract },
+    { path: config.routes.Liquidation, component: Liquidation },
+
     { path: config.routes.ManagerReport, component: ManagerReport },
 ];
 

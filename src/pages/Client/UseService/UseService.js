@@ -36,43 +36,62 @@ function UseService() {
 
     // format date
     function formatDate(date) {
+        const hour = date.getHours();
+        const minute = date.getMinutes();
         const day = date.getDate();
         const month = date.getMonth() + 1; // Tháng bắt đầu từ 0, nên cộng thêm 1
         const year = date.getFullYear();
-        return `${day}/${month}/${year}`;
+        return `${hour}:${minute} - ${day}/${month}/${year}`;
+    }
+
+    function sumPrice(dataClient) {
+        let totalPrice = 0;
+
+        for (const data of dataClient) {
+            if (data.id_service && data.id_service.price) {
+                const price = parseFloat(data.id_service.price);
+                totalPrice += price;
+            }
+        }
+
+        return totalPrice;
     }
 
     return (
         <div className={cx('wrapper')}>
             {dataClient.length > 0 ? (
-                <table className={cx('table')}>
-                    <tbody>
-                        <tr>
-                            <th>STT</th>
-                            <th>Ngày tạo</th>
-                            <th>Tên dịch vụ</th>
-                            <th>Trạng thái</th>
-                            <th></th>
-                        </tr>
-                        {dataClient.map((data, index) => {
-                            const formattedDate = formatDate(new Date(data.createdAt));
-                            return (
-                                <tr key={data._id}>
-                                    <td>{index + 1}</td>
-                                    <td>{formattedDate}</td>
-                                    <td>{data.id_service.name}</td>
-                                    <td>{data.status === '0' ? 'Chưa thanh toán' : 'Đã thanh toán'}</td>
-                                    <td>
-                                        <button className={cx('Btn')}>
-                                            Pay
-                                            <PayIcon />
-                                        </button>
-                                    </td>
-                                </tr>
-                            );
-                        })}
-                    </tbody>
-                </table>
+                <>
+                    <table className={cx('table')}>
+                        <tbody>
+                            <tr>
+                                <th>STT</th>
+                                <th>Ngày tạo</th>
+                                <th>Tên dịch vụ</th>
+                                <th>Giá</th>
+                                <th>Trạng thái</th>
+                            </tr>
+                            {dataClient.map((data, index) => {
+                                const formattedDate = formatDate(new Date(data.createdAt));
+                                return (
+                                    <tr key={data._id}>
+                                        <td>{index + 1}</td>
+                                        <td>{formattedDate}</td>
+                                        <td>{data.id_service.name}</td>
+                                        <td>{data.id_service.price}</td>
+                                        <td>{data.status === '0' ? 'Chưa thanh toán' : 'Đã thanh toán'}</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                   <span className={cx("priceBuy")}>
+                        Tổng tiền : {sumPrice(dataClient)}
+                        <button className={cx('Btn')}>
+                            Pay
+                            <PayIcon />
+                        </button>
+                   </span>
+                </>
             ) : (
                 <span className={cx('title')}>Không có dịch vụ</span>
             )}

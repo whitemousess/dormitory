@@ -1,0 +1,62 @@
+.wrapper {
+}
+
+.title {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 64px;
+    color: #8391a2;
+}
+
+.action {
+    display: flex;
+    align-items: center;
+    height: 62px;
+
+    .button {
+        width: 100px;
+        height: 42px;
+        font-size: 20px;
+        font-weight: bold;
+        position: absolute;
+        right: 32px;
+    }
+}
+
+.success {
+    font-size: 1.4rem;
+    width: 86px;
+}
+
+.show {
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.show-select {
+    width: 72px;
+    height: 32px;
+    border: 1px solid #ccc;
+}
+
+.icon-action {
+    padding: 8px;
+    cursor: pointer;
+    opacity: 0.4;
+
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.table {
+    margin-left: 32px;
+    font-size: 1.6rem;
+
+    td,
+    th {
+        width: 400px;
+        height: 42px;
+        text-align: left;
+    }
+}

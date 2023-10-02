@@ -23,6 +23,16 @@
     }
 }
 
+.icon-action {
+  padding: 8px;
+  cursor: pointer;
+  opacity: 0.4;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
 .show{
 font-size: 16px;
 margin-right: 10px;
