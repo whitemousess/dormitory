@@ -4,7 +4,7 @@ import config from '~/config';
 import { ClientUser } from '~/layouts';
 
 // Router change Pages
-import { ClientStudent, Contract, Reports, Room, UseService,Payment } from '~/pages/Client';
+import { ClientStudent, Contract, Reports, Room, UseService, Payment } from '~/pages/Client';
 
 import Home from '~/pages/Home';
 import Login from '~/pages/Login';
@@ -17,9 +17,11 @@ import { User, AddUser } from '~/pages/ManagerUser';
 // manager Services
 import { Service, AddService, EditService } from '~/pages/ManagerService';
 
-import { ElectricityBill, ServiceBill, AddElectricity,EditElectric } from '~/pages/ManagerBill';
+import { ElectricityBill, ServiceBill, AddElectricity, EditElectric } from '~/pages/ManagerBill';
 
 import { Contracts, Liquidation, AddContract } from '~/pages/ManagerContract';
+
+import { InfoUser, EditUser } from '~/pages/InfoUser';
 
 import ManagerReport from '~/pages/ManagerReport';
 
@@ -35,6 +37,9 @@ const publicRoutes = [
     { path: config.routes.Contract, component: Contract, layout: ClientUser },
     { path: config.routes.Reports, component: Reports, layout: ClientUser },
     { path: config.routes.Payment, component: Payment, layout: ClientUser },
+
+    { path: config.routes.UserInfo, component: InfoUser, layout: null },
+    { path: config.routes.EditInfo, component: EditUser, layout: null },
 
     //   admin
     { path: config.routes.home, component: Home },

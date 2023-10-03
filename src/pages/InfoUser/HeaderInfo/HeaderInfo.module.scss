@@ -1,0 +1,65 @@
+.wrapper {
+    font-size: 1.6rem;
+
+    .title {
+        font-weight: 700;
+        line-height: 64px;
+        color: #8391a2;
+    }
+
+    .body_header {
+        height: 150px;
+        display: flex;
+        justify-content: space-between;
+        background-color: #8AAAE5;
+        padding: 16px 24px;
+        border-radius: 10px;
+    }
+}
+
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 32px;
+  }
+
+  .full-name{
+    color: #FFFFFF;
+  }
+  
+  .btn-edit {
+    position: relative;
+    font-size: 1em;
+    padding: 0.5em 1.2em;
+    background-color: #bf0426;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    border-radius: 0.5em;
+    color: #dedede;
+    box-shadow: 0.5em 0.5em 0.5em rgba(0, 0, 0, 0.3);
+}
+
+.btn-edit::before {
+    position: absolute;
+    content: '';
+    height: 0;
+    width: 0;
+    top: 0;
+    left: 0;
+    background: linear-gradient(135deg, #8AAAE5 0%, #8AAAE5 50%, rgba(150, 4, 31, 1) 50%, rgba(191, 4, 38, 1) 60%);
+    border-radius: 0 0 0.5em 0;
+    box-shadow: 0.2em 0.2em 0.2em rgba(0, 0, 0, 0.3);
+    transition: 0.3s;
+}
+
+.btn-edit:hover::before {
+    width: 1.6em;
+    height: 1.6em;
+}
+
+.btn-edit:active {
+    outline: none;
+}

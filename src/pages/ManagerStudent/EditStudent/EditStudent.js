@@ -16,12 +16,14 @@ function EditStudent() {
   const submit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("avatar", selectedFile);
-    formData.append("fullName", dataStudent.fullName);
-    formData.append("address", dataStudent.address);
-    formData.append("dob", dataStudent.dob);
-    formData.append("phone", dataStudent.phone);
-    formData.append("sex", dataStudent.sex);
+    formData.append('fullName', dataStudent.fullName);
+    formData.append('password', dataStudent.password);
+    formData.append('address', dataStudent.address);
+    formData.append('dob', dataStudent.dob);
+    formData.append('email', dataStudent.email);
+    formData.append('phone', dataStudent.phone);
+    formData.append('sex', dataStudent.sex);
+    formData.append('avatar', selectedFile);
 
     try {
       await userService.putUser({ data: formData, studentId: studentId });

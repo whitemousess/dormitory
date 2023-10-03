@@ -37,7 +37,7 @@ function Header() {
     const MENU_ITEM = () => {
         return (
             <div className={cx('menu-item')}>
-                <Link className={cx('menu-link')}>Thông tin cá nhân</Link>
+                <Link to={routes.UserInfo} className={cx('menu-link')}>Thông tin cá nhân</Link>
                 {user.role === 0 ? (
                     <Link className={cx('menu-link')} to={routes.home}>
                         Quản lý

@@ -1,0 +1,42 @@
+.wrapper {
+    font-size: 1.6rem;
+    margin: 0 24px;
+}
+
+.title {
+    width: 100%;
+    display: block;
+    font-weight: 600;
+    line-height: 72px;
+    color: #8391a2;
+    border-bottom: 1px solid #ccc;
+}
+
+.box {
+    display: flex;
+    align-items: center;
+    margin: 2rem 0;
+    color: #8391a2;
+}
+
+.label {
+    width: 16%;
+    display: block;
+    font-weight: 600;
+}
+
+.text-input {
+    height: 46px;
+    width: 50%;
+    padding: 8px 10px;
+    border-radius: 5px;
+    border: 1px solid #cccccca8;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.radio-input{
+    margin: 0 5px;
+  }

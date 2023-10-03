@@ -1,0 +1,25 @@
+.wrapper {
+    font-size: 1.6rem;
+    margin: 0 24px;
+}
+
+.title {
+    width: 100%;
+    display: block;
+    font-weight: 600;
+    line-height: 72px;
+    color: #8391a2;
+    border-bottom: 1px solid #ccc;
+}
+
+.box{
+    display: flex;
+    margin: 2rem 0;
+    color: #8391a2;
+}
+
+.label{
+    width: 16%;
+    display: block;
+    font-weight: 600;
+}

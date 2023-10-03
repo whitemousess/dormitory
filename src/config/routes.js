@@ -40,10 +40,17 @@ const routes = {
   Liquidation: "/liquidation",
   AddContract: "/addContract",
 
+  // // Report
+  ManagerReport: "/managerReport",
+
+  // USER INFO
+  UserInfo: "/userInfo",  
+  EditInfo: "/editInfo",  
+
   // admin
   home: "/home",
   Login: "/login",
-  ManagerReport: "/managerReport",
+
 };
 
 export default routes;
