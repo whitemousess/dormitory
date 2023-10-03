@@ -53,7 +53,6 @@ function AddService() {
                             value={data.description || ''}
                             onChange={(e) => handle(e)}
                             placeholder="Mô tả ..."
-                            required
                         />
                     </div>
 

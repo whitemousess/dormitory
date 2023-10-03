@@ -13,46 +13,34 @@ function Payment() {
     const [dataContract, setDataContract] = useState([]);
     const [dataService, setDataService] = useState([]);
     const [dataElectric, setDataElectric] = useState([]);
-    const [mergedData, setMergedData] = useState({});
-    const [totalPrice, setTotalPrice] = useState(0);
 
     useEffect(() => {
-        contractService.getContractStudent().then((contractStudent) => {
-            setDataContract(contractStudent);
-            if (contractStudent) {
-                billElectricService.getElectricRoom({room_id: contractStudent.room_id._id}).then((electric) => setDataElectric(electric));
-            }
-        });
+        billElectricService.getElectricRoom().then((electric) => setDataElectric(electric));
+        contractService.getContractStudent().then((contractStudent) => setDataContract(contractStudent));
         billService.getServiceUser().then((service) => setDataService(service));
     }, []);
 
-    useEffect(() => {
-        // Tạo đối tượng để lưu trữ dữ liệu gộp và tổng tiền
-        const mergedDataObject = {};
-
-        // Tính tổng tiền và gộp dữ liệu
-        let total = 0;
-        // Cộng giá tiền phòng nếu có
+    const totalRoom = () => {
+        let totalPrice = 0;
         if (dataContract && dataContract.room_id) {
-            total += parseFloat(dataContract.room_id.price);
+            totalPrice = parseInt(dataContract.room_id.price);
+            return totalPrice;
+        } else {
+            return 0;
         }
-        
-        dataService.forEach((data) => {
-            const serviceName = data.id_service.name;
-            const servicePrice = parseFloat(data.id_service.price);
+    };
 
-            if (!mergedDataObject[serviceName]) {
-                mergedDataObject[serviceName] = 0;
-            }
-
-            mergedDataObject[serviceName] += servicePrice;
-            total += servicePrice;
-        });
-
-        // Cập nhật state với dữ liệu gộp và tổng tiền
-        setMergedData(mergedDataObject);
-        setTotalPrice(total);
-    }, [dataService]);
+    const totalService = () => {
+        let totalPrice = 0;
+        if (dataService) {
+            dataService.map((data) => {
+                totalPrice += parseInt(data.id_service.price);
+            });
+            return totalPrice;
+        } else {
+            return 0;
+        }
+    };
 
     const totalElectric = () => {
         if (
@@ -87,10 +75,10 @@ function Payment() {
                         </tr>
                     </thead>
                     <tbody>
-                        {dataContract && dataContract.room_id && (
+                        {totalRoom() > 0 && (
                             <tr>
                                 <td>Tiền phòng</td>
-                                <td>{dataContract.room_id.price}</td>
+                                <td>{totalRoom()}</td>
                             </tr>
                         )}
                         {totalElectric() > 0 && (
@@ -100,17 +88,17 @@ function Payment() {
                             </tr>
                         )}
 
-                        {Object.entries(mergedData).map(([serviceName, servicePrice]) => (
-                            <tr key={serviceName}>
+                        {totalService() > 0 && (
+                            <tr>
                                 <td>Dịch vụ</td>
-                                <td>{servicePrice}</td>
+                                <td>{totalService()}</td>
                             </tr>
-                        ))}
+                        )}
                     </tbody>
                 </table>
             </div>
             <span className={cx('priceBuy')}>
-                Tổng tiền : {totalPrice + totalElectric()}
+                Tổng tiền : {totalRoom() + totalElectric() + totalService()}
                 <button className={cx('Btn')}>
                     Pay
                     <PayIcon />

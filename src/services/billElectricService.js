@@ -13,9 +13,9 @@ export const getAllElectric = async () => {
     }
 };
 
-export const getElectricRoom = async ({ room_id }) => {
+export const getElectricRoom = async () => {
     try {
-        const res = await httpRequest.get(`bill-electric/get-electric-room/${room_id}`, {
+        const res = await httpRequest.get(`bill-electric/get-electric-room`, {
             headers: { authorization: 'Bearer ' + token },
         });
         return res.data.data;
