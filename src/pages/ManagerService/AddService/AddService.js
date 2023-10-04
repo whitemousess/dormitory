@@ -26,6 +26,12 @@ function AddService() {
         setData(newData);
     }
 
+    function handleConvert(e) {
+        const newData = { ...data };
+        newData[e.target.name] = parseInt(e.target.value);
+        setData(newData);
+    }
+
     return (
         <div className={cx('wrapper')}>
             <span className={cx('title')}>Thêm dịch vụ </span>
@@ -62,7 +68,7 @@ function AddService() {
                             className={cx('text-input')}
                             name="price"
                             value={data.price || ''}
-                            onChange={(e) => handle(e)}
+                            onChange={(e) => handleConvert(e)}
                             placeholder="Giá dịch vụ ..."
                             required
                         />
@@ -71,14 +77,14 @@ function AddService() {
                     <div className={cx('form-input')}>
                         <label>Trạng thái</label>
                         <select
-                            onChange={(e) => handle(e)}
+                            onChange={(e) => handleConvert(e)}
                             value={data.status}
                             name="status"
                             className={cx('text-input')}
                             required
                         >
-                            <option value={'0'}>Hoạt động</option>
-                            <option value={'1'}>Bảo trì</option>
+                            <option value={0}>Hoạt động</option>
+                            <option value={1}>Bảo trì</option>
                         </select>
                     </div>
 

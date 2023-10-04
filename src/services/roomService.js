@@ -7,7 +7,7 @@ export const getRoomManager = async () => {
     const res = await httpRequest.get("rooms/get-manager-room", {
       headers: { authorization: "Bearer " + token },
     });
-    return res.data;
+    return res.data.data;
   } catch (error) {
     console.log(error);
   }

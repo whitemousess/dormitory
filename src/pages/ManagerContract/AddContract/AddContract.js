@@ -41,22 +41,28 @@ function AddContract() {
                     <div className={cx('form-input')}>
                         <select onChange={(e) => handle(e)} name="masv" className={cx('text-input')} required>
                             <option value="">Sinh viên</option>
-                            {selectStudent.map((data) => (
-                                <option key={data._id} value={data._id}>
-                                   {data.masv} - {data.fullName}
-                                </option>
-                            ))}
+                            {selectStudent.map(
+                                (data) =>
+                                    data.count_contract.length === 0 && (
+                                        <option key={data._id} value={data._id}>
+                                            {data.masv} - {data.fullName}
+                                        </option>
+                                    ),
+                            )}
                         </select>
                     </div>
 
                     <div className={cx('form-input')}>
                         <select onChange={(e) => handle(e)} name="room_id" className={cx('text-input')} required>
                             <option value="">Phòng</option>
-                            {selectRoom.map((data) => (
-                                <option key={data._id} value={data._id}>
-                                    {data.room_name}
-                                </option>
-                            ))}
+                            {selectRoom.map(
+                                (data) =>
+                                    data.status === 0 && (
+                                        <option key={data._id} value={data._id}>
+                                            {data.room_name}
+                                        </option>
+                                    ),
+                            )}
                         </select>
                     </div>
 

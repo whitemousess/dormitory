@@ -26,6 +26,12 @@ function EditRoom() {
     newData[e.target.name] = e.target.value;
     setDataRoom(newData);
   };
+  
+  function handleConvert(e) {
+    const newData = { ...dataRoom };
+    newData[e.target.name] = parseInt(e.target.value);
+    setDataRoom(newData);
+  }
 
   useEffect(() => {
     userService.getAllUsers().then((users) => {
@@ -58,14 +64,14 @@ function EditRoom() {
           <div className={cx("form-input")}>
             <label>Khu</label>
             <select
-              onChange={(e) => handle(e)}
+              onChange={(e) => handleConvert(e)}
               value={dataRoom.area}
               name="area"
               className={cx("text-input")}
               required
             >
-              <option value={"0"}>Nam</option>
-              <option value={"1"}>Nữ</option>
+              <option value={0}>Nam</option>
+              <option value={1}>Nữ</option>
             </select>
           </div>
           <div className={cx("form-input")}>
@@ -90,7 +96,7 @@ function EditRoom() {
               className={cx("text-input")}
               name="price"
               value={dataRoom.price || ""}
-              onChange={(e) => handle(e)}
+              onChange={(e) => handleConvert(e)}
               placeholder="Giá phòng ..."
               required
             />
@@ -102,14 +108,14 @@ function EditRoom() {
               className={cx("text-input")}
               name="max_number"
               value={dataRoom.max_number || 0}
-              onChange={(e) => handle(e)}
+              onChange={(e) => handleConvert(e)}
               required
             />
           </div>
           <div className={cx("form-input")}>
             <label>Trạng thái</label>
             <select
-              onChange={(e) => handle(e)}
+              onChange={(e) => handleConvert(e)}
               value={dataRoom.status}
               name="status"
               className={cx("text-input")}

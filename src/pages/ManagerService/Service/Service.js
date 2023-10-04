@@ -62,7 +62,7 @@ function Service() {
                             <td>{data.description}</td>
                             <td>{data.price}</td>
                             <td>
-                                {data.status === '0' ? (
+                                {data.status === 0 ? (
                                     <span className={cx('status')}>Hoạt động</span>
                                 ) : (
                                     <span className={cx('status-error')}>Bảo trì</span>

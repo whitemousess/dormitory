@@ -25,6 +25,12 @@ function AddRoom() {
     newData[e.target.name] = e.target.value;
     setData(newData);
   }
+
+  function handleConvert(e) {
+    const newData = { ...data };
+    newData[e.target.name] = parseInt(e.target.value);
+    setData(newData);
+  }
   
   useEffect(() => {
     userService.getAllUsers().then((users) => {
@@ -53,14 +59,14 @@ function AddRoom() {
           <div className={cx("form-input")}>
             <label>Khu</label>
             <select
-              onChange={(e) => handle(e)}
+              onChange={(e) => handleConvert(e)}
               name="area"
               className={cx("text-input")}
               required
             >
               <option value="">Khu vực nam nữ</option>
-              <option value={"0"}>Nam</option>
-              <option value={"1"}>Nữ</option>
+              <option value={0}>Nam</option>
+              <option value={1}>Nữ</option>
             </select>
           </div>
           <div className={cx("form-input")}>
@@ -86,7 +92,7 @@ function AddRoom() {
               className={cx("text-input")}
               name="price"
               value={data.price || ""}
-              onChange={(e) => handle(e)}
+              onChange={(e) => handleConvert(e)}
               placeholder="Giá phòng ..."
               required
             />
@@ -97,22 +103,22 @@ function AddRoom() {
               type="number"
               className={cx("text-input")}
               name="max_number"
-              value={data.max_number || "0"}
-              onChange={(e) => handle(e)}
+              value={data.max_number || 0}
+              onChange={(e) => handleConvert(e)}
               required
             />
           </div>
           <div className={cx("form-input")}>
             <label>Trạng thái</label>
             <select
-              onChange={(e) => handle(e)}
+              onChange={(e) => handleConvert(e)}
               value={data.status}
               name="status"
               className={cx("text-input")}
               required
             >
-              <option value={"0"}>Hoạt động</option>
-              <option value={"1"}>Bảo trì</option>
+              <option value={0}>Hoạt động</option>
+              <option value={1}>Bảo trì</option>
             </select>
           </div>
 

@@ -28,6 +28,12 @@ function EditService() {
         setDataService(newData);
     };
 
+    const handleConvert = (e) => {
+        const newData = { ...dataService };
+        newData[e.target.name] = parseInt(e.target.value);
+        setDataService(newData);
+    };
+
     useEffect(() => {
         serviceService
             .getServiceId(Id)
@@ -75,7 +81,7 @@ function EditService() {
                             className={cx('text-input')}
                             name="price"
                             value={dataService.price || ''}
-                            onChange={(e) => handle(e)}
+                            onChange={(e) => handleConvert(e)}
                             placeholder="Giá dịch vụ ..."
                             required
                         />
@@ -84,14 +90,14 @@ function EditService() {
                     <div className={cx('form-input')}>
                         <label>Trạng thái</label>
                         <select
-                            onChange={(e) => handle(e)}
+                            onChange={(e) => handleConvert(e)}
                             value={dataService.status}
                             name="status"
                             className={cx('text-input')}
                             required
                         >
-                            <option value={'0'}>Hoạt động</option>
-                            <option value={'1'}>Bảo trì</option>
+                            <option value={0}>Hoạt động</option>
+                            <option value={1}>Bảo trì</option>
                         </select>
                     </div>
                     <div className={cx('svg-wrapper-1')}>
