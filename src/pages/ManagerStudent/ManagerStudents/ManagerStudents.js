@@ -127,7 +127,7 @@ function ManagerStudents() {
                                     <strong>Họ và tên: </strong> {oneDataStudent.fullName}
                                 </div>
                                 <div className={cx('modal-info')}>
-                                    <strong>Giới tính:</strong> {oneDataStudent.sex === 0 ? 'nam' : 'nữ'}
+                                    <strong>Giới tính:</strong> {oneDataStudent.gender === 0 ? 'nam' : 'nữ'}
                                 </div>
                                 <div className={cx('modal-info')}>
                                     <strong>Ngày sinh:</strong> {oneDataStudent.dob}

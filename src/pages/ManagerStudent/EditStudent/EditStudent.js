@@ -22,7 +22,7 @@ function EditStudent() {
     formData.append('dob', dataStudent.dob);
     formData.append('email', dataStudent.email);
     formData.append('phone', dataStudent.phone);
-    formData.append('sex', dataStudent.sex);
+    formData.append('gender', dataStudent.gender);
     formData.append('avatar', selectedFile);
 
     try {
@@ -100,10 +100,10 @@ function EditStudent() {
                 className={cx("radio-input")}
                 type="radio"
                 id="male"
-                name="sex"
+                name="gender"
                 value={0}
                 onChange={(e) => handleGender(e, 0)}
-                checked={dataStudent.sex === 0}
+                checked={dataStudent.gender === 0}
                 required
               />
               <label htmlFor="male">Nam</label>
@@ -111,10 +111,10 @@ function EditStudent() {
                 className={cx("radio-input")}
                 type="radio"
                 id="female"
-                name="sex"
+                name="gender"
                 value={1}
                 onChange={(e) => handleGender(e, 1)}
-                checked={dataStudent.sex === 1}
+                checked={dataStudent.gender === 1}
                 required
               />
               <label htmlFor="female">Nữ</label>

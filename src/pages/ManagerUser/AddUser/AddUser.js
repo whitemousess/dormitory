@@ -28,7 +28,7 @@ function AddUser() {
         formData.append('address', data.address);
         formData.append('dob', data.dob);
         formData.append('phone', data.phone);
-        formData.append('sex', data.sex);
+        formData.append('gender', data.gender);
         formData.append('role', '0');
         try {
             const res = await userService.postUser(formData);
@@ -109,7 +109,7 @@ function AddUser() {
                                 className={cx('radio-input')}
                                 type="radio"
                                 id="male"
-                                name="sex"
+                                name="gender"
                                 onChange={(e) => handle(e)}
                                 value={0}
                                 required
@@ -119,7 +119,7 @@ function AddUser() {
                                 className={cx('radio-input')}
                                 type="radio"
                                 id="female"
-                                name="sex"
+                                name="gender"
                                 onChange={(e) => handle(e)}
                                 value={1}
                                 required

@@ -23,7 +23,7 @@ function AddStudent() {
     formData.append("address", data.address);
     formData.append("dob", data.dob);
     formData.append("phone", data.phone);
-    formData.append("sex", data.sex);
+    formData.append("gender", data.gender);
     try {
       await userService.postUser(formData);
       window.location = routes.ManagerStudent;
@@ -76,7 +76,7 @@ function AddStudent() {
                 className={cx("radio-input")}
                 type="radio"
                 id="male"
-                name="sex"
+                name="gender"
                 onChange={(e) => handle(e)}
                 value={0}
                 required
@@ -86,7 +86,7 @@ function AddStudent() {
                 className={cx("radio-input")}
                 type="radio"
                 id="female"
-                name="sex"
+                name="gender"
                 onChange={(e) => handle(e)}
                 value={1}
                 required

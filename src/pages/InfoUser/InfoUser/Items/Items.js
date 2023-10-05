@@ -18,7 +18,7 @@ function Items({ data }) {
             </div>
             <div className={cx('box')}>
                 <label className={cx('label')}>Giới tính : </label>
-                <label>{data.sex === 0 ? "Nam" : "Nữ"}</label>
+                <label>{data.gender === 0 ? "Nam" : "Nữ"}</label>
             </div>
             <div className={cx('box')}>
                 <label className={cx('label')}>Ngày sinh : </label>

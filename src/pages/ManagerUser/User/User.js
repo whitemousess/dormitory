@@ -111,7 +111,7 @@ function User() {
                 </div>
                 <div className={cx("modal-info")}>
                   <strong>Giới tính:</strong>{" "}
-                  {oneDataStudent.sex === 0 ? "nam" : "nữ"}
+                  {oneDataStudent.gender === 0 ? "nam" : "nữ"}
                 </div>
                 <div className={cx("modal-info")}>
                   <strong>Ngày sinh:</strong> {oneDataStudent.dob}

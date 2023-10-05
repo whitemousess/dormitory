@@ -13,6 +13,7 @@ const cx = classNames.bind(styles);
 function AddContract() {
     const [data, setData] = useState({});
     const [selectStudent, setSelectStudent] = useState([]);
+    const [area, setArea] = useState('');
     const [selectRoom, setSelectRoom] = useState([]);
 
     const submit = async (e) => {
@@ -24,6 +25,14 @@ function AddContract() {
         const newData = { ...data };
         newData[e.target.name] = e.target.value;
         setData(newData);
+    }
+
+    function handleSelect(e) {
+        const selectedValue = e.target.value;
+        const [selectedId, selectedGender] = selectedValue.split(',');
+        const newData = { masv: selectedId };
+        setData(newData);
+        setArea(parseInt(selectedGender));
     }
 
     useEffect(() => {
@@ -39,30 +48,41 @@ function AddContract() {
 
                 <form onSubmit={(e) => submit(e)} className={cx('content-right')}>
                     <div className={cx('form-input')}>
-                        <select onChange={(e) => handle(e)} name="masv" className={cx('text-input')} required>
+                        <select onChange={(e) => handleSelect(e)} name="masv" className={cx('text-input')} required>
                             <option value="">Sinh viên</option>
-                            {selectStudent.map(
-                                (data) =>
-                                    data.count_contract.length === 0 && (
-                                        <option key={data._id} value={data._id}>
+                            {selectStudent.map((data) => {
+                                if (
+                                    data.count_contract.length === 0 ||
+                                    data.count_contract.every((contract) => contract.liquidation === 1)
+                                ) {
+                                    return (
+                                        <option key={data._id} value={`${data._id},${data.gender}`}>
                                             {data.masv} - {data.fullName}
                                         </option>
-                                    ),
-                            )}
+                                    );
+                                }
+                                return null;
+                            })}
                         </select>
                     </div>
 
                     <div className={cx('form-input')}>
                         <select onChange={(e) => handle(e)} name="room_id" className={cx('text-input')} required>
                             <option value="">Phòng</option>
-                            {selectRoom.map(
-                                (data) =>
-                                    data.status === 0 && (
+                            {selectRoom.map((data) => {
+                                const countStudentsWithLiquidationZero = data.count_students.filter(
+                                    (student) => student.liquidation === 0,
+                                ).length;
+                                return (
+                                    data.status === 0 &&
+                                    countStudentsWithLiquidationZero < data.max_number &&
+                                    data.area === area && (
                                         <option key={data._id} value={data._id}>
-                                            {data.room_name}
+                                            {data.room_name} - Phòng cho {data.area === 0 ? 'Nam' : 'Nữ'}
                                         </option>
-                                    ),
-                            )}
+                                    )
+                                );
+                            })}
                         </select>
                     </div>
 

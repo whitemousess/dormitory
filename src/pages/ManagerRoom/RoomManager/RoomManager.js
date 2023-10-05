@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Button } from 'bootstrap-4-react';
 import { Modal } from 'bootstrap-4-react/lib/components';
 
-import routes from '~/config/routes';
 import DeleteData from '~/components/DeleteData';
 import styles from './RoomManager.module.scss';
 import * as roomService from '~/services/roomService';
@@ -57,17 +56,19 @@ function RoomManager() {
 
                     {dataRoom.length > 0 ? (
                         dataRoom.map((Room, index) => {
-                            const countStudentsWithLiquidationZero = Room.count_students.filter(student => student.liquidation === 0).length;
+                            const countStudentsWithLiquidationZero = Room.count_students.filter(
+                                (student) => student.liquidation === 0,
+                            ).length;
                             return (
                                 <tr key={Room._id}>
                                     <td>{index + 1}</td>
                                     <td>{Room.room_name}</td>
-                                    <td>{Room.user_id ? Room.user_id.fullName : 'Chưa có người quản lý'}</td>
+                                    <td>{Room.user_data ? Room.user_data[0].fullName : 'Chưa có người quản lý'}</td>
                                     <td>{Room.price}</td>
                                     <td>{Room.area === 0 ? 'Nam' : 'Nữ'}</td>
                                     <td>
                                         {countStudentsWithLiquidationZero + '/' + Room.max_number}
-                                        {Room.count_students.length === Room.max_number ? (
+                                        {countStudentsWithLiquidationZero === Room.max_number ? (
                                             <span className={cx('status')}>Đủ</span>
                                         ) : (
                                             <span className={cx('status-error')}>Thiếu</span>
@@ -82,7 +83,7 @@ function RoomManager() {
                                     </td>
                                     <td>
                                         <span
-                                            onClick={() => setOneDataStudent(Room)}
+                                            onClick={() => setOneDataStudent(Room.info_student)}
                                             data-toggle="modal"
                                             data-target="#show-data"
                                         >
@@ -129,23 +130,14 @@ function RoomManager() {
                                 </Modal.Close>
                             </Modal.Header>
                             <Modal.Body>
-                                <div className={cx('modal-info')}>
-                                    <strong>Tên phòng:</strong> {oneDataStudent.room_name}
-                                </div>
-                                <div className={cx('modal-info')}>
-                                    <strong>Người quản lý: </strong>
-                                    {oneDataStudent ? oneDataStudent.user_id.fullName : null}
-                                </div>
-                                <div className={cx('modal-info')}>
-                                    <strong>Giá phòng:</strong> {oneDataStudent.price}
-                                </div>
-                                <div className={cx('modal-info')}>
-                                    <strong>Khu vực dành cho:</strong> {oneDataStudent.area === 0 ? 'Nam' : 'Nữ'}
-                                </div>
-                                <div className={cx('modal-info')}>
-                                    <strong>Trạng thái:</strong>{' '}
-                                    {oneDataStudent.status === '0' ? 'Hoạt động' : 'Bảo trì'}
-                                </div>
+                                {console.log(oneDataStudent)}
+                                {oneDataStudent &&
+                                    oneDataStudent.map((data) => (
+                                        <div key={data._id} className={cx('modal-info')}>
+                                            <img className={cx('avatar')} src={data.avatarUrl} alt='' />
+                                            {data.fullName}
+                                        </div>
+                                    ))}
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button secondary className={cx('btn-modal')} data-dismiss="modal">

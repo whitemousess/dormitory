@@ -59,6 +59,7 @@ function AddElectricity() {
                         <label>Số điện đầu tiên</label>
                         <input
                             type="number"
+                            min="0"
                             className={cx('text-input')}
                             name="e_first"
                             value={data.e_first || ''}
@@ -71,6 +72,7 @@ function AddElectricity() {
                         <label>Số điện cuối</label>
                         <input
                             type="number"
+                            min="0"
                             className={cx('text-input')}
                             name="e_last"
                             value={data.e_last || ''}
@@ -83,6 +85,7 @@ function AddElectricity() {
                         <label>Số tiền trên 1 số</label>
                         <input
                             type="number"
+                            min="0"
                             className={cx('text-input')}
                             name="price_per_e"
                             value={data.price_per_e || ''}
@@ -95,6 +98,7 @@ function AddElectricity() {
                         <label>Số nước đầu tiên</label>
                         <input
                             type="number"
+                            min="0"
                             className={cx('text-input')}
                             name="w_first"
                             value={data.w_first || ''}
@@ -107,6 +111,7 @@ function AddElectricity() {
                         <label>Số nước cuối</label>
                         <input
                             type="number"
+                            min="0"
                             className={cx('text-input')}
                             name="w_last"
                             value={data.w_last || ''}
@@ -119,6 +124,7 @@ function AddElectricity() {
                         <label>Số tiền trên 1 số</label>
                         <input
                             type="number"
+                            min="0"
                             className={cx('text-input')}
                             name="price_per_w"
                             value={data.price_per_w || ''}

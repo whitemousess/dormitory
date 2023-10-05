@@ -105,6 +105,7 @@ function EditRoom() {
             <label>Số người 1 phòng</label>
             <input
               type="number"
+              min="0"
               className={cx("text-input")}
               name="max_number"
               value={dataRoom.max_number || 0}

@@ -47,7 +47,7 @@ function ElectricityBill() {
                 <thead>
                     <tr>
                         <th>STT</th>
-                        <th>Mã hóa đơn</th>
+                        <th>Phòng</th>
                         <th>Số điện sử dụng</th>
                         <th>Số nước sử dụng</th>
                         <th>Từ ngày</th>
@@ -61,7 +61,7 @@ function ElectricityBill() {
                         dataElectric.map((data, index) => (
                             <tr key={data._id}>
                                 <td>{index + 1}</td>
-                                <td>{data._id}</td>
+                                <td>{data.room_id ? data.room_id.room_name : "Cập nhật số phòng!"}</td>
                                 <td>{data.e_last - data.e_first}</td>
                                 <td>{data.w_last - data.w_first}</td>
                                 <td>{data.date_start}</td>

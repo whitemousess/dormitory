@@ -45,6 +45,7 @@ function Payment() {
     const totalElectric = () => {
         if (
             dataElectric &&
+            dataElectric.status === 0 &&
             dataElectric.e_last !== null &&
             dataElectric.w_last !== null &&
             dataElectric.price_per_e !== null &&

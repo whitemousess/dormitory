@@ -26,7 +26,7 @@ function EditItem() {
         formData.append('dob', dataUser.dob);
         formData.append('email', dataUser.email);
         formData.append('phone', dataUser.phone);
-        formData.append('sex', dataUser.sex);
+        formData.append('gender', dataUser.gender);
         formData.append('avatar', selectedFile);
 
         try {
@@ -91,10 +91,10 @@ function EditItem() {
                             className={cx('radio-input')}
                             type="radio"
                             id="male"
-                            name="sex"
+                            name="gender"
                             value={0}
                             onChange={(e) => handleGender(e, 0)}
-                            checked={dataUser.sex === 0}
+                            checked={dataUser.gender === 0}
                             required
                         />
                         <label htmlFor="male">Nam</label>
@@ -102,10 +102,10 @@ function EditItem() {
                             className={cx('radio-input')}
                             type="radio"
                             id="female"
-                            name="sex"
+                            name="gender"
                             value={1}
                             onChange={(e) => handleGender(e, 1)}
-                            checked={dataUser.sex === 1}
+                            checked={dataUser.gender === 1}
                             required
                         />
                         <label htmlFor="female">Nữ</label>
