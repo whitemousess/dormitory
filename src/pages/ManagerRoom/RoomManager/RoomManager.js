@@ -24,6 +24,10 @@ function RoomManager() {
             .catch((error) => console.log(error));
     }
 
+    const studentInRoom = (id) => {
+        roomService.getStudentInRoom({ room_id: id }).then((roomData) => setOneDataStudent(roomData));
+    };
+
     useEffect(() => {
         roomService.getRoomManager().then((Room) => setDataRoom((preV) => [...preV, ...Room]));
     }, []);
@@ -83,7 +87,7 @@ function RoomManager() {
                                     </td>
                                     <td>
                                         <span
-                                            onClick={() => setOneDataStudent(Room.info_student)}
+                                            onClick={() => studentInRoom(Room._id)}
                                             data-toggle="modal"
                                             data-target="#show-data"
                                         >
@@ -130,14 +134,18 @@ function RoomManager() {
                                 </Modal.Close>
                             </Modal.Header>
                             <Modal.Body>
-                                {console.log(oneDataStudent)}
-                                {oneDataStudent &&
+                                {oneDataStudent.length > 0 ? (
                                     oneDataStudent.map((data) => (
                                         <div key={data._id} className={cx('modal-info')}>
-                                            <img className={cx('avatar')} src={data.avatarUrl} alt='' />
-                                            {data.fullName}
+                                            <img className={cx('avatar')} src={data.masv.avatarUrl} alt="" />
+                                            {data.masv.fullName}
                                         </div>
-                                    ))}
+                                    ))
+                                ) : (
+                                    <div className={cx('modal-info')}>
+                                        Chưa có ai trong phòng 
+                                    </div>
+                                )}
                             </Modal.Body>
                             <Modal.Footer>
                                 <Button secondary className={cx('btn-modal')} data-dismiss="modal">

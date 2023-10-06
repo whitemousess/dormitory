@@ -6,6 +6,7 @@ import * as contractService from '~/services/contractService';
 import * as billService from '~/services/billService';
 import * as billElectricService from '~/services/billElectricService';
 import { PayIcon } from '~/components/Icons';
+import { Modal } from 'bootstrap-4-react/lib/components';
 
 const cx = classNames.bind(styles);
 

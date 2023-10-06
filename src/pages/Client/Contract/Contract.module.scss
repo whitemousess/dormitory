@@ -1,10 +1,46 @@
 .wrapper {
 }
-.title {
+
+.header{
+  margin: 32px 0;
+  text-align: center;
+}
+
+.date{
+  font-size: 16px;
   display: flex;
-  justify-content: center;
-  color: #8ecddd;
-  line-height: 72px;
-  font-weight: 700;
-  font-size: 3.2rem;
+  justify-content: end;
+}
+
+h2 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Phần thông tin bên A */
+h3 {
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+/* Phần thông tin chi tiết */
+.p {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+/* Chữ ký */
+.div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Chữ ký của Bên A và Bên B */
+.div {
+    .p {
+        width: 45%; /* Điều chỉnh chiều rộng của mỗi chữ ký */
+        text-align: center;
+    }
 }
