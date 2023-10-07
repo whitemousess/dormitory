@@ -35,7 +35,7 @@ function EditElectric() {
 
     useEffect(() => {
         billElectricService.getOneElectric({ id: Id }).then((electric) => setData(electric));
-        roomService.getRoomManager().then((roomManager) => setSelectRoom(roomManager));
+        roomService.getRoomManager({ page: 1 }).then((roomManager) => setSelectRoom(roomManager.data));
     }, []);
 
     return (

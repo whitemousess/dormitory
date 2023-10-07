@@ -33,8 +33,8 @@ function AddRoom() {
   }
   
   useEffect(() => {
-    userService.getAllUsers().then((users) => {
-      setUserManager((preV) => [...preV, ...users]);
+    userService.getAllUsers({page: 1}).then((users) => {
+      setUserManager((preV) => [...preV, ...users.data]);
     });
   }, []);
 

@@ -36,8 +36,8 @@ function AddContract() {
     }
 
     useEffect(() => {
-        studentService.getStudents().then((students) => setSelectStudent(students));
-        roomService.getRoomManager().then((roomManager) => setSelectRoom(roomManager));
+        studentService.getStudents({page:1}).then((students) => setSelectStudent(students.data));
+        roomService.getRoomManager({page:1}).then((roomManager) => setSelectRoom(roomManager.data));
     }, []);
 
     return (

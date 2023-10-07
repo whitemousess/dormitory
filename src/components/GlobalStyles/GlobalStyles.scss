@@ -33,6 +33,10 @@ html {
 a {
   text-decoration: none !important;
   color: #8391a2 !important;
+
+  &:hover{
+    color: #ccc !important;
+  }
 }
 
 select{

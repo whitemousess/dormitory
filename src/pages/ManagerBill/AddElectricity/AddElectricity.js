@@ -34,7 +34,7 @@ function AddElectricity() {
     }
 
     useEffect(() => {
-        roomService.getRoomManager().then((roomManager) => setSelectRoom(roomManager));
+        roomService.getRoomManager({page: 1}).then((roomManager) => setSelectRoom(roomManager.data));
     }, []);
 
     return (
