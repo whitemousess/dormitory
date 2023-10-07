@@ -13,30 +13,30 @@ function Home() {
     const [dataRoom, setDataRoom] = useState([]);
 
     useEffect(() => {
-        studentService.getStudents().then((student) => setDataStudent(student));
-        userService.getAllUsers().then((user) => setDataUser(user));
-        roomService.getRoomManager().then((user) => setDataRoom(user));
+        studentService.getStudents({page: 1}).then((student) => setDataStudent(student.data));
+        userService.getAllUsers({page: 1}).then((user) => setDataUser(user.data));
+        roomService.getRoomManager({page: 1}).then((user) => setDataRoom(user.data));
     }, []);
 
     function countRoomEmpty() {
-      var count = 0;
-      for (const room of dataRoom) {
-          if (room.count_students.length === 0) {
-              count++;
-          }
-      }
-      return count;
-  }
-
-  function countRoomFull() {
-    var count = 0;
-    for (const room of dataRoom) {
-        if (room.count_students.length < room.max_number) {
-            count++;
+        var count = 0;
+        for (const room of dataRoom) {
+            if (room.count_students.length === 0) {
+                count++;
+            }
         }
+        return count;
     }
-    return count;
-}
+
+    function countRoomFull() {
+        var count = 0;
+        for (const room of dataRoom) {
+            if (room.count_students.length < room.max_number) {
+                count++;
+            }
+        }
+        return count;
+    }
 
     return (
         <div className={cx('wrapper')}>

@@ -8,6 +8,7 @@ import DeleteData from '~/components/DeleteData';
 import styles from './RoomManager.module.scss';
 import * as roomService from '~/services/roomService';
 import { EditIcon, ShowIcon, TrashIcon } from '~/components/Icons';
+import routes from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
@@ -15,6 +16,32 @@ function RoomManager() {
     const [dataRoom, setDataRoom] = useState([]);
     const [deleteId, setDeleteId] = useState('');
     const [oneDataStudent, setOneDataStudent] = useState('');
+    const [dataSearch, setDataSearch] = useState('');
+    const [totalPages, setTotalPages] = useState(0);
+    const params = new URLSearchParams(window.location.search);
+    const endURL = window.location.href;
+    const page = params.get('page');
+    const search = params.get('search');
+
+    const handleSearch = (e) => {
+        setDataSearch(e.target.value);
+    };
+
+    const handlePageChange = (pageNumber) => {
+        if (!search) {
+            window.location = `${routes.ManagerRoom}?page=${pageNumber}`;
+        } else {
+            window.location = `${endURL}&page=${pageNumber}`;
+        }
+    };
+
+    const submitSearch = (search) => {
+        if (!page) {
+            window.location = `${routes.ManagerRoom}?search=${search}`;
+        } else if (search) {
+            window.location = `${endURL}&search=${search}`;
+        }
+    };
 
     function deleteData(e) {
         e.preventDefault();
@@ -29,7 +56,10 @@ function RoomManager() {
     };
 
     useEffect(() => {
-        roomService.getRoomManager().then((Room) => setDataRoom((preV) => [...preV, ...Room]));
+        roomService.getRoomManager({ page: page, perPage: 10, q: search }).then((Room) => {
+            setDataRoom((preV) => [...preV, ...Room.data]);
+            setTotalPages(Room.totalPages);
+        });
     }, []);
 
     return (
@@ -37,12 +67,16 @@ function RoomManager() {
             <span className={cx('title')}>Danh sách Phòng</span>
 
             <div className={cx('action')}>
-                <span className={cx('show')}>Hiển thị</span>
-                <select className={cx('show-select')}>
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                </select>
+                <input
+                    type="text"
+                    value={dataSearch}
+                    onChange={(e) => handleSearch(e)}
+                    className={cx('search-input')}
+                    placeholder="Tìm kiếm tên phòng"
+                />
+                <Button primary onClick={() => submitSearch(dataSearch)} className={cx('btn-search')}>
+                    Tìm kiếm
+                </Button>
             </div>
 
             <table className={cx('table')}>
@@ -67,7 +101,7 @@ function RoomManager() {
                                 <tr key={Room._id}>
                                     <td>{index + 1}</td>
                                     <td>{Room.room_name}</td>
-                                    <td>{Room.user_data ? Room.user_data[0].fullName : 'Chưa có người quản lý'}</td>
+                                    <td>{Room.user_id ? Room.user_id.fullName : 'Chưa có người quản lý'}</td>
                                     <td>{Room.price}</td>
                                     <td>{Room.area === 0 ? 'Nam' : 'Nữ'}</td>
                                     <td>
@@ -119,6 +153,16 @@ function RoomManager() {
                 </tbody>
             </table>
 
+            {dataRoom.length !== 0 && (
+                <div className={cx('page')}>
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button className={cx('btn-page')} key={index} onClick={() => handlePageChange(index + 1)}>
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
+            )}
+
             <DeleteData deleteData={deleteData} />
 
             <div className={cx('show-modal')}>
@@ -142,9 +186,7 @@ function RoomManager() {
                                         </div>
                                     ))
                                 ) : (
-                                    <div className={cx('modal-info')}>
-                                        Chưa có ai trong phòng 
-                                    </div>
+                                    <div className={cx('modal-info')}>Chưa có ai trong phòng</div>
                                 )}
                             </Modal.Body>
                             <Modal.Footer>

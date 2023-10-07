@@ -3,9 +3,9 @@
 
 .menu-item {
   width: 100%;
-  display: flex;
-  font-size: 1.6rem;
-  padding: 16px 0 16px 30px;
+  display: flex !important;
+  font-size: 1.6rem !important;
+  padding: 16px 0 16px 30px !important;
   background-color: transparent;
   color: #8391a2;
 

@@ -4,6 +4,7 @@ import classNames from 'classnames/bind';
 import * as userService from '~/services/userService';
 import styles from './EditItem.module.scss';
 import routes from '~/config/routes';
+import { Button } from 'bootstrap-4-react';
 
 const cx = classNames.bind(styles);
 
@@ -86,7 +87,7 @@ function EditItem() {
                 </div>
                 <div className={cx('box')}>
                     <label className={cx('label')}>Giới tính : </label>
-                    <div>
+                    <div className={cx('gender')}>
                         <input
                             className={cx('radio-input')}
                             type="radio"
@@ -161,7 +162,7 @@ function EditItem() {
                     <input type="file" name="avatar" onChange={handleFileChange} />
                 </div>
 
-                <button>Sửa</button>
+                <Button primary className={cx("btn-edit")}>Sửa</Button>
             </form>
         </div>
     );

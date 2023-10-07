@@ -30,7 +30,7 @@ function UseService() {
     };
 
     useEffect(() => {
-        serviceService.getService().then((service) => setDataSelect(service));
+        serviceService.getService({page: 1}).then((service) => setDataSelect(service.data));
         billService.getServiceUser().then((service) => setDataClient(service));
     }, []);
 

@@ -29,20 +29,21 @@ export const getUser = async () => {
     }
 };
 
-export const getAllUsers = async () => {
+export const getAllUsers = async ({ page, perPage, q }) => {
     try {
         const res = await httpRequest.get('auth/get-all-user', {
             headers: {
                 authorization: 'Bearer ' + token,
             },
+            params: { page, per_Page: perPage, q },
         });
-        return res.data.data;
+        return res.data;
     } catch (error) {
         console.log(error);
     }
 };
 
-export const postUser = async (data) => {
+export const postUser = async ({ data }) => {
     try {
         const res = await httpRequest.post('auth/create-user', data, {
             headers: {

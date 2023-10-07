@@ -25,6 +25,10 @@
     font-weight: 600;
 }
 
+.gender{
+    display: flex;
+}
+
 .text-input {
     height: 46px;
     width: 50%;
@@ -40,3 +44,9 @@
 .radio-input{
     margin: 0 5px;
   }
+
+.btn-edit{
+    width: 100px;
+    height: 42px;
+    margin: 10px 0 100px 0;font-size: 1.4rem;
+}

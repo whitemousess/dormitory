@@ -2,76 +2,97 @@
 }
 
 .title {
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 64px;
-  color: #8391a2;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 64px;
+    color: #8391a2;
 }
 
-.action {
-  display: flex;
-  align-items: center;
-  height: 62px;
-}
-
-.show {
-  font-size: 16px;
-  margin-right: 10px;
-}
-
-.show-select {
-  width: 72px;
-  height: 32px;
-  border: 1px solid #ccc;
-}
 
 .table {
-  margin-left: 32px;
-  font-size: 1.6rem;
+    margin-left: 32px;
+    font-size: 1.6rem;
 
-  td,
-  th {
-    width: 400px;
-    height: 42px;
-    text-align: left;
-  }
+    td,
+    th {
+        width: 400px;
+        height: 42px;
+        text-align: left;
+    }
 }
 
 .icon-action {
-  padding: 8px;
-  cursor: pointer;
-  opacity: 0.4;
+    padding: 8px;
+    cursor: pointer;
+    opacity: 0.4;
 
-  &:hover {
-    opacity: 1;
-  }
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.action{
+    display: flex;
+    font-size: 1.4rem;
+    margin: 20px 0;
+}
+
+.search-input {
+    width: 84% !important;
+    height: 32px !important;
+}
+
+.btn-search{
+    width: 6%;
+    height: 32px;
+    margin-left: 16px;
+}
+
+.page {
+    display: flex;
+    justify-content: flex-end;
+    margin: 64px 64px 0 0;
+
+    .btn-page {
+        border: none;
+        padding: 2px 10px;
+        margin-right: 12px;
+        font-size: 1.4rem;
+        text-decoration: underline;
+        background-color: transparent;
+
+        &:hover {
+            background-color: #cccccc96;
+            cursor: pointer;
+        }
+    }
 }
 
 .modal-info {
-  margin: 10px 0;
+    margin: 10px 0;
 }
 
 .modal-avatar {
-  display: flex;
-  justify-content: center;
-  .avatar {
-    height: 150px;
-    width: 150px;
-    border-radius: 50%;
-    border: 1px solid #333;
-  }
+    display: flex;
+    justify-content: center;
+    .avatar {
+        height: 150px;
+        width: 150px;
+        border-radius: 50%;
+        border: 1px solid #333;
+    }
 }
 
 .show-modal {
-  font-size: 16px;
+    font-size: 16px;
 }
 
 .btn-close {
-  font-size: 2rem;
+    font-size: 2rem;
 }
 
 .btn-modal {
-  width: 70px;
-  height: 36px;
-  font-size: 14px;
+    width: 70px;
+    height: 36px;
+    font-size: 14px;
 }

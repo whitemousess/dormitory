@@ -25,7 +25,7 @@ function AddStudent() {
     formData.append("phone", data.phone);
     formData.append("gender", data.gender);
     try {
-      await userService.postUser(formData);
+      await userService.postUser({data: formData});
       window.location = routes.ManagerStudent;
     } catch (error) {
       console.log(error);
@@ -71,7 +71,7 @@ function AddStudent() {
           </div>
           <div className={cx("form-input")}>
             <label>Giới tính</label>
-            <div>
+            <div className={cx("gender")}>
               <input
                 className={cx("radio-input")}
                 type="radio"

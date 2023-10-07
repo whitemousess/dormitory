@@ -2,12 +2,13 @@ import { httpRequest } from '~/utils/httprequest';
 
 const token = localStorage.token;
 
-export const getRoomManager = async () => {
+export const getRoomManager = async ({ page, perPage, q }) => {
     try {
         const res = await httpRequest.get('rooms/get-manager-room', {
             headers: { authorization: 'Bearer ' + token },
+            params: { page, per_page: perPage, q },
         });
-        return res.data.data;
+        return res.data;
     } catch (error) {
         console.log(error);
     }
@@ -26,8 +27,10 @@ export const getRoomManagerId = async (id) => {
 
 export const getStudentInRoom = async ({ room_id }) => {
     try {
-        const res = await httpRequest.get(`rooms/student-in-room/${room_id}`, { headers: { authorization: 'Bearer ' + token } });
-        return res.data.data
+        const res = await httpRequest.get(`rooms/student-in-room/${room_id}`, {
+            headers: { authorization: 'Bearer ' + token },
+        });
+        return res.data.data;
     } catch (error) {
         console.log(error);
     }

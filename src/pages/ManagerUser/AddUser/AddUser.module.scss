@@ -18,10 +18,11 @@
     border: 1px solid rgba(250, 92, 124, 0.25);
 }
 
-.select-gender {
-    width: 100px !important;
-}
+.gender{
+    display: flex;
+  }
 
+  
 .content {
     display: flex;
     background-color: #fff;

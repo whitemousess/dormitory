@@ -14,12 +14,39 @@ const cx = classNames.bind(styles);
 function Service() {
     const [dataService, setDataService] = useState([]);
     const [deleteId, setDeleteId] = useState();
+    const [dataSearch, setDataSearch] = useState('');
+    const [totalPages, setTotalPages] = useState(0);
+    const params = new URLSearchParams(window.location.search);
+    const endURL = window.location.href;
+    const page = params.get('page');
+    const search = params.get('search');
+
+    const handleSearch = (e) => {
+        setDataSearch(e.target.value);
+    };
+
+    const handlePageChange = (pageNumber) => {
+        if (!search) {
+            window.location = `${routes.ManagerService}?page=${pageNumber}`;
+        } else {
+            window.location = `${endURL}&page=${pageNumber}`;
+        }
+    };
+
+    const submitSearch = (search) => {
+        if (!page) {
+            window.location = `${routes.ManagerService}?search=${search}`;
+        } else if (search) {
+            window.location = `${endURL}&search=${search}`;
+        }
+    };
 
     useEffect(() => {
         serviceServices
-            .getService()
+            .getService({ page: 1, perPage: 10, q: search })
             .then((service) => {
-                setDataService(service);
+                setDataService(service.data);
+                setTotalPages(service.totalPages);
             })
             .catch((error) => console.log(error));
     }, []);
@@ -37,12 +64,16 @@ function Service() {
             <span className={cx('title')}>Danh sách dịch vụ</span>
 
             <div className={cx('action')}>
-                <span className={cx('show')}>Hiển thị</span>
-                <select className={cx('show-select')}>
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                </select>
+                <input
+                    type="text"
+                    value={dataSearch}
+                    onChange={(e) => handleSearch(e)}
+                    className={cx('search-input')}
+                    placeholder="Tìm kiếm dịch vụ với tên"
+                />
+                <Button primary onClick={() => submitSearch(dataSearch)} className={cx('btn-search')}>
+                    Tìm kiếm
+                </Button>
             </div>
 
             <table className={cx('table')}>
@@ -86,6 +117,16 @@ function Service() {
                     ))}
                 </tbody>
             </table>
+            {dataService.length !== 0 && (
+                <div className={cx('page')}>
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button className={cx('btn-page')} key={index} onClick={() => handlePageChange(index + 1)}>
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
+            )}
+
             <DeleteData deleteData={deleteData} />
         </div>
     );

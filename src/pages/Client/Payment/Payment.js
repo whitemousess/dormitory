@@ -68,44 +68,47 @@ function Payment() {
             <div>
                 <strong className={cx('title')}>Tổng hợp</strong>
             </div>
-            <div>
-                <table className={cx('table')}>
-                    <thead>
-                        <tr>
-                            <th>Khoản thu</th>
-                            <th>Tiền phòng</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {totalRoom() > 0 && (
+            {totalRoom() || totalElectric() || totalService() ?
+            <>
+                <div>
+                    <table className={cx('table')}>
+                        <thead>
                             <tr>
-                                <td>Tiền phòng</td>
-                                <td>{totalRoom()}</td>
+                                <th>Khoản thu</th>
+                                <th>Tiền phòng</th>
                             </tr>
-                        )}
-                        {totalElectric() > 0 && (
-                            <tr>
-                                <td>Điện nước</td>
-                                <td>{totalElectric()}</td>
-                            </tr>
-                        )}
-
-                        {totalService() > 0 && (
-                            <tr>
-                                <td>Dịch vụ</td>
-                                <td>{totalService()}</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
-            <span className={cx('priceBuy')}>
-                Tổng tiền : {totalRoom() + totalElectric() + totalService()}
-                <button className={cx('Btn')}>
-                    Pay
-                    <PayIcon />
-                </button>
-            </span>
+                        </thead>
+                        <tbody>
+                            {totalRoom() > 0 && (
+                                <tr>
+                                    <td>Tiền phòng</td>
+                                    <td>{totalRoom()}</td>
+                                </tr>
+                            )}
+                            {totalElectric() > 0 && (
+                                <tr>
+                                    <td>Điện nước</td>
+                                    <td>{totalElectric()}</td>
+                                </tr>
+                            )}
+    
+                            {totalService() > 0 && (
+                                <tr>
+                                    <td>Dịch vụ</td>
+                                    <td>{totalService()}</td>
+                                </tr>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+                <span className={cx('priceBuy')}>
+                    Tổng tiền : {totalRoom() + totalElectric() + totalService()}
+                    <button className={cx('Btn')}>
+                        Pay
+                        <PayIcon />
+                    </button>
+                </span>
+            </> : <div>Chưa có khoản nào cần thanh toán</div>}
         </div>
     );
 }

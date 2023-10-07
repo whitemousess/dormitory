@@ -8,6 +8,7 @@ import * as studentService from '~/services/studentService';
 import * as userService from '~/services/userService';
 import styles from './ManagerStudents.module.scss';
 import DeleteData from '~/components/DeleteData';
+import routes from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
@@ -15,6 +16,32 @@ function ManagerStudents() {
     const [dataStudents, setDataStudents] = useState([]);
     const [oneDataStudent, setOneDataStudent] = useState('');
     const [deleteId, setDeleteId] = useState('');
+    const [dataSearch, setDataSearch] = useState('');
+    const [totalPages, setTotalPages] = useState(0);
+    const params = new URLSearchParams(window.location.search);
+    const endURL = window.location.href;
+    const page = params.get('page');
+    const search = params.get('search');
+
+    const handleSearch = (e) => {
+        setDataSearch(e.target.value);
+    };
+
+    const handlePageChange = (pageNumber) => {
+        if (!search) {
+            window.location = `${routes.ManagerStudent}?page=${pageNumber}`;
+        } else {
+            window.location = `${endURL}&page=${pageNumber}`;
+        }
+    };
+
+    const submitSearch = (search) => {
+        if (!page) {
+            window.location = `${routes.ManagerStudent}?search=${search}`;
+        } else if (search) {
+            window.location = `${endURL}&search=${search}`;
+        }
+    };
 
     function deleteData(e) {
         e.preventDefault();
@@ -25,8 +52,10 @@ function ManagerStudents() {
     }
 
     useEffect(() => {
-        studentService.getStudents().then((students) => {
-            setDataStudents((preData) => [...preData, ...students]);
+        studentService.getStudents({ page: page, perPage: 10, q: search })
+        .then((students) => {
+            setDataStudents((preData) => [...preData, ...students.data]);
+            setTotalPages(students.totalPages);
         });
     }, []);
 
@@ -35,12 +64,16 @@ function ManagerStudents() {
             <span className={cx('title')}>Danh sách sinh viên</span>
 
             <div className={cx('action')}>
-                <span className={cx('show')}>Hiển thị</span>
-                <select className={cx('show-select')}>
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                </select>
+                <input
+                    type="text"
+                    value={dataSearch}
+                    onChange={(e) => handleSearch(e)}
+                    className={cx('search-input')}
+                    placeholder="Tìm kiếm mã sinh viên"
+                />
+                <Button primary onClick={() => submitSearch(dataSearch)} className={cx('btn-search')}>
+                    Tìm kiếm
+                </Button>
             </div>
 
             <table className={cx('table')}>
@@ -97,6 +130,15 @@ function ManagerStudents() {
                     )}
                 </tbody>
             </table>
+            {dataStudents.length !== 0 && (
+                <div className={cx('page')}>
+                    {Array.from({ length: totalPages }, (_, index) => (
+                        <button className={cx('btn-page')} key={index} onClick={() => handlePageChange(index + 1)}>
+                            {index + 1}
+                        </button>
+                    ))}
+                </div>
+            )}
 
             <DeleteData deleteData={deleteData} />
 

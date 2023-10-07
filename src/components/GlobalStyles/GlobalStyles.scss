@@ -31,12 +31,8 @@ html {
 
 
 a {
-  text-decoration: none;
+  text-decoration: none !important;
   color: #8391a2;
-
-  &:hover {
-    text-decoration: none;
-  }
 }
 
 select{

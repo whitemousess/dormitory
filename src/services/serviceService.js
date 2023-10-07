@@ -1,12 +1,13 @@
 import { httpRequest } from '~/utils/httprequest';
 
 const token = localStorage.token;
-export const getService = async () => {
+export const getService = async ({ page, perPage, q }) => {
     try {
         const res = await httpRequest.get('services/get-all-service', {
             headers: { authorization: 'Bearer ' + token },
+            params: { page, perPage: perPage, q },
         });
-        return res.data.data;
+        return res.data;
     } catch (error) {
         console.log(error);
     }
@@ -45,7 +46,7 @@ export const createService = async (data) => {
     }
 };
 
-export const editService = async ({data, id}) => {
+export const editService = async ({ data, id }) => {
     try {
         const res = await httpRequest.put(`services/${id}/edit`, data, {
             headers: { authorization: 'Bearer ' + token },

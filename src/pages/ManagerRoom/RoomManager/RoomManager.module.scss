@@ -1,19 +1,55 @@
 .wrapper {
+    .action {
+        display: flex;
+        font-size: 1.4rem;
+        margin: 20px 0;
+    }
+
+    .search-input {
+        width: 24% !important;
+        height: 32px !important;
+    }
+
+    .btn-search {
+        width: 6%;
+        height: 32px;
+        margin-left: 16px;
+    }
+
+    .page {
+        display: flex;
+        justify-content: flex-end;
+        margin: 64px 64px 0 0;
+
+        .btn-page {
+            border: none;
+            padding: 2px 10px;
+            margin-right: 12px;
+            font-size: 1.4rem;
+            text-decoration: underline;
+            background-color: transparent;
+
+            &:hover {
+                background-color: #cccccc96;
+                cursor: pointer;
+            }
+        }
+    } 
 }
 
 .title {
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 64px;
-  color: #8391a2;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 64px;
+    color: #8391a2;
 }
 
-.action{
+.action {
     display: flex;
     align-items: center;
     height: 62px;
 
-    .button{
+    .button {
         width: 100px;
         height: 42px;
         font-size: 20px;
@@ -23,70 +59,70 @@
     }
 }
 
-.show{
-font-size: 16px;
-margin-right: 10px;
+.show {
+    font-size: 16px;
+    margin-right: 10px;
 }
 
-.show-select{
+.show-select {
     width: 72px;
     height: 32px;
     border: 1px solid #ccc;
 }
 
 .table {
-  margin-left: 32px;
-  font-size: 1.6rem;
+    margin-left: 32px;
+    font-size: 1.6rem;
 
-  td,
-  th {
-    width: 400px;
-    height: 42px;
-    text-align: left;
-  }
+    td,
+    th {
+        width: 400px;
+        height: 42px;
+        text-align: left;
+    }
 }
 
-.status{
-  padding: 1px 4px;
-  font-size: 14px;
-  border-radius: 10px;
-  margin-left: 4px;
-  color: #fff;
-  background-color: #0acf97;
+.status {
+    padding: 1px 4px;
+    font-size: 14px;
+    border-radius: 10px;
+    margin-left: 4px;
+    color: #fff;
+    background-color: #0acf97;
 }
 
 .status-error {
-  padding: 1px 4px;
-  font-size: 14px;
-  border-radius: 10px;
-  margin-left: 4px;
-  color: #fff;
-  background-color: #c25858;
+    padding: 1px 4px;
+    font-size: 14px;
+    border-radius: 10px;
+    margin-left: 4px;
+    color: #fff;
+    background-color: #c25858;
 }
 
 .icon-action {
-  padding: 8px;
-  cursor: pointer;
-  opacity: 0.4;
+    padding: 8px;
+    cursor: pointer;
+    opacity: 0.4;
 
-  &:hover {
-    opacity: 1;
-  }
+    &:hover {
+        opacity: 1;
+    }
 }
 
-.modal-info{
-  font-size: 1.4rem;
-  margin-bottom: 10px;
+.modal-info {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
 }
 
-.btn-modal{
-  width: 50px;
-  height: 30px;
+.btn-modal {
+    width: 50px;
+    height: 30px;
 }
 
-.avatar{
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  margin-right: 10px;
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-right: 10px;
 }

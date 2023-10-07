@@ -13,7 +13,9 @@ function Room() {
     const [roomId, setRoomId] = useState('');
 
     useEffect(() => {
-        contractService.getContractStudent().then((contractStudent) => setRoomId(contractStudent.room_id._id));
+        contractService.getContractStudent().then((contractStudent) => {
+            if (contractStudent) setRoomId(contractStudent.room_id._id);
+        });
     }, []);
 
     useEffect(() => {
@@ -32,7 +34,7 @@ function Room() {
                               </Card.Body>
                           </Card>
                       ))
-                    : null}
+                    : <div className={cx("title")}>Chưa có phòng </div>}
             </div>
         </div>
     );

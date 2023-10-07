@@ -29,9 +29,9 @@ function AddUser() {
         formData.append('dob', data.dob);
         formData.append('phone', data.phone);
         formData.append('gender', data.gender);
-        formData.append('role', '0');
+        formData.append('role', 0);
         try {
-            const res = await userService.postUser(formData);
+            const res = await userService.postUser({data: formData});
             if (res.error) {
                 setError('Tài khoản đã tồn tại !');
                 window.location = '#';
@@ -104,7 +104,7 @@ function AddUser() {
                     </div>
                     <div className={cx('form-input')}>
                         <label>Giới tính</label>
-                        <div>
+                        <div className={cx("gender")}>
                             <input
                                 className={cx('radio-input')}
                                 type="radio"

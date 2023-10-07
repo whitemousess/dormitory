@@ -95,7 +95,7 @@ function EditStudent() {
           </div>
           <div className={cx("form-input")}>
             <label>Giới tính</label>
-            <div>
+            <div className={cx("gender")}>
               <input
                 className={cx("radio-input")}
                 type="radio"

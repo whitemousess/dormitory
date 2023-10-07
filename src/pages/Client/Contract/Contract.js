@@ -165,7 +165,7 @@ function Contract() {
                             </div>
                         </div>
                     </>
-                ) : null}
+                ) : <div className={cx('title')}>Chưa làm hợp đồng . Vui lòng liên hệ với người quản lý!</div>}
             </div>
         </div>
     );
