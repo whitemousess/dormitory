@@ -37,10 +37,9 @@ export const deleteData = async (id) => {
 
 export const createService = async (data) => {
     try {
-        const res = await httpRequest.post(`services/create-service`, data, {
+        await httpRequest.post(`services/create-service`, data, {
             headers: { authorization: 'Bearer ' + token },
         });
-        return res.data.data;
     } catch (error) {
         console.log(error);
     }

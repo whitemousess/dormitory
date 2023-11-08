@@ -25,7 +25,7 @@ function Login() {
                 const user = data;
                 if (data.token) {
                     window.localStorage.setItem('token', user.token);
-                    if (data.role === 1) {
+                    if (data.role === false) {
                         window.location = '/';
                     } else {
                         window.location = '/home';

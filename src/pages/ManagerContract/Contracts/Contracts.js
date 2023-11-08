@@ -36,15 +36,6 @@ function Contracts() {
         <div className={cx('wrapper')}>
             <span className={cx('title')}>Danh sách hợp đồng</span>
 
-            <div className={cx('action')}>
-                <span className={cx('show')}>Hiển thị</span>
-                <select className={cx('show-select')}>
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                </select>
-            </div>
-
             <table className={cx('table')}>
                 <thead>
                     <tr>
@@ -59,7 +50,7 @@ function Contracts() {
                     </tr>
                 </thead>
                 <tbody>
-                    {dataContract.length > 0 ? (
+                    {dataContract && dataContract.length > 0 ? (
                         dataContract.map((data, index) => {
                             const formatedDate_start = formatDate(new Date(data.date_start));
                             const formatedDate_end = formatDate(new Date(data.date_end));
@@ -67,7 +58,7 @@ function Contracts() {
                                 <tr key={data._id}>
                                     <td>{index + 1}</td>
                                     <td>{data._id}</td>
-                                    <td>{data.masv.masv}</td>
+                                    <td>{data.student_id._id}</td>
                                     <td>{data.user_id.fullName}</td>
                                     <td>{formatedDate_start}</td>
                                     <td>{formatedDate_end}</td>

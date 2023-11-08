@@ -12,12 +12,13 @@ const cx = classNames.bind(styles);
 function AddElectricity() {
     const [data, setData] = useState({});
     const [selectRoom, setSelectRoom] = useState([]);
+    const [roomId, setRoomId] = useState('');
 
     const submit = async (e) => {
         e.preventDefault();
         billElectricService
-            .createElectric({ data: data })
-            .then((window.location = routes.BillElectric))
+            .createElectric({ room_id: roomId, data: data })
+            .then(routes.BillElectric)
             .catch((error) => console.log(error));
     };
 
@@ -34,18 +35,23 @@ function AddElectricity() {
     }
 
     useEffect(() => {
-        roomService.getRoomManager({page: 1}).then((roomManager) => setSelectRoom(roomManager.data));
+        roomService.getRoomManager({ page: 1 }).then((roomManager) => setSelectRoom(roomManager.data));
     }, []);
 
     return (
         <div className={cx('wrapper')}>
-            <span className={cx('title')}>Thêm hợp đồng </span>
+            <span className={cx('title')}>Thêm hóa đơn điện nước </span>
             <div className={cx('content')}>
                 <div className={cx('content-left')}></div>
 
                 <form onSubmit={(e) => submit(e)} className={cx('content-right')}>
                     <div className={cx('form-input')}>
-                        <select onChange={(e) => handle(e)} name="room_id" className={cx('text-input')} required>
+                        <select
+                            onChange={(e) => setRoomId(e.target.value)}
+                            name="room_id"
+                            className={cx('text-input')}
+                            required
+                        >
                             <option value="">Phòng</option>
                             {selectRoom.map((data) => (
                                 <option key={data._id} value={data._id}>

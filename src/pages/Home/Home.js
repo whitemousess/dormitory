@@ -13,15 +13,15 @@ function Home() {
     const [dataRoom, setDataRoom] = useState([]);
 
     useEffect(() => {
-        studentService.getStudents({page: 1}).then((student) => setDataStudent(student.data));
-        userService.getAllUsers({page: 1}).then((user) => setDataUser(user.data));
-        roomService.getRoomManager({page: 1}).then((user) => setDataRoom(user.data));
+        studentService.getStudents({ page: 1 }).then((student) => setDataStudent(student.data));
+        userService.getAllUsers({ page: 1 }).then((user) => setDataUser(user.data));
+        roomService.getRoomManager({ page: 1 }).then((user) => setDataRoom(user.data));
     }, []);
 
     function countRoomEmpty() {
         var count = 0;
         for (const room of dataRoom) {
-            if (room.count_students.length === 0) {
+            if (room.count_student.length === 0) {
                 count++;
             }
         }
@@ -31,7 +31,7 @@ function Home() {
     function countRoomFull() {
         var count = 0;
         for (const room of dataRoom) {
-            if (room.count_students.length < room.max_number) {
+            if (room.count_student.length < room.max_number) {
                 count++;
             }
         }

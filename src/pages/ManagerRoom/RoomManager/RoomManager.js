@@ -16,31 +16,13 @@ function RoomManager() {
     const [dataRoom, setDataRoom] = useState([]);
     const [deleteId, setDeleteId] = useState('');
     const [oneDataStudent, setOneDataStudent] = useState('');
-    const [dataSearch, setDataSearch] = useState('');
     const [totalPages, setTotalPages] = useState(0);
     const params = new URLSearchParams(window.location.search);
     const endURL = window.location.href;
     const page = params.get('page');
-    const search = params.get('search');
-
-    const handleSearch = (e) => {
-        setDataSearch(e.target.value);
-    };
 
     const handlePageChange = (pageNumber) => {
-        if (!search) {
-            window.location = `${routes.ManagerRoom}?page=${pageNumber}`;
-        } else {
-            window.location = `${endURL}&page=${pageNumber}`;
-        }
-    };
-
-    const submitSearch = (search) => {
-        if (!page) {
-            window.location = `${routes.ManagerRoom}?search=${search}`;
-        } else if (search) {
-            window.location = `${endURL}&search=${search}`;
-        }
+        window.location = `${endURL}&page=${pageNumber}`;
     };
 
     function deleteData(e) {
@@ -56,7 +38,7 @@ function RoomManager() {
     };
 
     useEffect(() => {
-        roomService.getRoomManager({ page: page, perPage: 10, q: search }).then((Room) => {
+        roomService.getRoomManager({ page: page, perPage: 10 }).then((Room) => {
             setDataRoom((preV) => [...preV, ...Room.data]);
             setTotalPages(Room.totalPages);
         });
@@ -65,19 +47,6 @@ function RoomManager() {
     return (
         <div className={cx('wrapper')}>
             <span className={cx('title')}>Danh sách Phòng</span>
-
-            <div className={cx('action')}>
-                <input
-                    type="text"
-                    value={dataSearch}
-                    onChange={(e) => handleSearch(e)}
-                    className={cx('search-input')}
-                    placeholder="Tìm kiếm tên phòng"
-                />
-                <Button primary onClick={() => submitSearch(dataSearch)} className={cx('btn-search')}>
-                    Tìm kiếm
-                </Button>
-            </div>
 
             <table className={cx('table')}>
                 <tbody>
@@ -94,9 +63,6 @@ function RoomManager() {
 
                     {dataRoom.length > 0 ? (
                         dataRoom.map((Room, index) => {
-                            const countStudentsWithLiquidationZero = Room.count_students.filter(
-                                (student) => student.liquidation === 0,
-                            ).length;
                             return (
                                 <tr key={Room._id}>
                                     <td>{index + 1}</td>
@@ -105,8 +71,8 @@ function RoomManager() {
                                     <td>{Room.price}</td>
                                     <td>{Room.area === 0 ? 'Nam' : 'Nữ'}</td>
                                     <td>
-                                        {countStudentsWithLiquidationZero + '/' + Room.max_number}
-                                        {countStudentsWithLiquidationZero === Room.max_number ? (
+                                        {Room.count_student.length + '/' + Room.max_number}
+                                        {Room.count_student.length === Room.max_number ? (
                                             <span className={cx('status')}>Đủ</span>
                                         ) : (
                                             <span className={cx('status-error')}>Thiếu</span>

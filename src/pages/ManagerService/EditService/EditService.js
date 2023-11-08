@@ -56,8 +56,8 @@ function EditService() {
                         <label>Tên dịch vụ</label>
                         <input
                             className={cx('text-input')}
-                            name="name"
-                            value={dataService.name || ''}
+                            name="service_name"
+                            value={dataService.service_name || ''}
                             onChange={(e) => handle(e)}
                             placeholder="Tên dịch vụ ..."
                             required

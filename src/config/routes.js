@@ -33,7 +33,7 @@ const routes = {
   BillElectric: "/billElectric",
   BillService: "/billService",
   AddElectricity: "/addElectricity",
-  EditElectricity: "/editElectricity/:id",
+  EditElectricity: "/editElectricity",
 
   // // contract
   ManagerContract: "/managerContract",

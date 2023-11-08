@@ -58,8 +58,8 @@ function EditStudent() {
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-
+  }, [studentId]);
+console.log(dataStudent);
   return (
     <div className={cx("wrapper")}>
       <span className={cx("title")}>Sửa sinh viên</span>
@@ -68,7 +68,7 @@ function EditStudent() {
 
         <form className={cx("content-right")} onSubmit={(e) => submit(e)}>
           <div className={cx("form-input")}>
-            <label>Mã sinh viên : {dataStudent.masv}</label>
+            <label>Mã sinh viên : {dataStudent.user_id}</label>
           </div>
           <div className={cx("form-input")}>
             <label>Họ và tên</label>
@@ -88,9 +88,7 @@ function EditStudent() {
               className={cx("text-input")}
               name="password"
               placeholder="Mật khẩu ..."
-              value={dataStudent.password || ""}
               onChange={(e) => handle(e)}
-              required
             />
           </div>
           <div className={cx("form-input")}>

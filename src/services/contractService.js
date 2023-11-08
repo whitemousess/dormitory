@@ -1,3 +1,4 @@
+import { ListGroup } from 'bootstrap-4-react/lib/components';
 import { httpRequest } from '~/utils/httprequest';
 
 const token = localStorage.token;
@@ -5,7 +6,7 @@ const token = localStorage.token;
 export const getContract = async () => {
     try {
         const res = await httpRequest.get(`contract/get-contracts`, { headers: { authorization: 'Bearer ' + token } });
-        return res.data.data;
+        return res.data;
     } catch (error) {
         console.log(error);
     }
@@ -35,10 +36,13 @@ export const getLiquidation = async () => {
 
 export const liquidationContract = async ({ id }) => {
     try {
-        const res = await httpRequest.get(`contract/${id}/liquidation-contracts`, {
-            headers: { authorization: 'Bearer ' + token },
-        });
-        return res.data.data;
+        const res = await httpRequest.get(
+            `contract/${id}/liquidation-contracts`,
+            {
+                headers: { authorization: 'Bearer ' + token },
+            },
+        );
+        return res;
     } catch (error) {
         console.log(error);
     }
@@ -46,10 +50,10 @@ export const liquidationContract = async ({ id }) => {
 
 export const deleteLiquidation = async ({ id }) => {
     try {
-        const res = await httpRequest.delete(`contract/${id}/delete-contracts`, {
+        const res = await httpRequest.get(`contract/${id}/delete-contracts`, {
             headers: { authorization: 'Bearer ' + token },
         });
-        return res.data.data;
+        return res;
     } catch (error) {
         console.log(error);
     }
@@ -57,10 +61,10 @@ export const deleteLiquidation = async ({ id }) => {
 
 export const createContract = async (data) => {
     try {
-        const res = await httpRequest.post(`contract/create-contracts`, data, {
+        const res = await httpRequest.put(`contract/create-contracts`, data, {
             headers: { authorization: 'Bearer ' + token },
         });
-        return res.data.data;
+        return res.data;
     } catch (error) {
         console.log(error);
     }

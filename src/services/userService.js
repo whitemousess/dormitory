@@ -31,7 +31,7 @@ export const getUser = async () => {
 
 export const getAllUsers = async ({ page, perPage, q }) => {
     try {
-        const res = await httpRequest.get('auth/get-all-user', {
+        const res = await httpRequest.get('auth/get-all-users', {
             headers: {
                 authorization: 'Bearer ' + token,
             },

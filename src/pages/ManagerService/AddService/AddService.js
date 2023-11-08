@@ -10,7 +10,7 @@ const cx = classNames.bind(styles);
 
 function AddService() {
     const [data, setData] = useState({});
-    const submit = async (e) => {
+    const submit = (e) => {
         e.preventDefault();
         serviceService
             .createService(data)
@@ -25,6 +25,8 @@ function AddService() {
         newData[e.target.name] = e.target.value;
         setData(newData);
     }
+
+    console.log(data);
 
     function handleConvert(e) {
         const newData = { ...data };
@@ -43,8 +45,8 @@ function AddService() {
                         <label>Tên dịch vụ</label>
                         <input
                             className={cx('text-input')}
-                            name="name"
-                            value={data.name || ''}
+                            name="service_name"
+                            value={data.service_name || ''}
                             onChange={(e) => handle(e)}
                             placeholder="Tên dịch vụ ..."
                             required

@@ -6,64 +6,31 @@ import { Button, Modal } from 'bootstrap-4-react/lib/components';
 import { ShowIcon } from '~/components/Icons';
 import * as userService from '~/services/userService';
 import styles from './User.module.scss';
-import routes from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
 function User() {
     const [dataUser, setDataUser] = useState([]);
     const [oneDataStudent, setOneDataStudent] = useState('');
-
-    const [dataSearch, setDataSearch] = useState('');
     const [totalPages, setTotalPages] = useState(0);
     const params = new URLSearchParams(window.location.search);
     const endURL = window.location.href;
     const page = params.get('page');
-    const search = params.get('search');
-
-    const handleSearch = (e) => {
-        setDataSearch(e.target.value);
-    };
 
     const handlePageChange = (pageNumber) => {
-        if (!search) {
-            window.location = `${routes.ManagerUser}?page=${pageNumber}`;
-        } else {
-            window.location = `${endURL}&page=${pageNumber}`;
-        }
-    };
-
-    const submitSearch = (search) => {
-        if (!page) {
-            window.location = `${routes.ManagerUser}?search=${search}`;
-        } else if (search) {
-            window.location = `${endURL}&search=${search}`;
-        }
+        window.location = `${endURL}?page=${pageNumber}`;
     };
 
     useEffect(() => {
-        userService.getAllUsers({ page: page, perPage: 10, q: search }).then((users) => {
+        userService.getAllUsers({ page: page, perPage: 10 }).then((users) => {
             setDataUser((preData) => [...preData, ...users.data]);
             setTotalPages(users.totalPages);
         });
-    }, []);
+    }, [page]);
 
     return (
         <div className={cx('wrapper')}>
             <span className={cx('title')}>Danh sách Người dùng</span>
-
-            <div className={cx('action')}>
-                <input
-                    type="text"
-                    value={dataSearch}
-                    onChange={(e) => handleSearch(e)}
-                    className={cx('search-input')}
-                    placeholder="Tìm kiếm người dùng với tài khoản"
-                />
-                <Button primary onClick={() => submitSearch(dataSearch)} className={cx('btn-search')}>
-                    Tìm kiếm
-                </Button>
-            </div>
 
             <table className={cx('table')}>
                 <tbody>
@@ -82,10 +49,10 @@ function User() {
                                 <td>{data.username}</td>
                                 <td>{data.fullName}</td>
                                 <td>
-                                    <Link to={`mailto:${data.email}`}>{data.email}</Link>
+                                    <Link to={`mailto:${data.email}`}>{data.email || 'Chưa thêm email'}</Link>
                                 </td>
                                 <td>
-                                    <Link to={`tel:${data.phone}`}>{data.phone}</Link>
+                                    <Link to={`tel:${data.phone}`}>{data.phone || 'Chưa thêm liên hệ'}</Link>
                                 </td>
                                 <td>
                                     <span
@@ -140,7 +107,7 @@ function User() {
                                 </div>
                                 <div className={cx('modal-info')}>
                                     <strong>Tài khoản: </strong> {oneDataStudent.username}
-                                </div>{' '}
+                                </div>
                                 <div className={cx('modal-info')}>
                                     <strong>Họ và tên: </strong> {oneDataStudent.fullName}
                                 </div>
@@ -151,13 +118,13 @@ function User() {
                                     <strong>Ngày sinh:</strong> {oneDataStudent.dob}
                                 </div>
                                 <div className={cx('modal-info')}>
-                                    <strong>Địa chỉ:</strong> {oneDataStudent.address}
+                                    <strong>Địa chỉ:</strong> {oneDataStudent.address || 'Chưa thêm địa chỉ'}
                                 </div>
                                 <div className={cx('modal-info')}>
-                                    <strong>Số điện thoại:</strong> {oneDataStudent.phone}
+                                    <strong>Số điện thoại:</strong> {oneDataStudent.phone || 'Chưa thêm liên hệ'}
                                 </div>
                                 <div className={cx('modal-info')}>
-                                    <strong>Email:</strong> {oneDataStudent.email}
+                                    <strong>Email:</strong> {oneDataStudent.email || 'Chưa thêm liên hệ'}
                                 </div>
                             </Modal.Body>
                             <Modal.Footer>

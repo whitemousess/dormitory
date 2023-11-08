@@ -4,7 +4,7 @@ const token = localStorage.token;
 
 export const getAllElectric = async () => {
     try {
-        const res = await httpRequest.get(`bill-electric/get-electric`, {
+        const res = await httpRequest.get(`bill-electric-water/get-all-electric`, {
             headers: { authorization: 'Bearer ' + token },
         });
         return res.data.data;
@@ -24,10 +24,11 @@ export const getElectricRoom = async () => {
     }
 };
 
-export const getOneElectric = async ({ id }) => {
+export const getOneElectric = async ({ room_id, bill_id }) => {
     try {
-        const res = await httpRequest.get(`bill-electric/${id}/get-one-electric`, {
+        const res = await httpRequest.get(`bill-electric-water/get-one-electric`, {
             headers: { authorization: 'Bearer ' + token },
+            params: { room_id, bill_id },
         });
         return res.data.data;
     } catch (error) {
@@ -35,10 +36,22 @@ export const getOneElectric = async ({ id }) => {
     }
 };
 
-export const createElectric = async ({ data }) => {
+export const createElectric = async ({ room_id, data }) => {
     try {
-        const res = await httpRequest.post(`bill-electric/create-bill`, data, {
+        const res = await httpRequest.put(`bill-electric-water/${room_id}/create-bill`, data, {
             headers: { authorization: 'Bearer ' + token },
+        });
+        return res;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const deleteElectric = async ({ room_id, bill_id }) => {
+    try {
+        const res = await httpRequest.get(`bill-electric-water/delete-bill`, {
+            headers: { authorization: 'Bearer ' + token },
+            params: { room_id, bill_id },
         });
         return res.data.data;
     } catch (error) {
@@ -46,21 +59,11 @@ export const createElectric = async ({ data }) => {
     }
 };
 
-export const deleteElectric = async ({ id }) => {
+export const editElectric = async ({ room_id, bill_id, data }) => {
     try {
-        const res = await httpRequest.delete(`bill-electric/${id}/delete-bill`, {
+        const res = await httpRequest.put(`bill-electric-water/edit-bill`, data, {
             headers: { authorization: 'Bearer ' + token },
-        });
-        return res.data.data;
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-export const editElectric = async ({ id, data }) => {
-    try {
-        const res = await httpRequest.put(`bill-electric/${id}/edit-bill`, data, {
-            headers: { authorization: 'Bearer ' + token },
+            params: { room_id, bill_id },
         });
         return res.data.data;
     } catch (error) {

@@ -10,13 +10,14 @@ const cx = classNames.bind(styles);
 
 function EditElectric() {
     const [data, setData] = useState({});
-    const [selectRoom, setSelectRoom] = useState([]);
-    const Id = window.location.href.split('/').pop();
+    const params = new URLSearchParams(window.location.search);
+    const room_id = params.get('room_id');
+    const bill_id = params.get('bill_id');
 
     const submit = async (e) => {
         e.preventDefault();
         billElectricService
-            .editElectric({ id: Id, data: data })
+            .editElectric({ room_id: room_id, bill_id: bill_id, data: data })
             .then(() => window.history.back())
             .catch((err) => console.log(err));
     };
@@ -34,9 +35,10 @@ function EditElectric() {
     }
 
     useEffect(() => {
-        billElectricService.getOneElectric({ id: Id }).then((electric) => setData(electric));
-        roomService.getRoomManager({ page: 1 }).then((roomManager) => setSelectRoom(roomManager.data));
-    }, []);
+        billElectricService.getOneElectric({ room_id: room_id, bill_id: bill_id }).then((electric) => {
+            setData(electric);
+        });
+    }, [room_id, bill_id]);
 
     return (
         <div className={cx('wrapper')}>
@@ -45,23 +47,6 @@ function EditElectric() {
                 <div className={cx('content-left')}></div>
 
                 <form onSubmit={(e) => submit(e)} className={cx('content-right')}>
-                    <div className={cx('form-input')}>
-                        <select
-                            onChange={(e) => handle(e)}
-                            name="room_id"
-                            value={data.room_id ? data.room_id._id : ''}
-                            className={cx('text-input')}
-                            required
-                        >
-                            <option value="">Phòng</option>
-                            {selectRoom.map((data) => (
-                                <option key={data._id} value={data._id}>
-                                    {data.room_name}
-                                </option>
-                            ))}
-                        </select>
-                    </div>
-
                     <div className={cx('form-input')}>
                         <label>Số điện đầu tiên</label>
                         <input

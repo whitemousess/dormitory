@@ -15,7 +15,7 @@ function ClientUser({ children }) {
         const user = await userService.getUser();
         if (!token) {
             window.location = routes.Login;
-        } else if (user.role === 0) {
+        } else if (user.role === true) {
             window.location = "/home";
         }
     }

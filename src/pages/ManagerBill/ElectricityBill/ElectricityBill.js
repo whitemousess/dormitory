@@ -13,12 +13,14 @@ const cx = classNames.bind(styles);
 function ElectricityBill() {
     const [dataElectric, setDataElectric] = useState([]);
     const [dataModal, setDataModal] = useState({});
-    const [deleteId, setDeleteId] = useState('');
+    const [roomId, setRoomId] = useState('');
+    const [billId, setBillId] = useState('');
+    const [data, setData] = useState([]);
 
     const deleteData = (e) => {
         e.preventDefault();
         billElectricService
-            .deleteElectric({ id: deleteId })
+            .deleteElectric({ room_id: roomId, bill_id: billId })
             .then(window.location.reload())
             .catch((err) => console.log(err));
     };
@@ -26,22 +28,20 @@ function ElectricityBill() {
     useEffect(() => {
         billElectricService
             .getAllElectric()
-            .then((electric) => setDataElectric((pre) => [...pre, ...electric]))
+            .then((electric) => setDataElectric(electric))
             .catch((error) => console.log(error));
     }, []);
+
+    useEffect(() => {
+        dataElectric.forEach((data) => {
+            const arrBill = data.bill_electric_water;
+            setData((pre) => [...pre, ...arrBill]);
+        });
+    }, [dataElectric]);
 
     return (
         <div className={cx('wrapper')}>
             <span className={cx('title')}>Danh sách hóa đơn</span>
-
-            <div className={cx('action')}>
-                <span className={cx('show')}>Hiển thị</span>
-                <select className={cx('show-select')}>
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                </select>
-            </div>
 
             <table className={cx('table')}>
                 <thead>
@@ -57,11 +57,11 @@ function ElectricityBill() {
                     </tr>
                 </thead>
                 <tbody>
-                    {dataElectric.length > 0 ? (
-                        dataElectric.map((data, index) => (
-                            <tr key={data._id}>
+                    {data.length > 0 ? (
+                        data.map((data, index) => (
+                            <tr key={data.id}>
                                 <td>{index + 1}</td>
-                                <td>{data.room_id ? data.room_id.room_name : "Cập nhật số phòng!"}</td>
+                                <td>{data ? data.room_name : 'Cập nhật số phòng!'}</td>
                                 <td>{data.e_last - data.e_first}</td>
                                 <td>{data.w_last - data.w_first}</td>
                                 <td>{data.date_start}</td>
@@ -81,13 +81,16 @@ function ElectricityBill() {
                                     >
                                         <ShowIcon className={cx('icon-action')} />
                                     </span>
-                                    <Link to={`/editElectricity/${data._id}`}>
+                                    <Link to={`/editElectricity?room_id=${data.room_id}&bill_id=${data.id}`}>
                                         <span>
                                             <EditIcon className={cx('icon-action')} />
                                         </span>
                                     </Link>
                                     <span
-                                        onClick={() => setDeleteId(data._id)}
+                                        onClick={() => {
+                                            setRoomId(data.room_id);
+                                            setBillId(data.id);
+                                        }}
                                         data-toggle="modal"
                                         data-target="#open-modal"
                                     >

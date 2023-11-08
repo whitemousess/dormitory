@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
-import { Button } from 'bootstrap-4-react';
 
-import routes from '~/config/routes';
 import styles from './Service.module.scss';
 import * as serviceServices from '~/services/serviceService';
 import { EditIcon, TrashIcon } from '~/components/Icons';
@@ -14,42 +12,17 @@ const cx = classNames.bind(styles);
 function Service() {
     const [dataService, setDataService] = useState([]);
     const [deleteId, setDeleteId] = useState();
-    const [dataSearch, setDataSearch] = useState('');
-    const [totalPages, setTotalPages] = useState(0);
-    const params = new URLSearchParams(window.location.search);
-    const endURL = window.location.href;
-    const page = params.get('page');
-    const search = params.get('search');
-
-    const handleSearch = (e) => {
-        setDataSearch(e.target.value);
-    };
-
-    const handlePageChange = (pageNumber) => {
-        if (!search) {
-            window.location = `${routes.ManagerService}?page=${pageNumber}`;
-        } else {
-            window.location = `${endURL}&page=${pageNumber}`;
-        }
-    };
-
-    const submitSearch = (search) => {
-        if (!page) {
-            window.location = `${routes.ManagerService}?search=${search}`;
-        } else if (search) {
-            window.location = `${endURL}&search=${search}`;
-        }
-    };
 
     useEffect(() => {
         serviceServices
-            .getService({ page: 1, perPage: 10, q: search })
+            .getService({ page: 1, perPage: 10})
             .then((service) => {
                 setDataService(service.data);
-                setTotalPages(service.totalPages);
             })
             .catch((error) => console.log(error));
     }, []);
+
+console.log(dataService)
 
     function deleteData(e) {
         e.preventDefault();
@@ -63,19 +36,6 @@ function Service() {
         <div className={cx('wrapper')}>
             <span className={cx('title')}>Danh sách dịch vụ</span>
 
-            <div className={cx('action')}>
-                <input
-                    type="text"
-                    value={dataSearch}
-                    onChange={(e) => handleSearch(e)}
-                    className={cx('search-input')}
-                    placeholder="Tìm kiếm dịch vụ với tên"
-                />
-                <Button primary onClick={() => submitSearch(dataSearch)} className={cx('btn-search')}>
-                    Tìm kiếm
-                </Button>
-            </div>
-
             <table className={cx('table')}>
                 <tbody>
                     <tr>
@@ -86,10 +46,10 @@ function Service() {
                         <th>Trạng thái</th>
                         <th></th>
                     </tr>
-                    {dataService.map((data, index) => (
+                    {dataService && dataService.length > 0 ?dataService.map((data, index) => (
                         <tr key={data._id}>
                             <td>{index + 1}</td>
-                            <td>{data.name}</td>
+                            <td>{data.service_name}</td>
                             <td>{data.description}</td>
                             <td>{data.price}</td>
                             <td>
@@ -114,18 +74,11 @@ function Service() {
                                 </span>
                             </td>
                         </tr>
-                    ))}
+                    )): (<tr>
+                        <td colSpan={5} style={{textAlign: "center"}}>Chưa có dữ liệu</td>
+                    </tr>)}
                 </tbody>
             </table>
-            {dataService.length !== 0 && (
-                <div className={cx('page')}>
-                    {Array.from({ length: totalPages }, (_, index) => (
-                        <button className={cx('btn-page')} key={index} onClick={() => handlePageChange(index + 1)}>
-                            {index + 1}
-                        </button>
-                    ))}
-                </div>
-            )}
 
             <DeleteData deleteData={deleteData} />
         </div>

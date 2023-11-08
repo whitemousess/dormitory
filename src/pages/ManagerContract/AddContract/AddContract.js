@@ -18,7 +18,8 @@ function AddContract() {
 
     const submit = async (e) => {
         e.preventDefault();
-        contractService.createContract(data).then((window.location = routes.ManagerContract));
+        contractService.createContract(data)
+        .then((window.location = routes.ManagerContract));
     };
 
     function handle(e) {
@@ -30,15 +31,17 @@ function AddContract() {
     function handleSelect(e) {
         const selectedValue = e.target.value;
         const [selectedId, selectedGender] = selectedValue.split(',');
-        const newData = { masv: selectedId };
+        const newData = { student_id: selectedId };
         setData(newData);
         setArea(parseInt(selectedGender));
     }
 
     useEffect(() => {
-        studentService.getStudents({page:1}).then((students) => setSelectStudent(students.data));
-        roomService.getRoomManager({page:1}).then((roomManager) => setSelectRoom(roomManager.data));
+        studentService.getStudents({ page: 1 }).then((students) => setSelectStudent(students.data));
+        roomService.getRoomManager({ page: 1 }).then((roomManager) => setSelectRoom(roomManager.data));
     }, []);
+
+    console.log(data);
 
     return (
         <div className={cx('wrapper')}>
@@ -48,20 +51,14 @@ function AddContract() {
 
                 <form onSubmit={(e) => submit(e)} className={cx('content-right')}>
                     <div className={cx('form-input')}>
-                        <select onChange={(e) => handleSelect(e)} name="masv" className={cx('text-input')} required>
+                        <select onChange={(e) => handleSelect(e)} name="student_id" className={cx('text-input')} required>
                             <option value="">Sinh viên</option>
-                            {selectStudent.map((data) => {
-                                if (
-                                    data.count_contract.length === 0 ||
-                                    data.count_contract.every((contract) => contract.liquidation === 1)
-                                ) {
-                                    return (
-                                        <option key={data._id} value={`${data._id},${data.gender}`}>
-                                            {data.masv} - {data.fullName}
-                                        </option>
-                                    );
-                                }
-                                return null;
+                            {selectStudent.map((student) => {
+                                return (
+                                    <option key={student._id} value={`${student._id},${student.gender}`}>
+                                        {student.user_id} - {student.fullName}
+                                    </option>
+                                );
                             })}
                         </select>
                     </div>
@@ -69,19 +66,18 @@ function AddContract() {
                     <div className={cx('form-input')}>
                         <select onChange={(e) => handle(e)} name="room_id" className={cx('text-input')} required>
                             <option value="">Phòng</option>
-                            {selectRoom.map((data) => {
-                                const countStudentsWithLiquidationZero = data.count_students.filter(
-                                    (student) => student.liquidation === 0,
-                                ).length;
-                                return (
-                                    data.status === 0 &&
-                                    countStudentsWithLiquidationZero < data.max_number &&
-                                    data.area === area && (
-                                        <option key={data._id} value={data._id}>
-                                            {data.room_name} - Phòng cho {data.area === 0 ? 'Nam' : 'Nữ'}
+                            {selectRoom.map((room) => {
+                                if (
+                                    room.count_student.length < room.max_number &&
+                                    room.status === 0 &&
+                                    room.area === area
+                                ) {
+                                    return (
+                                        <option key={room._id} value={room._id}>
+                                            {room.room_name} - Phòng cho {room.area === 0 ? 'Nam' : 'Nữ'}
                                         </option>
-                                    )
-                                );
+                                    );
+                                }
                             })}
                         </select>
                     </div>

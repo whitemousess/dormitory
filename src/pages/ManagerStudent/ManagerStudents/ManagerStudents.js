@@ -8,7 +8,6 @@ import * as studentService from '~/services/studentService';
 import * as userService from '~/services/userService';
 import styles from './ManagerStudents.module.scss';
 import DeleteData from '~/components/DeleteData';
-import routes from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
@@ -16,65 +15,32 @@ function ManagerStudents() {
     const [dataStudents, setDataStudents] = useState([]);
     const [oneDataStudent, setOneDataStudent] = useState('');
     const [deleteId, setDeleteId] = useState('');
-    const [dataSearch, setDataSearch] = useState('');
     const [totalPages, setTotalPages] = useState(0);
     const params = new URLSearchParams(window.location.search);
     const endURL = window.location.href;
     const page = params.get('page');
-    const search = params.get('search');
-
-    const handleSearch = (e) => {
-        setDataSearch(e.target.value);
-    };
 
     const handlePageChange = (pageNumber) => {
-        if (!search) {
-            window.location = `${routes.ManagerStudent}?page=${pageNumber}`;
-        } else {
-            window.location = `${endURL}&page=${pageNumber}`;
-        }
+        window.location = `${endURL}&page=${pageNumber}`;
     };
-
-    const submitSearch = (search) => {
-        if (!page) {
-            window.location = `${routes.ManagerStudent}?search=${search}`;
-        } else if (search) {
-            window.location = `${endURL}&search=${search}`;
-        }
-    };
-
     function deleteData(e) {
         e.preventDefault();
         userService
             .userDelete({ deleteID: deleteId })
-            .then((account) => window.location.reload())
+            .then(window.location.reload())
             .catch((error) => console.log({ error: error }));
     }
 
     useEffect(() => {
-        studentService.getStudents({ page: page, perPage: 10, q: search })
-        .then((students) => {
+        studentService.getStudents({ page: page, perPage: 10 }).then((students) => {
             setDataStudents((preData) => [...preData, ...students.data]);
             setTotalPages(students.totalPages);
         });
-    }, []);
+    }, [page]);
 
     return (
         <div className={cx('wrapper')}>
             <span className={cx('title')}>Danh sách sinh viên</span>
-
-            <div className={cx('action')}>
-                <input
-                    type="text"
-                    value={dataSearch}
-                    onChange={(e) => handleSearch(e)}
-                    className={cx('search-input')}
-                    placeholder="Tìm kiếm mã sinh viên"
-                />
-                <Button primary onClick={() => submitSearch(dataSearch)} className={cx('btn-search')}>
-                    Tìm kiếm
-                </Button>
-            </div>
 
             <table className={cx('table')}>
                 <tbody>
@@ -90,13 +56,13 @@ function ManagerStudents() {
                         dataStudents.map((data, index) => (
                             <tr key={data._id}>
                                 <th>{index + 1}</th>
-                                <td>{data.masv}</td>
+                                <td>{data.user_id}</td>
                                 <td>{data.fullName}</td>
                                 <td>
-                                    <Link to={`mailto:${data.email}`}>{data.email}</Link>
+                                    <Link to={`mailto:${data.email}`}>{data.email || 'Chưa thêm email'}</Link>
                                 </td>
                                 <td>
-                                    <Link to={`tel:${data.phone}`}>{data.phone}</Link>
+                                    <Link to={`tel:${data.phone}`}>{data.phone || 'Chưa thêm số điện thoại'}</Link>
                                 </td>
                                 <td>
                                     <span
@@ -163,7 +129,7 @@ function ManagerStudents() {
                                     />
                                 </div>
                                 <div className={cx('modal-info')}>
-                                    <strong>Mã sinh viên:</strong> {oneDataStudent.masv}
+                                    <strong>Mã sinh viên:</strong> {oneDataStudent.user_id}
                                 </div>
                                 <div className={cx('modal-info')}>
                                     <strong>Họ và tên: </strong> {oneDataStudent.fullName}
