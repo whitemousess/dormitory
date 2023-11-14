@@ -35,7 +35,7 @@ function UseService() {
             .catch((error) => console.log(error));
         serviceService
             .getService()
-            .then((service) => setDataSelect((pre) => [...pre, ...service]))
+            .then((service) => setDataSelect(service))
             .catch((error) => console.log(error));
     }, []);
 

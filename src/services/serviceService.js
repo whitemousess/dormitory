@@ -6,7 +6,7 @@ export const getService = async () => {
         const res = await httpRequest.get('services/get-all-service', {
             headers: { authorization: 'Bearer ' + token },
         });
-        return res.data;
+        return res.data.data;
     } catch (error) {
         console.log(error);
     }
