@@ -2,23 +2,22 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import * as billElectricService from '~/services/billElectricService';
-import * as roomService from '~/services/roomService';
 import { SentIcon } from '~/components/Icons';
 import styles from './EditElectric.module.scss';
+import routes from '~/config/routes';
 
 const cx = classNames.bind(styles);
 
 function EditElectric() {
     const [data, setData] = useState({});
     const params = new URLSearchParams(window.location.search);
-    const room_id = params.get('room_id');
-    const bill_id = params.get('bill_id');
+    const bill_EW = params.get('bill_EW');
 
-    const submit = async (e) => {
+    const submit = (e) => {
         e.preventDefault();
         billElectricService
-            .editElectric({ room_id: room_id, bill_id: bill_id, data: data })
-            .then(() => window.history.back())
+            .editElectric({ bill_id: bill_EW, data: data })
+            .then((window.location = routes.BillElectric))
             .catch((err) => console.log(err));
     };
 
@@ -35,10 +34,10 @@ function EditElectric() {
     }
 
     useEffect(() => {
-        billElectricService.getOneElectric({ room_id: room_id, bill_id: bill_id }).then((electric) => {
+        billElectricService.getOneElectric({ bill_EW: bill_EW }).then((electric) => {
             setData(electric);
         });
-    }, [room_id, bill_id]);
+    }, [bill_EW]);
 
     return (
         <div className={cx('wrapper')}>
@@ -147,6 +146,19 @@ function EditElectric() {
                             onChange={(e) => handle(e)}
                             required
                         />
+                    </div>
+
+                    <div className={cx('form-input')}>
+                        <label>Trạng thái thanh toán :</label>
+                        <select
+                            onChange={(e) => handleConvert(e)}
+                            value={data.status}
+                            name="status"
+                            className={cx('text-input')}
+                        >
+                            <option value={0}>Chưa thanh toán</option>
+                            <option value={1}>Đã thanh toán</option>
+                        </select>
                     </div>
 
                     <div className={cx('svg-wrapper-1')}>

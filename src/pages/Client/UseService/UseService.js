@@ -5,7 +5,6 @@ import { Modal, Form, Button } from 'bootstrap-4-react';
 import * as billService from '~/services/billService';
 import * as serviceService from '~/services/serviceService';
 import styles from './UseService.module.scss';
-import { PayIcon } from '~/components/Icons';
 
 const cx = classNames.bind(styles);
 
@@ -25,57 +24,53 @@ function UseService() {
         e.preventDefault();
         billService
             .requestService({ data: dataService })
-            .then((request) => window.location.reload())
+            .then(window.location.reload())
             .catch((error) => console.log(error));
     };
 
     useEffect(() => {
-        serviceService.getService({page: 1}).then((service) => setDataSelect(service.data));
-        billService.getServiceUser().then((service) => setDataClient(service));
+        billService
+            .getServiceUser()
+            .then((user) => setDataClient(user))
+            .catch((error) => console.log(error));
+        serviceService
+            .getService()
+            .then((service) => setDataSelect((pre) => [...pre, ...service]))
+            .catch((error) => console.log(error));
     }, []);
 
-    // format date
-    function formatDate(date) {
-        const hour = date.getHours();
-        const minute = date.getMinutes();
-        const day = date.getDate();
-        const month = date.getMonth() + 1; // Tháng bắt đầu từ 0, nên cộng thêm 1
-        const year = date.getFullYear();
-        return `${hour}:${minute} - ${day}/${month}/${year}`;
-    }
-    
     return (
         <div className={cx('wrapper')}>
-            {dataClient.length > 0 ? (
-                <>
-                    <table className={cx('table')}>
-                        <tbody>
-                            <tr>
-                                <th>STT</th>
-                                <th>Ngày tạo</th>
-                                <th>Tên dịch vụ</th>
-                                <th>Giá</th>
-                                <th>Trạng thái</th>
-                            </tr>
-                            {dataClient.map((data, index) => {
-                                const formattedDate = formatDate(new Date(data.createdAt));
-                                return (
-                                    <tr key={data._id}>
-                                        <td>{index + 1}</td>
-                                        <td>{formattedDate}</td>
-                                        <td>{data.id_service.name}</td>
-                                        <td>{data.id_service.price}</td>
-                                        <td>{data.status === '0' ? 'Chưa thanh toán' : 'Đã thanh toán'}</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                </>
-            ) : (
-                <span className={cx('title')}>Không có dịch vụ</span>
-            )}
-
+            <table className={cx('table')}>
+                <tbody>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tên dịch vụ</th>
+                        <th>Số điện thoại</th>
+                        <th>Giá</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                    {dataClient && dataClient.length > 0 ? (
+                        dataClient.map((data, index) => {
+                            return (
+                                <tr key={data._id}>
+                                    <td>{index + 1}</td>
+                                    <td>{data.service_id.service_name}</td>
+                                    <td>{data.phone}</td>
+                                    <td>{data.service_id.price}</td>
+                                    <td>{data.status === 0 ? 'Chưa thanh toán' : 'Đã thanh toán'}</td>
+                                </tr>
+                            );
+                        })
+                    ) : (
+                        <tr>
+                            <td colSpan={5} className="text-center">
+                                Không có dịch vụ
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
             <button className={cx('button')} data-toggle="modal" data-target="#exampleModal">
                 Yêu cầu dịch vụ
             </button>
@@ -109,7 +104,7 @@ function UseService() {
                                 <Form.Group>
                                     <select
                                         onChange={(e) => handle(e)}
-                                        name="id_service"
+                                        name="service_id"
                                         className={cx('form-input')}
                                         required
                                     >
@@ -117,9 +112,9 @@ function UseService() {
                                             Chọn dịch vụ
                                         </option>
                                         {dataSelect.map((data) =>
-                                            data.status === '0' ? (
+                                            data.status === 0 ? (
                                                 <option key={data._id} className={cx('form-input')} value={data._id}>
-                                                    {data.name}
+                                                    {data.service_name}
                                                 </option>
                                             ) : null,
                                         )}

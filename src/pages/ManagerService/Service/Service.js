@@ -15,14 +15,14 @@ function Service() {
 
     useEffect(() => {
         serviceServices
-            .getService({ page: 1, perPage: 10})
+            .getService()
             .then((service) => {
                 setDataService(service.data);
             })
             .catch((error) => console.log(error));
     }, []);
 
-console.log(dataService)
+    console.log(dataService);
 
     function deleteData(e) {
         e.preventDefault();
@@ -46,37 +46,41 @@ console.log(dataService)
                         <th>Trạng thái</th>
                         <th></th>
                     </tr>
-                    {dataService && dataService.length > 0 ?dataService.map((data, index) => (
-                        <tr key={data._id}>
-                            <td>{index + 1}</td>
-                            <td>{data.service_name}</td>
-                            <td>{data.description}</td>
-                            <td>{data.price}</td>
-                            <td>
-                                {data.status === 0 ? (
-                                    <span className={cx('status')}>Hoạt động</span>
-                                ) : (
-                                    <span className={cx('status-error')}>Bảo trì</span>
-                                )}
-                            </td>
-                            <td>
-                                <Link to={`/editService/${data._id}`}>
-                                    <span>
+                    {dataService && dataService.length > 0 ? (
+                        dataService.map((data, index) => (
+                            <tr key={data._id}>
+                                <td>{index + 1}</td>
+                                <td>{data.service_name}</td>
+                                <td>{data.description}</td>
+                                <td>{data.price}</td>
+                                <td>
+                                    {data.status === 0 ? (
+                                        <span className={cx('status')}>Hoạt động</span>
+                                    ) : (
+                                        <span className={cx('status-error')}>Bảo trì</span>
+                                    )}
+                                </td>
+                                <td className={cx('action')}>
+                                    <Link to={`/service/editService/${data._id}`}>
                                         <EditIcon className={cx('icon-action')} />
+                                    </Link>
+                                    <span
+                                        data-toggle="modal"
+                                        data-target="#open-modal"
+                                        onClick={() => setDeleteId(data._id)}
+                                    >
+                                        <TrashIcon className={cx('icon-action')} />
                                     </span>
-                                </Link>
-                                <span
-                                    data-toggle="modal"
-                                    data-target="#open-modal"
-                                    onClick={() => setDeleteId(data._id)}
-                                >
-                                    <TrashIcon className={cx('icon-action')} />
-                                </span>
+                                </td>
+                            </tr>
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan={5} style={{ textAlign: 'center' }}>
+                                Chưa có dữ liệu
                             </td>
                         </tr>
-                    )): (<tr>
-                        <td colSpan={5} style={{textAlign: "center"}}>Chưa có dữ liệu</td>
-                    </tr>)}
+                    )}
                 </tbody>
             </table>
 

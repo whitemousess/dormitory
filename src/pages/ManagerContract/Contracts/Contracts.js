@@ -41,7 +41,7 @@ function Contracts() {
                     <tr>
                         <th>STT</th>
                         <th>Mã hợp đồng</th>
-                        <th>Mã sinh viên</th>
+                        <th>Sinh viên</th>
                         <th>Người tạo</th>
                         <th>Ngày tạo</th>
                         <th>Ngày hết hạn</th>
@@ -58,7 +58,7 @@ function Contracts() {
                                 <tr key={data._id}>
                                     <td>{index + 1}</td>
                                     <td>{data._id}</td>
-                                    <td>{data.student_id._id}</td>
+                                    <td>{data.student_id.fullName}</td>
                                     <td>{data.user_id.fullName}</td>
                                     <td>{formatedDate_start}</td>
                                     <td>{formatedDate_end}</td>

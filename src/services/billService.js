@@ -4,10 +4,10 @@ const token = localStorage.token;
 
 export const getRequestServiceAdmin = async () => {
     try {
-        const res = await httpRequest.get('bills/admin/get-service-request', {
+        const res = await httpRequest.get('bill-service/admin/get-service-request', {
             headers: { authorization: 'Bearer ' + token },
         });
-        return res.data.data;
+        return res.data;
     } catch (error) {
         console.log(error);
     }
@@ -15,10 +15,10 @@ export const getRequestServiceAdmin = async () => {
 
 export const getServiceUser = async () => {
     try {
-        const res = await httpRequest.get('bills/user/get-service-request', {
+        const res = await httpRequest.get('bill-service/user/get-service-request', {
             headers: { authorization: 'Bearer ' + token },
         });
-        return res.data.data;
+        return res.data;
     } catch (error) {
         console.log(error);
     }
@@ -26,7 +26,7 @@ export const getServiceUser = async () => {
 
 export const requestService = async ({ data }) => {
     try {
-        const res = await httpRequest.post('bills/request-bill', data, {
+        const res = await httpRequest.put('bill-service/request-bill', data, {
             headers: { authorization: 'Bearer ' + token },
         });
         return res.data.data;
@@ -35,12 +35,25 @@ export const requestService = async ({ data }) => {
     }
 };
 
-export const deleteRequestService = async ({id}) => {
+export const deleteRequestService = async ({ room_id, service_id }) => {
     try {
-        const res = await httpRequest.delete(`bills/${id}/delete-bill`, {
+        const res = await httpRequest.get(`bill-service/delete-bill`, {
             headers: { authorization: 'Bearer ' + token },
+            params: { room_id, service_id },
         });
-        return res.data.data;
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const successService = async ({ roomId }) => {
+    try {
+        const res = await httpRequest.get(`bill-service/success-bill`, {
+            headers: { authorization: 'Bearer ' + token },
+            params: { room_id: roomId },
+        });
+        return res;
     } catch (error) {
         console.log(error);
     }

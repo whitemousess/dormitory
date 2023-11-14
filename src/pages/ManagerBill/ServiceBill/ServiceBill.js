@@ -9,20 +9,20 @@ import DeleteData from '~/components/DeleteData';
 const cx = classNames.bind(styles);
 
 function ServiceBill() {
-    const [dataServiceBill, serDataServiceBill] = useState([]);
+    const [dataServiceBill, setDataServiceBill] = useState([]);
     const [deleteId, setDeleteId] = useState('');
 
     useEffect(() => {
         billService
             .getRequestServiceAdmin()
-            .then((service) => serDataServiceBill((prev) => [...prev, ...service]))
+            .then((service) => setDataServiceBill(service))
             .catch((error) => console.log(error));
     }, []);
 
     function deleteData(e) {
         e.preventDefault();
         billService
-            .deleteRequestService({ id: deleteId })
+            .deleteRequestService({ room_id: deleteId.room_id, service_id: deleteId.service_id })
             .then(window.location.reload())
             .catch((error) => console.log(error));
     }
@@ -53,7 +53,7 @@ function ServiceBill() {
                     <tr>
                         <th>STT</th>
                         <th>Ngày tạo</th>
-                        <th>Người yêu cầu</th>
+                        <th>Phòng yêu cầu</th>
                         <th>Tên dịch vụ</th>
                         <th>Trạng thái</th>
                     </tr>
@@ -64,26 +64,35 @@ function ServiceBill() {
                                 <tr key={data._id}>
                                     <td>{index + 1}</td>
                                     <td>{formattedDate}</td>
-                                    <td>{data.masv.fullName}</td>
-                                    <td>{data.id_service.name}</td>
-                                    <td>{data.status === '0' ? 'Chưa thanh toán' : 'Đã thanh toán'}</td>
-                                    {data.status === '1' ? (
+                                    <td>{data.room_id.room_name}</td>
+                                    <td>{data.service_id.service_name}</td>
+                                    <td>{data.status === 0 ? 'Chưa thanh toán' : 'Đã thanh toán'}</td>
+                                    {data.status === 1 ? (
                                         <td>
                                             <span
                                                 data-toggle="modal"
                                                 data-target="#open-modal"
-                                                onClick={() => setDeleteId(data._id)}
+                                                onClick={() =>
+                                                    setDeleteId({
+                                                        room_id: data.room_id,
+                                                        service_id: data._id,
+                                                    })
+                                                }
                                             >
                                                 <TrashIcon className={cx('icon-action')} />
                                             </span>
                                         </td>
-                                    ) : null}
+                                    ) : (
+                                        <td></td>
+                                    )}
                                 </tr>
                             );
                         })
                     ) : (
                         <tr>
-                            <td style={{textAlign: 'center'}} colSpan={6}>Chưa có dữ liệu</td>
+                            <td style={{ textAlign: 'center' }} colSpan={6}>
+                                Chưa có dữ liệu
+                            </td>
                         </tr>
                     )}
                 </tbody>

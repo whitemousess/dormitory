@@ -1,56 +1,56 @@
 // move router
 
 const routes = {
-  // student
-  ClientStudent: "/",
-  Room: "/room",
-  Contract: "/contract",
-  Reports: "/reports",
-  Service: "/Service",
-  Payment: "/Payment",
+    // student
+    ClientStudent: '/',
+    Room: '/room',
+    Contract: '/contract',
+    Reports: '/reports',
+    Service: '/Service',
+    Payment: '/Payment',
 
-  // manager
-  // //student
-  ManagerStudent: "/managerStudent",
-  editStudent: "/editStudent/:id",
-  addStudent: "/addStudent",
+    // manager
+    // //student
+    ManagerStudent: '/student/managerStudent',
+    editStudent: '/student/editStudent/:id',
+    addStudent: '/student/addStudent',
 
-  // // User
-  ManagerUser: "/managerUser",
-  AddUser: "/addUser",
+    // // User
+    ManagerUser: '/use/managerUser',
+    AddUser: '/use/addUser',
 
-  // // Room
-  ManagerRoom: "/managerRoom",
-  AddRoom: "/addRoom",
-  EditRoom: "/editRoom/:id",
+    // // Room
+    ManagerRoom: '/room/managerRoom',
+    AddRoom: '/room/addRoom',
+    EditRoom: '/room/editRoom/:id',
 
-  // // Services
-  ManagerService: "/managerService",
-  AddService: "/addService",
-  EditService: "/editService/:id",
+    // // Services
+    ManagerService: '/service/managerService',
+    AddService: '/service/addService',
+    EditService: '/service/editService/:id',
 
-  // // Bill Service and Bill electric
-  BillElectric: "/billElectric",
-  BillService: "/billService",
-  AddElectricity: "/addElectricity",
-  EditElectricity: "/editElectricity",
+    // // Bill Service and Bill electric
+    BillElectric: '/bill/billElectric',
+    BillService: '/bill/billService',
+    BillRoom: '/bill/billRoom',
+    AddElectricity: '/bill/addElectricity',
+    EditElectricity: '/bill/editElectricity',
 
-  // // contract
-  ManagerContract: "/managerContract",
-  Liquidation: "/liquidation",
-  AddContract: "/addContract",
+    // // contract
+    ManagerContract: '/contract/managerContract',
+    Liquidation: '/contract/liquidation',
+    AddContract: '/contract/addContract',
 
-  // // Report
-  ManagerReport: "/managerReport",
+    // // Report
+    ManagerReport: '/report/managerReport',
 
-  // USER INFO
-  UserInfo: "/userInfo",  
-  EditInfo: "/editInfo",  
+    // USER INFO
+    UserInfo: '/info/userInfo',
+    EditInfo: '/info/editInfo',
 
-  // admin
-  home: "/home",
-  Login: "/login",
-
+    // admin
+    home: '/home',
+    Login: '/login',
 };
 
 export default routes;

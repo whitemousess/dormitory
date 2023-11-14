@@ -7,13 +7,13 @@ import { Modal } from 'bootstrap-4-react/lib/components';
 import DeleteData from '~/components/DeleteData';
 import styles from './RoomManager.module.scss';
 import * as roomService from '~/services/roomService';
+import * as billRoomService from '~/services/billRoomService';
 import { EditIcon, ShowIcon, TrashIcon } from '~/components/Icons';
-import routes from '~/config/routes';
-
 const cx = classNames.bind(styles);
 
 function RoomManager() {
     const [dataRoom, setDataRoom] = useState([]);
+    const [dataBillRoom, setDataBillRoom] = useState([]);
     const [deleteId, setDeleteId] = useState('');
     const [oneDataStudent, setOneDataStudent] = useState('');
     const [totalPages, setTotalPages] = useState(0);
@@ -33,16 +33,41 @@ function RoomManager() {
             .catch((error) => console.log(error));
     }
 
-    const studentInRoom = (id) => {
-        roomService.getStudentInRoom({ room_id: id }).then((roomData) => setOneDataStudent(roomData));
-    };
+    function addBillRoom(room_id) {
+        billRoomService
+            .createBillRoom({ room_id: room_id })
+            .then(() => window.location.reload())
+            .catch((error) => console.log(error));
+    }
 
     useEffect(() => {
-        roomService.getRoomManager({ page: page, perPage: 10 }).then((Room) => {
-            setDataRoom((preV) => [...preV, ...Room.data]);
-            setTotalPages(Room.totalPages);
+        roomService
+            .getRoomManager({ page: page, perPage: 10 })
+            .then((Room) => {
+                setDataRoom((preV) => [...preV, ...Room.data]);
+                setTotalPages(Room.totalPages);
+            })
+            .catch((error) => console.log(error));
+
+        billRoomService
+            .getAllBill({ status: 0 })
+            .then((BillRoom) => {
+                setDataBillRoom(BillRoom);
+            })
+            .catch((error) => console.log(error));
+    }, [page]);
+
+    function Check(id) {
+        let Bill;
+
+        dataBillRoom.forEach((BillRoom) => {
+            if (BillRoom.room_id && BillRoom.room_id._id === id) {
+                Bill = BillRoom.room_id._id === id;
+            }
         });
-    }, []);
+
+        return Bill;
+    }
 
     return (
         <div className={cx('wrapper')}>
@@ -58,6 +83,7 @@ function RoomManager() {
                         <th>Khu</th>
                         <th>Số lượng</th>
                         <th>Trạng thái</th>
+                        <th>Hóa đơn</th>
                         <th></th>
                     </tr>
 
@@ -86,25 +112,43 @@ function RoomManager() {
                                         )}
                                     </td>
                                     <td>
+                                        {Check(Room._id) ? (
+                                            'Hóa đơn đã tồn tại'
+                                        ) : Room.status === 0 ? (
+                                            <span
+                                                onClick={() => {
+                                                    addBillRoom(Room._id);
+                                                }}
+                                                className="btn btn-success text-xl"
+                                            >
+                                                Thêm hòa đơn
+                                            </span>
+                                        ) : (
+                                            'Phòng bảo trì'
+                                        )}
+                                    </td>
+                                    <td className="flex">
                                         <span
-                                            onClick={() => studentInRoom(Room._id)}
+                                            onClick={() => setOneDataStudent(Room.count_student)}
                                             data-toggle="modal"
                                             data-target="#show-data"
                                         >
                                             <ShowIcon className={cx('icon-action')} />
                                         </span>
-                                        <Link to={`/editRoom/${Room._id}`}>
+                                        <Link to={`/room/editRoom/${Room._id}`}>
                                             <span>
                                                 <EditIcon className={cx('icon-action')} />
                                             </span>
                                         </Link>
-                                        <span
-                                            data-toggle="modal"
-                                            data-target="#open-modal"
-                                            onClick={() => setDeleteId(Room._id)}
-                                        >
-                                            <TrashIcon className={cx('icon-action')} />
-                                        </span>
+                                        {Room.count_student.length === 0 && (
+                                            <span
+                                                data-toggle="modal"
+                                                data-target="#open-modal"
+                                                onClick={() => setDeleteId(Room._id)}
+                                            >
+                                                <TrashIcon className={cx('icon-action')} />
+                                            </span>
+                                        )}
                                     </td>
                                 </tr>
                             );
@@ -136,7 +180,9 @@ function RoomManager() {
                     <Modal.Dialog centered sm>
                         <Modal.Content>
                             <Modal.Header>
-                                <Modal.Title>Thông tin chi tiết</Modal.Title>
+                                <Modal.Title>
+                                    <span className="text-2xl">Thông tin chi tiết</span>
+                                </Modal.Title>
                                 <Modal.Close>
                                     <span className={cx('btn-close')} aria-hidden="true">
                                         &times;
@@ -146,9 +192,13 @@ function RoomManager() {
                             <Modal.Body>
                                 {oneDataStudent.length > 0 ? (
                                     oneDataStudent.map((data) => (
-                                        <div key={data._id} className={cx('modal-info')}>
-                                            <img className={cx('avatar')} src={data.masv.avatarUrl} alt="" />
-                                            {data.masv.fullName}
+                                        <div key={data.student_id._id} className={cx('modal-info')}>
+                                            <img
+                                                className={cx('avatar')}
+                                                src={data.student_id.avatarUrl}
+                                                alt={data.student_id.fullName}
+                                            />
+                                            {data.student_id.fullName}
                                         </div>
                                     ))
                                 ) : (

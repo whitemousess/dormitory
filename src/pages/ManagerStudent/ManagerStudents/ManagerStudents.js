@@ -64,7 +64,7 @@ function ManagerStudents() {
                                 <td>
                                     <Link to={`tel:${data.phone}`}>{data.phone || 'Chưa thêm số điện thoại'}</Link>
                                 </td>
-                                <td>
+                                <td className='flex'>
                                     <span
                                         onClick={() => setOneDataStudent(data)}
                                         data-toggle="modal"
@@ -72,7 +72,7 @@ function ManagerStudents() {
                                     >
                                         <ShowIcon className={cx('icon-action')} />
                                     </span>
-                                    <Link to={`/editStudent/${data._id}`}>
+                                    <Link to={`/student/editStudent/${data._id}`}>
                                         <span>
                                             <EditIcon className={cx('icon-action')} />
                                         </span>

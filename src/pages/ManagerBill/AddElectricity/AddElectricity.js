@@ -11,14 +11,14 @@ const cx = classNames.bind(styles);
 
 function AddElectricity() {
     const [data, setData] = useState({});
+    const [billElectric, setBillElectric] = useState([]);
     const [selectRoom, setSelectRoom] = useState([]);
-    const [roomId, setRoomId] = useState('');
 
     const submit = async (e) => {
         e.preventDefault();
         billElectricService
-            .createElectric({ room_id: roomId, data: data })
-            .then(routes.BillElectric)
+            .createElectric({ room_id: data.room_id, data: data })
+            .then((window.location = routes.BillElectric))
             .catch((error) => console.log(error));
     };
 
@@ -35,8 +35,23 @@ function AddElectricity() {
     }
 
     useEffect(() => {
-        roomService.getRoomManager({ page: 1 }).then((roomManager) => setSelectRoom(roomManager.data));
+        roomService.getRoomManager().then((roomManager) => setSelectRoom(roomManager.data));
+        billElectricService.getAllElectric().then((bill) => setBillElectric(bill));
     }, []);
+
+    function findRoom() {
+        let rooms = [];
+
+        selectRoom.forEach((room) => {
+            const hasContract = billElectric.some((billElectric) => billElectric.room_id._id === room._id);
+
+            if (!hasContract) {
+                rooms.push(room);
+            }
+        });
+
+        return rooms;
+    }
 
     return (
         <div className={cx('wrapper')}>
@@ -46,14 +61,9 @@ function AddElectricity() {
 
                 <form onSubmit={(e) => submit(e)} className={cx('content-right')}>
                     <div className={cx('form-input')}>
-                        <select
-                            onChange={(e) => setRoomId(e.target.value)}
-                            name="room_id"
-                            className={cx('text-input')}
-                            required
-                        >
+                        <select onChange={(e) => handle(e)} name="room_id" className={cx('text-input')} required>
                             <option value="">Phòng</option>
-                            {selectRoom.map((data) => (
+                            {findRoom().map((data) => (
                                 <option key={data._id} value={data._id}>
                                     {data.room_name}
                                 </option>

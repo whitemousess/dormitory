@@ -3,7 +3,7 @@ import { httpRequest } from '~/utils/httprequest';
 const token = localStorage.token;
 export const sentReport = async (data) => {
     try {
-        const res = await httpRequest.post('report/create-report', data, {
+        const res = await httpRequest.put('report/create-report', data, {
             headers: { authorization: 'Bearer ' + token },
         });
         return res.data;
@@ -14,7 +14,7 @@ export const sentReport = async (data) => {
 
 export const getAllReports = async () => {
     try {
-        const res = await httpRequest.get('report/get-report', {
+        const res = await httpRequest.get('report/get-all-report', {
             headers: { authorization: 'Bearer ' + token },
         });
 
@@ -26,18 +26,18 @@ export const getAllReports = async () => {
 
 export const getReportUser = async () => {
     try {
-        const res = await httpRequest.get("report/get-report-user",{
+        const res = await httpRequest.get('report/get-student-report', {
             headers: { authorization: 'Bearer ' + token },
-        })
-        return res.data.data
+        });
+        return res.data.data;
     } catch (error) {
         console.log(error);
     }
-}
+};
 
-export const success = async ({id,data}) => {
+export const success = async ({ id }) => {
     try {
-        const res = await httpRequest.put(`report/${id}/success-report`, data, {
+        const res = await httpRequest.get(`report/${id}/success-report`, {
             headers: { authorization: 'Bearer ' + token },
         });
         return res.data.data;
@@ -48,7 +48,7 @@ export const success = async ({id,data}) => {
 
 export const deleteReport = async (id) => {
     try {
-        const res = await httpRequest.delete(`report/${id}/delete-report`, {
+        const res = await httpRequest.get(`report/${id}/delete-report`, {
             headers: { authorization: 'Bearer ' + token },
         });
         return res.data.data;

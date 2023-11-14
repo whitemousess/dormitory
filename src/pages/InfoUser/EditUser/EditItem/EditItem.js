@@ -79,10 +79,7 @@ function EditItem() {
                         className={cx('text-input')}
                         type="password"
                         name="password"
-                        placeholder="Họ và tên ..."
-                        value={dataUser.password || ''}
                         onChange={(e) => handle(e)}
-                        required
                     />
                 </div>
                 <div className={cx('box')}>

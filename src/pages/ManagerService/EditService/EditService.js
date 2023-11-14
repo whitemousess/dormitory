@@ -43,7 +43,7 @@ function EditService() {
             .catch((err) => {
                 console.log(err);
             });
-    }, []);
+    }, [Id]);
 
     return (
         <div className={cx('wrapper')}>

@@ -15,7 +15,7 @@ export const getAllElectric = async () => {
 
 export const getElectricRoom = async () => {
     try {
-        const res = await httpRequest.get(`bill-electric/get-electric-room`, {
+        const res = await httpRequest.get(`bill-electric-water/get-electric-room`, {
             headers: { authorization: 'Bearer ' + token },
         });
         return res.data.data;
@@ -24,11 +24,10 @@ export const getElectricRoom = async () => {
     }
 };
 
-export const getOneElectric = async ({ room_id, bill_id }) => {
+export const getOneElectric = async ({ bill_EW }) => {
     try {
-        const res = await httpRequest.get(`bill-electric-water/get-one-electric`, {
+        const res = await httpRequest.get(`bill-electric-water/${bill_EW}/get-electric`, {
             headers: { authorization: 'Bearer ' + token },
-            params: { room_id, bill_id },
         });
         return res.data.data;
     } catch (error) {
@@ -47,11 +46,11 @@ export const createElectric = async ({ room_id, data }) => {
     }
 };
 
-export const deleteElectric = async ({ room_id, bill_id }) => {
+export const deleteElectric = async ({ bill_id }) => {
     try {
         const res = await httpRequest.get(`bill-electric-water/delete-bill`, {
             headers: { authorization: 'Bearer ' + token },
-            params: { room_id, bill_id },
+            params: { bill_id },
         });
         return res.data.data;
     } catch (error) {
@@ -59,11 +58,11 @@ export const deleteElectric = async ({ room_id, bill_id }) => {
     }
 };
 
-export const editElectric = async ({ room_id, bill_id, data }) => {
+export const editElectric = async ({ bill_id, data }) => {
     try {
         const res = await httpRequest.put(`bill-electric-water/edit-bill`, data, {
             headers: { authorization: 'Bearer ' + token },
-            params: { room_id, bill_id },
+            params: { bill_id },
         });
         return res.data.data;
     } catch (error) {

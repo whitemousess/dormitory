@@ -17,7 +17,7 @@ import { User, AddUser } from '~/pages/ManagerUser';
 // manager Services
 import { Service, AddService, EditService } from '~/pages/ManagerService';
 
-import { ElectricityBill, ServiceBill, AddElectricity, EditElectric } from '~/pages/ManagerBill';
+import { ElectricityBill, RoomBill, ServiceBill, AddElectricity, EditElectric } from '~/pages/ManagerBill';
 
 import { Contracts, Liquidation, AddContract } from '~/pages/ManagerContract';
 
@@ -62,6 +62,7 @@ const publicRoutes = [
 
     { path: config.routes.BillElectric, component: ElectricityBill },
     { path: config.routes.BillService, component: ServiceBill },
+    { path: config.routes.BillRoom, component: RoomBill },
     { path: config.routes.AddElectricity, component: AddElectricity },
     { path: config.routes.EditElectricity, component: EditElectric },
 

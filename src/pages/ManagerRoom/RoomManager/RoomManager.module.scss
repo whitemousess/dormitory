@@ -76,7 +76,7 @@
 
     td,
     th {
-        width: 400px;
+        width: 6%;
         height: 42px;
         text-align: left;
     }
@@ -111,6 +111,8 @@
 }
 
 .modal-info {
+    display: flex;
+    align-items: center;
     font-size: 1.4rem;
     margin-bottom: 10px;
 }

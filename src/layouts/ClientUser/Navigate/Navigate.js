@@ -7,7 +7,6 @@ import routes from "~/config/routes";
 const cx = classNames.bind(styles);
 
 function Navigate() {
-  const token = localStorage.token;
   return (
     <div className={cx("wrapper")}>
       <NavLink

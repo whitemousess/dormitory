@@ -1,46 +1,51 @@
-@import "normalize.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
 }
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 html {
-  font-size: 62.5%;
+    font-size: 62.5%;
 }
 
 // scrollbar CSS
 
 ::-webkit-scrollbar {
-  border-radius: 20px;
-  height: 1px;
-  width: 7px;
+    border-radius: 20px;
+    height: 1px;
+    width: 7px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #313a46;
-  border-radius: 20px;
+    background: #313a46;
+    border-radius: 20px;
 }
 ::-webkit-scrollbar-track {
-  border-radius: 20px;
-  background: #260bbe54;
+    border-radius: 20px;
+    background: #260bbe54;
 }
-
 
 a {
-  text-decoration: none !important;
-  color: #8391a2 !important;
+    text-decoration: none !important;
+    color: #8391a2 !important;
 
-  &:hover{
-    color: #ccc !important;
-  }
+    &:hover {
+        color: #ccc !important;
+    }
 }
 
-select{
-  width: 72px !important;
-  height: 42px !important;
-  font-size: 16px !important;
+select {
+    width: 72px !important;
+    height: 42px !important;
+    font-size: 16px !important;
+}
+
+input{
+    font-weight: normal;
 }

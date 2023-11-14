@@ -59,7 +59,6 @@ function EditStudent() {
         console.log(error);
       });
   }, [studentId]);
-console.log(dataStudent);
   return (
     <div className={cx("wrapper")}>
       <span className={cx("title")}>Sửa sinh viên</span>

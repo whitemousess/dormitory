@@ -18,9 +18,7 @@ function ManagerReport() {
     }, []);
 
     const successReport = (id) => {
-        const status = {status: "1"};
-        reportService.success({id: id,data: status})
-        .then((report) => window.location.reload());
+        reportService.success({ id: id }).then((report) => window.location.reload());
     };
 
     function deleteData(e) {
@@ -43,24 +41,14 @@ function ManagerReport() {
         <div className={cx('wrapper')}>
             <span className={cx('title')}>Danh sách báo cáo</span>
 
-            <div className={cx('action')}>
-                <span className={cx('show')}>Hiển thị</span>
-                <select className={cx('show-select')}>
-                    <option value="10">10</option>
-                    <option value="25">25</option>
-                    <option value="50">50</option>
-                </select>
-            </div>
-
             <table className={cx('table')}>
                 <tbody>
                     <tr>
                         <th>STT</th>
-                        <th>Mã sinh viên</th>
-                        <th>Tên sinh viên</th>
                         <th>Tiêu đề</th>
                         <th>Nội dung</th>
                         <th>Thời gian</th>
+                        <th>Trạng thái</th>
                         <th></th>
                     </tr>
 
@@ -70,10 +58,8 @@ function ManagerReport() {
                             return (
                                 <tr key={report._id}>
                                     <td>{index + 1}</td>
-                                    <td>{report.ma_sv.masv}</td>
-                                    <td>{report.ma_sv.fullName}</td>
                                     <td>{report.title}</td>
-                                    <td>{report.content}</td>
+                                    <td>{report.description}</td>
                                     <td>{formattedDate}</td>
                                     <td>
                                         {report.status === 0 ? (
@@ -85,8 +71,10 @@ function ManagerReport() {
                                                 Xác nhận
                                             </Button>
                                         ) : (
-                                            'Đã xác nhận'
+                                            'Đã xử lý'
                                         )}
+                                    </td>
+                                    <td>
                                         <span
                                             data-toggle="modal"
                                             data-target="#open-modal"

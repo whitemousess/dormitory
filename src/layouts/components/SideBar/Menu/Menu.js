@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import {
     LogoHome,
@@ -60,12 +60,16 @@ function Menu() {
                         <span className={cx('collapse-title')}>Hóa đơn tiền điện</span>
                     </NavLink>
 
-                    <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={routes.AddElectricity}>
-                        <span className={cx('collapse-title')}>Thêm hóa đơn tiền điện</span>
-                    </NavLink>
-
                     <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={routes.BillService}>
                         <span className={cx('collapse-title')}>Hóa đơn dịch vụ</span>
+                    </NavLink>
+
+                    <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={routes.BillRoom}>
+                        <span className={cx('collapse-title')}>Hóa đơn tiền phòng</span>
+                    </NavLink>
+
+                    <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={routes.AddElectricity}>
+                        <span className={cx('collapse-title')}>Thêm hóa đơn tiền điện</span>
                     </NavLink>
                 </Collapse>
 
@@ -77,7 +81,7 @@ function Menu() {
                     <span className={cx('title')}>Quản lý hợp đồng</span>
                 </Collapse.Button>
                 <Collapse id="manager-contract" className={cx('collapse-item')} data-parent="#accordionExample">
-                <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={routes.ManagerContract}>
+                    <NavLink className={(nav) => cx('menu-item', { active: nav.isActive })} to={routes.ManagerContract}>
                         <span className={cx('collapse-title')}>Danh sách hợp đồng</span>
                     </NavLink>
 

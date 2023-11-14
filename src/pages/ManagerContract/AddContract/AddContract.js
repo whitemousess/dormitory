@@ -12,14 +12,14 @@ const cx = classNames.bind(styles);
 
 function AddContract() {
     const [data, setData] = useState({});
-    const [selectStudent, setSelectStudent] = useState([]);
+    const [contract, setContract] = useState([]);
+    const [student, setStudent] = useState([]);
     const [area, setArea] = useState('');
     const [selectRoom, setSelectRoom] = useState([]);
 
     const submit = async (e) => {
         e.preventDefault();
-        contractService.createContract(data)
-        .then((window.location = routes.ManagerContract));
+        contractService.createContract(data).then((window.location = routes.ManagerContract));
     };
 
     function handle(e) {
@@ -27,6 +27,15 @@ function AddContract() {
         newData[e.target.name] = e.target.value;
         setData(newData);
     }
+
+    useEffect(() => {
+        studentService.getStudents({ page: 1 }).then((students) => setStudent(students.data));
+        roomService.getRoomManager({ page: 1 }).then((roomManager) => setSelectRoom(roomManager.data));
+        contractService
+            .getContract()
+            .then((contract) => setContract(contract))
+            .catch((error) => console.log(error));
+    }, []);
 
     function handleSelect(e) {
         const selectedValue = e.target.value;
@@ -36,12 +45,19 @@ function AddContract() {
         setArea(parseInt(selectedGender));
     }
 
-    useEffect(() => {
-        studentService.getStudents({ page: 1 }).then((students) => setSelectStudent(students.data));
-        roomService.getRoomManager({ page: 1 }).then((roomManager) => setSelectRoom(roomManager.data));
-    }, []);
+    function findStudents() {
+        let students = [];
 
-    console.log(data);
+        student.forEach((studentItem) => {
+            const hasContract = contract.some((contractItem) => studentItem._id === contractItem.student_id._id);
+
+            if (!hasContract) {
+                students.push(studentItem);
+            }
+        });
+
+        return students;
+    }
 
     return (
         <div className={cx('wrapper')}>
@@ -51,9 +67,14 @@ function AddContract() {
 
                 <form onSubmit={(e) => submit(e)} className={cx('content-right')}>
                     <div className={cx('form-input')}>
-                        <select onChange={(e) => handleSelect(e)} name="student_id" className={cx('text-input')} required>
+                        <select
+                            onChange={(e) => handleSelect(e)}
+                            name="student_id"
+                            className={cx('text-input')}
+                            required
+                        >
                             <option value="">Sinh viên</option>
-                            {selectStudent.map((student) => {
+                            {findStudents().map((student) => {
                                 return (
                                     <option key={student._id} value={`${student._id},${student.gender}`}>
                                         {student.user_id} - {student.fullName}
@@ -78,6 +99,7 @@ function AddContract() {
                                         </option>
                                     );
                                 }
+                                return null;
                             })}
                         </select>
                     </div>

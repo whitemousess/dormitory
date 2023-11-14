@@ -26,8 +26,6 @@ function AddService() {
         setData(newData);
     }
 
-    console.log(data);
-
     function handleConvert(e) {
         const newData = { ...data };
         newData[e.target.name] = parseInt(e.target.value);

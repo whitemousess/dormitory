@@ -2,65 +2,65 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 
 import styles from './Payment.module.scss';
-import * as contractService from '~/services/contractService';
+import * as billRoomService from '~/services/billRoomService';
 import * as billService from '~/services/billService';
 import * as billElectricService from '~/services/billElectricService';
-import { PayIcon } from '~/components/Icons';
-import { Modal } from 'bootstrap-4-react/lib/components';
+import ModalPayment from './ModalPayment';
 
 const cx = classNames.bind(styles);
 
 function Payment() {
-    const [dataContract, setDataContract] = useState([]);
+    const [dataBillRoom, setDataBillRoom] = useState([]);
     const [dataService, setDataService] = useState([]);
     const [dataElectric, setDataElectric] = useState([]);
+    const [priceEW, setPriceEW] = useState([]);
+    const [priceRoom, setPriceRoom] = useState('');
+    const [priceService, setPriceService] = useState([]);
 
     useEffect(() => {
-        billElectricService.getElectricRoom().then((electric) => setDataElectric(electric));
-        contractService.getContractStudent().then((contractStudent) => setDataContract(contractStudent));
+        billElectricService
+            .getElectricRoom()
+            .then((electric) => setDataElectric(electric && electric.electric_water_id));
+        billRoomService.getOneBill().then((BillRoom) => setDataBillRoom(BillRoom));
         billService.getServiceUser().then((service) => setDataService(service));
     }, []);
 
-    const totalRoom = () => {
-        let totalPrice = 0;
-        if (dataContract && dataContract.room_id) {
-            totalPrice = parseInt(dataContract.room_id.price);
-            return totalPrice;
-        } else {
-            return 0;
-        }
+    useEffect(() => {
+        setPriceEW(
+            dataElectric
+                ? (dataElectric.e_last - dataElectric.e_first) * dataElectric.price_per_e +
+                      (dataElectric.w_last - dataElectric.w_first) * dataElectric.price_per_w
+                : 0,
+        );
+
+        setPriceRoom(
+            dataBillRoom &&
+                dataBillRoom.status === 0 &&
+                dataBillRoom.room_id &&
+                dataBillRoom.room_id.status === 0 &&
+                dataBillRoom.room_id.price
+                ? dataBillRoom.room_id.price
+                : 0,
+        );
+
+        const bill_service = dataService.map((service) => {
+            let price = service.service_id.price;
+            if (service.status === 1) {
+                return 0;
+            }
+            return price;
+        });
+        setPriceService(bill_service.reduce((accumulator, currentValue) => accumulator + currentValue, 0));
+    }, [dataElectric, dataBillRoom, dataService]);
+
+    const checkData = {
+        dataBillRoom,
+        dataService,
+        dataElectric,
     };
 
-    const totalService = () => {
-        let totalPrice = 0;
-        if (dataService) {
-            dataService.map((data) => {
-                totalPrice += parseInt(data.id_service.price);
-            });
-            return totalPrice;
-        } else {
-            return 0;
-        }
-    };
-
-    const totalElectric = () => {
-        if (
-            dataElectric &&
-            dataElectric.status === 0 &&
-            dataElectric.e_last !== null &&
-            dataElectric.w_last !== null &&
-            dataElectric.price_per_e !== null &&
-            dataElectric.price_per_w !== null
-        ) {
-            const totalElectric = dataElectric.e_last - dataElectric.e_first;
-            const totalWater = dataElectric.w_last - dataElectric.w_first;
-            const priceElectric = isNaN(dataElectric.price_per_e) ? 0 : totalElectric * dataElectric.price_per_e;
-            const priceWater = isNaN(dataElectric.price_per_w) ? 0 : totalWater * dataElectric.price_per_w;
-
-            return priceElectric + priceWater;
-        } else {
-            return 0; // hoặc giá trị mặc định khác nếu bạn muốn
-        }
+    const totalPrice = () => {
+        return priceRoom + priceService + priceEW;
     };
 
     return (
@@ -68,47 +68,47 @@ function Payment() {
             <div>
                 <strong className={cx('title')}>Tổng hợp</strong>
             </div>
-            {totalRoom() || totalElectric() || totalService() ?
-            <>
-                <div>
-                    <table className={cx('table')}>
-                        <thead>
-                            <tr>
-                                <th>Khoản thu</th>
-                                <th>Tiền phòng</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {totalRoom() > 0 && (
+            {priceRoom || priceService || priceEW ? (
+                <>
+                    <div>
+                        <table className={cx('table')}>
+                            <thead>
                                 <tr>
-                                    <td>Tiền phòng</td>
-                                    <td>{totalRoom()}</td>
+                                    <th>Khoản thu</th>
+                                    <th>Giá tiền</th>
                                 </tr>
-                            )}
-                            {totalElectric() > 0 && (
-                                <tr>
-                                    <td>Điện nước</td>
-                                    <td>{totalElectric()}</td>
-                                </tr>
-                            )}
-    
-                            {totalService() > 0 && (
-                                <tr>
-                                    <td>Dịch vụ</td>
-                                    <td>{totalService()}</td>
-                                </tr>
-                            )}
-                        </tbody>
-                    </table>
-                </div>
-                <span className={cx('priceBuy')}>
-                    Tổng tiền : {totalRoom() + totalElectric() + totalService()}
-                    <button className={cx('Btn')}>
-                        Pay
-                        <PayIcon />
-                    </button>
-                </span>
-            </> : <div>Chưa có khoản nào cần thanh toán</div>}
+                            </thead>
+                            <tbody>
+                                {priceRoom > 0 && (
+                                    <tr>
+                                        <td>Tiền phòng</td>
+                                        <td>{priceRoom}</td>
+                                    </tr>
+                                )}
+                                {priceEW > 0 && (
+                                    <tr>
+                                        <td>Điện nước</td>
+                                        <td>{priceEW}</td>
+                                    </tr>
+                                )}
+
+                                {priceService > 0 && (
+                                    <tr>
+                                        <td>Dịch vụ</td>
+                                        <td>{priceService}</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+                    <span className={cx('priceBuy')}>
+                        Tổng tiền : {totalPrice()}
+                        <ModalPayment data={checkData} totalPrice={totalPrice()} />
+                    </span>
+                </>
+            ) : (
+                <div>Chưa có khoản nào cần thanh toán</div>
+            )}
         </div>
     );
 }

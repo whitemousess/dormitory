@@ -13,14 +13,12 @@ const cx = classNames.bind(styles);
 function ElectricityBill() {
     const [dataElectric, setDataElectric] = useState([]);
     const [dataModal, setDataModal] = useState({});
-    const [roomId, setRoomId] = useState('');
     const [billId, setBillId] = useState('');
-    const [data, setData] = useState([]);
 
     const deleteData = (e) => {
         e.preventDefault();
         billElectricService
-            .deleteElectric({ room_id: roomId, bill_id: billId })
+            .deleteElectric({ bill_id: billId })
             .then(window.location.reload())
             .catch((err) => console.log(err));
     };
@@ -31,13 +29,6 @@ function ElectricityBill() {
             .then((electric) => setDataElectric(electric))
             .catch((error) => console.log(error));
     }, []);
-
-    useEffect(() => {
-        dataElectric.forEach((data) => {
-            const arrBill = data.bill_electric_water;
-            setData((pre) => [...pre, ...arrBill]);
-        });
-    }, [dataElectric]);
 
     return (
         <div className={cx('wrapper')}>
@@ -57,11 +48,11 @@ function ElectricityBill() {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.length > 0 ? (
-                        data.map((data, index) => (
-                            <tr key={data.id}>
+                    {dataElectric.length > 0 ? (
+                        dataElectric.map((data, index) => (
+                            <tr key={data._id}>
                                 <td>{index + 1}</td>
-                                <td>{data ? data.room_name : 'Cập nhật số phòng!'}</td>
+                                <td>{data ? data.room_id.room_name : 'Cập nhật số phòng!'}</td>
                                 <td>{data.e_last - data.e_first}</td>
                                 <td>{data.w_last - data.w_first}</td>
                                 <td>{data.date_start}</td>
@@ -73,7 +64,7 @@ function ElectricityBill() {
                                         <span className={cx('status')}>Đã thanh toán</span>
                                     )}
                                 </td>
-                                <td>
+                                <td className={cx('action')}>
                                     <span
                                         onClick={() => setDataModal(data)}
                                         data-toggle="modal"
@@ -81,21 +72,22 @@ function ElectricityBill() {
                                     >
                                         <ShowIcon className={cx('icon-action')} />
                                     </span>
-                                    <Link to={`/editElectricity?room_id=${data.room_id}&bill_id=${data.id}`}>
+                                    <Link to={`/bill/editElectricity?bill_EW=${data._id}`}>
                                         <span>
                                             <EditIcon className={cx('icon-action')} />
                                         </span>
                                     </Link>
-                                    <span
-                                        onClick={() => {
-                                            setRoomId(data.room_id);
-                                            setBillId(data.id);
-                                        }}
-                                        data-toggle="modal"
-                                        data-target="#open-modal"
-                                    >
-                                        <TrashIcon className={cx('icon-action')} />
-                                    </span>
+                                    {data.status === 1 && (
+                                        <span
+                                            onClick={() => {
+                                                setBillId(data._id);
+                                            }}
+                                            data-toggle="modal"
+                                            data-target="#open-modal"
+                                        >
+                                            <TrashIcon className={cx('icon-action')} />
+                                        </span>
+                                    )}
                                 </td>
                             </tr>
                         ))

@@ -23,19 +23,20 @@ function Contract() {
         return `Ngày ${day} tháng ${month} năm ${year}`;
     }
 
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
-                {dataContract && dataContract.user_id && dataContract.room_id && dataContract.masv ? (
+                {dataContract && dataContract.user_id && dataContract.room_id && dataContract.student_id ? (
                     <>
                         <h1 className={cx('header')}>TRƯỜNG ĐẠI HỌC TÀI NGUYÊN VÀ MÔI TRƯỜNG HÀ NỘI</h1>
-                        <h2>HỢP ĐỒNG THUÊ CHỖ Ở NỘI TRÚ</h2>
+                        <h2 className='text-xl font-semibold'>HỢP ĐỒNG THUÊ CHỖ Ở NỘI TRÚ</h2>
                         <p className={cx('date')}>
                             {formatDate(new Date(dataContract.createdAt))} .<br /> Tại Trường : Đại học Tài nguyên và
                             Môi trường Hà Nội
                         </p>
-                        <h3>Hai bên gồm</h3>
-                        <h3>BÊN CHO THUÊ (Bên A):</h3>
+                        <h3 className='text-4xl font-semibold'>Hai bên gồm</h3>
+                        <h3 className='text-3xl font-semibold'>BÊN CHO THUÊ (Bên A):</h3>
                         <p className={cx('p')}>
                             Trường Đại học Tài nguyên và Môi trường Hà Nội
                             <br />
@@ -45,17 +46,17 @@ function Contract() {
                         </p>
                         <h3 className={cx('h3')}>BÊN THUÊ CHỖ Ở (Bên B):</h3>
                         <p className={cx('p')}>
-                            Họ và tên sinh viên: {dataContract.masv.fullName}
+                            Họ và tên sinh viên: {dataContract.student_id.fullName}
                             <br />
-                            Mã SV: {dataContract.masv.masv} <br />
-                            Giới tính: {dataContract.masv.gender === 0 ? 'Nam' : ' Nữ'}
+                            Mã SV: {dataContract.student_id.user_id} <br />
+                            Giới tính: {dataContract.student_id.gender === 0 ? 'Nam' : ' Nữ'}
                             <br />
-                            Ngày sinh: {dataContract.masv.dob}
+                            Ngày sinh: {dataContract.student_id.dob}
                             <br />
-                            Số điện thoại: {dataContract.masv.phone} <br />
-                            Email: {dataContract.masv.email}.
+                            Số điện thoại: {dataContract.student_id.phone} <br />
+                            Email: {dataContract.student_id.email}.
                             <br />
-                            Hộ khẩu thường trú: {dataContract.masv.address}.
+                            Hộ khẩu thường trú: {dataContract.student_id.address}.
                         </p>
                         <p className={cx('p')}>
                             Bên A được sự ủy quyền của Hiệu trưởng Trường Đại học Tài nguyên và Môi trường Hà Nội, cùng
@@ -161,11 +162,13 @@ function Contract() {
                             </div>
                             <div className={cx('p')}>
                                 <div>Bên B</div>
-                                <div>{dataContract.masv.fullName}</div>
+                                <div>{dataContract.student_id.fullName}</div>
                             </div>
                         </div>
                     </>
-                ) : <div className={cx('title')}>Chưa làm hợp đồng . Vui lòng liên hệ với người quản lý!</div>}
+                ) : (
+                    <div className={cx('title')}>Chưa làm hợp đồng . Vui lòng liên hệ với người quản lý!</div>
+                )}
             </div>
         </div>
     );

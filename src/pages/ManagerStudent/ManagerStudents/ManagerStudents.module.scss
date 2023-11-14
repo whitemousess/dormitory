@@ -31,12 +31,6 @@
     }
 }
 
-.action{
-    display: flex;
-    font-size: 1.4rem;
-    margin: 20px 0;
-}
-
 .search-input {
     width: 84% !important;
     height: 32px !important;
@@ -78,6 +72,7 @@
     .avatar {
         height: 150px;
         width: 150px;
+        object-fit: cover;
         border-radius: 50%;
         border: 1px solid #333;
     }

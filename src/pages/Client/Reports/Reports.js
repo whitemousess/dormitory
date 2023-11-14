@@ -34,7 +34,7 @@ function Reports() {
         reportService
             .getReportUser()
             .then((user) => {
-                setDataClient(user);
+                setDataClient((pre) => [...pre, ...user]);
             })
             .catch((err) => {
                 console.log(err);
@@ -43,32 +43,32 @@ function Reports() {
 
     return (
         <div className={cx('wrapper')}>
-            {dataClient.length > 0 ? (
-                <table className={cx('table')}>
-                    <tbody>
-                        <tr>
-                            <th>STT</th>
-                            <th>Tiêu đề</th>
-                            <th>Mô tả</th>
-                            <th></th>
-                        </tr>
-                        {dataClient.map((data, index) => (
-                            <tr key={data._id}>
+            <table className={cx('table')}>
+                <tbody>
+                    <tr>
+                        <th>STT</th>
+                        <th>Tiêu đề</th>
+                        <th>Mô tả</th>
+                        <th>Tình trạng</th>
+                    </tr>
+                    {dataClient ? (
+                        dataClient.map((data, index) => (
+                            <tr key={data.report_id._id}>
                                 <td>{index + 1}</td>
-                                <td>{data.title}</td>
-                                <td>{data.content}</td>
-                                <td>{data.status === 0 ? ('Đã gửi'
-                                        ) : (
-                                            'Đã xử lý'
-                                        )}</td>
+                                <td>{data.report_id.title}</td>
+                                <td>{data.report_id.description}</td>
+                                <td>{data.report_id.status === 0 ? 'Đã gửi' : 'Đã xử lý'}</td>
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
-            ) : (
-                <span className={cx('title')}>Không có thông tin báo cáo</span>
-            )}
-
+                        ))
+                    ) : (
+                        <tr>
+                            <td colSpan={4} className="text-center">
+                                Không có dịch vụ
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
+            </table>
             <button className={cx('button')} data-toggle="modal" data-target="#exampleModal">
                 Tạo báo cáo
             </button>
@@ -102,8 +102,8 @@ function Reports() {
                                     <label className={cx('form-title')}>Nội dung </label>
                                     <textarea
                                         className={cx('form-textarea')}
-                                        name="content"
-                                        value={dataReport.content || ''}
+                                        name="description"
+                                        value={dataReport.description || ''}
                                         onChange={(e) => handle(e)}
                                     />
                                 </Form.Group>

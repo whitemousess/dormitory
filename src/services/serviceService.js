@@ -1,11 +1,10 @@
 import { httpRequest } from '~/utils/httprequest';
 
 const token = localStorage.token;
-export const getService = async ({ page, perPage, q }) => {
+export const getService = async () => {
     try {
         const res = await httpRequest.get('services/get-all-service', {
             headers: { authorization: 'Bearer ' + token },
-            params: { page, perPage: perPage, q },
         });
         return res.data;
     } catch (error) {

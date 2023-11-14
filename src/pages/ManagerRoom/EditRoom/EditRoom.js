@@ -41,7 +41,7 @@ function EditRoom() {
         roomService.getRoomManagerId(RoomId).then((room) => {
             setDataRoom(room);
         });
-    }, []);
+    }, [RoomId]);
 
     return (
         <div className={cx('wrapper')}>
