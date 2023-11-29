@@ -14,7 +14,11 @@ function RoomBill() {
     function deleteData() {
         billRoomService
             .deleteBill({id: deleteId})
-            .then(window.location.reload())
+            .then(data => {
+                if(data){
+                    window.location.reload();
+                }
+            })
             .catch((error) => console.log(error));
     }
 

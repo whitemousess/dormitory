@@ -14,8 +14,10 @@ function AddService() {
         e.preventDefault();
         serviceService
             .createService(data)
-            .then(() => {
-                window.location = routes.ManagerService;
+            .then((data) => {
+                if (data) {
+                    window.location = routes.ManagerService;
+                }
             })
             .catch((err) => console.log(err));
     };

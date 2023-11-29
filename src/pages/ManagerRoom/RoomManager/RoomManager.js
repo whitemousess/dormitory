@@ -29,14 +29,22 @@ function RoomManager() {
         e.preventDefault();
         roomService
             .deleteRoom(deleteId)
-            .then(() => window.location.reload())
+            .then(data => {
+                if(data){
+                    window.location.reload();
+                }
+            })
             .catch((error) => console.log(error));
     }
 
     function addBillRoom(room_id) {
         billRoomService
             .createBillRoom({ room_id: room_id })
-            .then(() => window.location.reload())
+            .then(data => {
+                if(data){
+                    window.location.reload();
+                }
+            })
             .catch((error) => console.log(error));
     }
 

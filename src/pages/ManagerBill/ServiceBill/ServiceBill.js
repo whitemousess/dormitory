@@ -23,7 +23,11 @@ function ServiceBill() {
         e.preventDefault();
         billService
             .deleteRequestService({ room_id: deleteId.room_id, service_id: deleteId.service_id })
-            .then(window.location.reload())
+            .then(data => {
+                if(data){
+                    window.location.reload();
+                }
+            })
             .catch((error) => console.log(error));
     }
 

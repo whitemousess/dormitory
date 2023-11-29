@@ -19,7 +19,11 @@ function ElectricityBill() {
         e.preventDefault();
         billElectricService
             .deleteElectric({ bill_id: billId })
-            .then(window.location.reload())
+            .then(data => {
+                if(data){
+                    window.location.reload();
+                }
+            })
             .catch((err) => console.log(err));
     };
 

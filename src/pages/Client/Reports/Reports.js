@@ -22,8 +22,10 @@ function Reports() {
         e.preventDefault();
         reportService
             .sentReport(dataReport)
-            .then((result) => {
-                window.location.reload();
+            .then(data => {
+                if(data){
+                    window.location.reload();
+                }
             })
             .catch((err) => {
                 console.log(err);

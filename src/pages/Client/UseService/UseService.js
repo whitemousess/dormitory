@@ -24,7 +24,11 @@ function UseService() {
         e.preventDefault();
         billService
             .requestService({ data: dataService })
-            .then(window.location.reload())
+            .then(data => {
+                if(data){
+                    window.location.reload();
+                }
+            })
             .catch((error) => console.log(error));
     };
 

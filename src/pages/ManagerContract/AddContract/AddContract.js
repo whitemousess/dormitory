@@ -19,7 +19,11 @@ function AddContract() {
 
     const submit = async (e) => {
         e.preventDefault();
-        contractService.createContract(data).then((window.location = routes.ManagerContract));
+        contractService.createContract(data).then((data) => {
+            if (data) {
+                window.location = routes.ManagerContract;
+            }
+        });
     };
 
     function handle(e) {

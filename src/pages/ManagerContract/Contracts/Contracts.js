@@ -20,7 +20,11 @@ function Contracts() {
     const liquidationContract = (id) => {
         contractService
             .liquidationContract({ id: id })
-            .then(window.location.reload())
+            .then(data => {
+                if(data){
+                    window.location.reload();
+                }
+            })
             .catch((err) => console.log(err));
     };
 

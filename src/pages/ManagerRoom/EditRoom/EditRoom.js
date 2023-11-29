@@ -17,7 +17,9 @@ function EditRoom() {
     const submit = async (e) => {
         e.preventDefault();
         roomService.editRoom({ id: RoomId, data: dataRoom }).then((room) => {
+           if(room){
             window.location = routes.ManagerRoom;
+           }
         });
     };
 

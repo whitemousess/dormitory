@@ -27,7 +27,11 @@ function ManagerStudents() {
         e.preventDefault();
         userService
             .userDelete({ deleteID: deleteId })
-            .then(window.location.reload())
+            .then(data => {
+                if(data){
+                    window.location.reload();
+                }
+            })
             .catch((error) => console.log({ error: error }));
     }
 

@@ -28,7 +28,11 @@ function Service() {
         e.preventDefault();
         serviceServices
             .deleteData(deleteId)
-            .then((data) => window.location.reload())
+            .then(data => {
+                if(data){
+                    window.location.reload();
+                }
+            })
             .catch((error) => console.log(error));
     }
 

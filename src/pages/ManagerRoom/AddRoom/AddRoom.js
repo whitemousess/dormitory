@@ -16,7 +16,9 @@ function AddRoom() {
   const submit = async (e) => {
     e.preventDefault();
     roomService.createRoom(data).then((room) => {
+     if(room){
       window.location = routes.ManagerRoom
+     }
     });
   };
 

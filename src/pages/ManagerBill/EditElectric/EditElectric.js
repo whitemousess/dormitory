@@ -17,7 +17,11 @@ function EditElectric() {
         e.preventDefault();
         billElectricService
             .editElectric({ bill_id: bill_EW, data: data })
-            .then((window.location = routes.BillElectric))
+            .then((data) => {
+                if (data) {
+                    window.location = routes.BillElectric;
+                }
+            })
             .catch((err) => console.log(err));
     };
 

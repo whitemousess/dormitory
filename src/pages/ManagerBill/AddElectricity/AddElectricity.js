@@ -18,7 +18,11 @@ function AddElectricity() {
         e.preventDefault();
         billElectricService
             .createElectric({ room_id: data.room_id, data: data })
-            .then((window.location = routes.BillElectric))
+            .then((data) => {
+                if (data) {
+                    window.location = routes.BillElectric;
+                }
+            })
             .catch((error) => console.log(error));
     };
 

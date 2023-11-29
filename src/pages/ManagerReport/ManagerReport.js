@@ -18,14 +18,22 @@ function ManagerReport() {
     }, []);
 
     const successReport = (id) => {
-        reportService.success({ id: id }).then((report) => window.location.reload());
+        reportService.success({ id: id }).then(data => {
+            if(data){
+                window.location.reload();
+            }
+        });
     };
 
     function deleteData(e) {
         e.preventDefault();
         reportService
             .deleteReport(deleteId)
-            .then((account) => window.location.reload())
+            .then(data => {
+                if(data){
+                    window.location.reload();
+                }
+            })
             .catch((error) => console.log({ error: error }));
     }
 

@@ -16,7 +16,11 @@ function Liquidation() {
         e.preventDefault();
         contractService
             .deleteLiquidation({ id: deleteId })
-            .then(window.location.reload())
+            .then(data => {
+                if(data){
+                    window.location.reload();
+                }
+            })
             .catch((err) => console.log(err));
     };
 
